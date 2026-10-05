@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'; upgrade-insecure-requests">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<title>XMQA Online — Software, Apps & MT5 Trading Tools</title>
+<meta name="description" content="Own launch-ready software, apps and web platforms, plus 400 MT5 Expert Advisors and 250 indicators. Sold individually or in bundles; five-packs save 45%.">
+<meta name="theme-color" content="#020204">
+<meta property="og:title" content="XMQA Online — Software, Apps & MT5 Trading Tools">
+<meta property="og:description" content="Launch-ready software, apps and 650 MT5 tools, sold individually or in bundles.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://xmqa.online/">
+<link rel="canonical" href="https://xmqa.online/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Space+Mono:wght@400;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="XMQA Online home"><span class="mark">XQ</span>XMQA <small>ONLINE</small></a>
+    <nav class="links" aria-label="Primary">
+      <a href="#packs">Five-packs</a>
+      <a href="#catalogue">Catalogue</a>
+      <a href="#library">MT5 Library</a>
+      <a href="#arkbase">Arkbase</a>
+      <a href="mailto:support@xmqa.pro">Support</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="btn btn-brass btn-sm cartbtn" id="openCart" type="button" aria-label="Open cart">Cart <span class="count" id="cartCount">0</span></button>
+  </div>
+</header>
+
+<main id="top">
+  <div class="hero">
+    <canvas id="cilia" aria-hidden="true"></canvas>
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow"><i class="dot"></i>XMQA Online · software &amp; MT5 tools</span>
+      <h1>Software that ships.<br><em>Tools that trade.</em></h1>
+      <p class="lead">Launch-ready apps, web platforms and templates, plus 650 MetaTrader 5 Expert Advisors and indicators. Everything is built in-house by XMQA. Buy one product, or save with a five-pack.</p>
+      <div class="cta">
+        <a class="btn btn-brass" href="#packs">See the five-packs</a>
+        <a class="btn btn-ghost" href="#library">Browse the MT5 library</a>
+      </div>
+      <div class="facts">
+        <div><b id="fItems">48</b><span>products, each sold on its own</span></div>
+        <div><b>5</b><span>products per five-pack</span></div>
+        <div><b id="fEa">400</b><span>MT5 Expert Advisors</span></div>
+        <div><b id="fInd">250</b><span>MT5 indicators</span></div>
+      </div>
+    </div>
+  </div>
+
+  <section id="packs">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Five-packs</span>
+        <h2>Five products. One price.</h2>
+        <p class="muted">Five products that work together, at one price that's lower than buying them one by one.</p>
+      </div>
+      <div class="packs" id="packGrid"></div>
+    </div>
+  </section>
+
+  <section id="catalogue">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">Catalogue</span>
+        <h2>Every product, sold on its own</h2>
+        <p class="muted">Pick an edition and add it to your cart. Items marked "Quote" go in the same order, and we price them in our reply.</p>
+      </div>
+      <div class="toolbar">
+        <div class="chips" role="group" aria-label="Filter by category" id="chips"></div>
+        <input class="search" id="q" type="search" placeholder="Search products" aria-label="Search products">
+      </div>
+      <div class="grid" id="grid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="library">
+    <div class="wrap">
+      <div class="head">
+        <span class="eyebrow">MT5 Library</span>
+        <h2>400 EAs and 250 indicators, built in-house</h2>
+        <p class="muted">Every tool was written by our team for MetaTrader 5. Search by idea or market, or take a whole category in one go for less per tool.</p>
+      </div>
+      <div class="libbar">
+        <input class="search" id="libQ" type="search" placeholder="Search, e.g. VWAP, initial balance, order block, gold" aria-label="Search the MT5 library">
+        <select class="select" id="libCol" aria-label="Category"><option value="">All categories</option></select>
+        <select class="select" id="libType" aria-label="Type"><option value="">EAs and indicators</option><option value="e">Expert Advisors</option><option value="i">Indicators</option></select>
+      </div>
+      <div class="libmeta"><span id="libCount">Loading the library…</span><span id="libColBuy"></span></div>
+      <div class="lib" id="libList" aria-live="polite"></div>
+      <div class="pager" id="libPager"></div>
+    </div>
+  </section>
+
+  <section id="arkbase">
+    <div class="wrap">
+      <div class="fb">
+        <div class="fb-intro">
+          <span class="eyebrow">Arkbase</span>
+          <h2 style="margin-top:10px">A universe of free assets, plus Premium</h2>
+          <p class="muted" style="margin-top:12px">Arkbase is free to explore. Premium adds weekly bundles, scripts, tech stacks and AI agents.</p>
+          <ul id="fbPerks"></ul>
+          <p style="margin-top:16px"><a id="fbSite" href="/arkbase/">Enter Arkbase →</a></p>
+        </div>
+        <div id="fbPlans" style="display:contents"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap contact">
+      <div>
+        <span class="eyebrow">Contact</span>
+        <h2 style="margin-top:10px">Questions before you buy?</h2>
+        <p class="muted" style="margin-top:12px">Send us a message and verify your email with a one-time code. Every order and question goes straight to our inbox, and you get a copy with a reference number.</p>
+        <div class="cta"><button class="btn btn-brass" type="button" id="askBtn">Ask a question</button></div>
+      </div>
+      <div class="panel">
+        <div class="eyebrow" style="margin-bottom:8px">Email us directly</div>
+        <a class="addr" id="supportLink" href="mailto:support@xmqa.pro">support@xmqa.pro</a>
+        <p class="muted" style="margin-top:10px;font-size:14px">We accept PayPal and card. Once your order is confirmed, we email a secure payment link within 24 hours.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap">
+      <div class="head"><span class="eyebrow">FAQ</span><h2>Before you buy</h2></div>
+      <details><summary>How does checkout work?</summary><p>Add items to your cart and confirm your email with the 6-digit code we send you. Then place the order. We reply within 24 hours with a secure payment link (PayPal or card). Delivery follows payment.</p></details>
+      <details><summary>What's the difference between a licence and full ownership?</summary><p>A licence lets you deploy and run the software as your own. Full ownership transfers the code and all rights to you, and the copy changes hands.</p></details>
+      <details><summary>How are five-packs priced?</summary><p>Each five-pack costs less than its five products bought one by one in their base edition. The Complete Set is one fixed price for the whole set. Taking a whole MT5 category costs less per tool than buying them singly.</p></details>
+      <details><summary>Is Nora really free?</summary><p>Yes. Buy AAM, DEVI-CRONS and Aura Suite in full ownership in the same order, and Nora is included at no extra cost. The Complete Set already includes it.</p></details>
+      <details><summary>Who builds these?</summary><p>Everything here is built and maintained in-house by XMQA, a Selius (Pty) Ltd company. Questions go to a person, not a bot.</p></details>
+      <details><summary>What do the crossed-out prices mean?</summary><p>For the software products it's our previous list price (replacement cost, market comparables and category demand). For the MT5 tools it's the catalogue price each tool was listed at. It's a reference price, not a guarantee of resale value.</p></details>
+      <details><summary>Are the trading tools financial advice?</summary><p>No. They are software tools. Nothing here is financial or investment advice, trading carries a substantial risk of loss, and results are never guaranteed.</p></details>
+      <details><summary>How is my data handled?</summary><p>We use your name and verified email only to process your order and reply to you. Codes expire after 10 minutes. We never store card details. Payment happens on PayPal or our card processor.</p></details>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div style="max-width:70ch">XMQA Online is operated by XMQA Analytics. Nothing here is financial advice, and trading involves substantial risk of loss. All prices are in USD.</div>
+    <div><a href="mailto:support@xmqa.pro" id="supportFoot">support@xmqa.pro</a> · A Selius (Pty) Ltd product</div>
+  </div>
+</footer>
+
+<dialog id="dlg" aria-labelledby="dlgTitle">
+  <div class="dlg">
+    <header>
+      <div><div class="cat" id="dlgCat"></div><h3 id="dlgTitle" style="font-size:25px;margin-top:6px"></h3></div>
+      <button class="x" type="button" data-close aria-label="Close">✕</button>
+    </header>
+    <p class="muted" id="dlgBlurb"></p>
+    <ul id="dlgFeatures"></ul>
+    <div class="buy" id="dlgBuy"></div>
+  </div>
+</dialog>
+
+<dialog id="cart" class="drawer" aria-labelledby="cartTitle">
+  <div class="dlg">
+    <header>
+      <div><div class="steps" id="steps"><span data-s="1">1 · Cart</span><span>›</span><span data-s="2">2 · Verify</span><span>›</span><span data-s="3">3 · Done</span></div><h3 id="cartTitle" style="font-size:24px;margin-top:6px">Your cart</h3></div>
+      <button class="x" type="button" data-close aria-label="Close">✕</button>
+    </header>
+
+    <div id="stage1">
+      <div class="lines" id="lines"></div>
+      <div class="notice" id="noraNote" hidden>Nora is free, because AAM, DEVI-CRONS and Aura Suite are all in this order in full ownership.</div>
+      <div class="total" id="totalRow"><span>Total <span class="muted" id="quoteNote" style="font-weight:400;font-size:13px"></span></span><b id="total">$0</b></div>
+      <form id="details" novalidate style="margin-top:16px">
+        <div class="grid2">
+          <div><label for="fName">Your name</label><input id="fName" autocomplete="name" maxlength="100" required></div>
+          <div><label for="fEmail">Email</label><input id="fEmail" type="email" autocomplete="email" maxlength="200" required></div>
+          <div class="full"><label for="fCompany">Company <span class="muted">(optional)</span></label><input id="fCompany" autocomplete="organization" maxlength="120"></div>
+          <div class="full"><label for="fMsg">Message <span class="muted" id="msgOpt">(optional)</span></label><textarea id="fMsg" maxlength="4000" placeholder="Anything we should know: deadlines, deployment, questions."></textarea></div>
+          <div class="full check"><input id="fNda" type="checkbox"><label for="fNda" style="margin:0">I'd like an NDA before delivery</label></div>
+          <div class="hp" aria-hidden="true"><label for="fWebsite">Website</label><input id="fWebsite" tabindex="-1" autocomplete="off"></div>
+          <div class="full"><button class="btn btn-brass" style="width:100%" id="sendCode" type="submit">Email me a verification code</button></div>
+        </div>
+      </form>
+    </div>
+
+    <form id="stage2" novalidate hidden>
+      <p class="muted">We sent a 6-digit code to <b id="sentTo"></b>. It expires in 10 minutes.</p>
+      <label for="fCode" style="margin-top:14px">Verification code</label>
+      <input id="fCode" class="code" inputmode="numeric" autocomplete="one-time-code" pattern="\d{6}" maxlength="6" required>
+      <div class="actions" style="margin-top:14px">
+        <button class="btn btn-brass" id="confirm" type="submit" style="flex:1">Confirm order</button>
+        <button class="btn btn-ghost" id="back" type="button">Back</button>
+      </div>
+      <button class="btn btn-ghost btn-sm" id="resend" type="button" style="margin-top:10px">Send a new code</button>
+    </form>
+
+    <div id="stage3" hidden>
+      <div class="status ok" id="doneMsg"></div>
+      <button class="btn btn-ghost" type="button" data-close style="margin-top:14px">Keep browsing</button>
+    </div>
+
+    <div class="status" id="cartStatus" role="status"></div>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="/pricing.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

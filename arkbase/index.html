@@ -1,0 +1,2237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arkbase — Free Digital Assets, AI Tools & Premium Bundles | XMQA</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --void:#010108;--deep:#07070f;--panel:#0c0c1c;--border:#181834;
+  --text:#dde4f0;--muted:#4a5568;--bright:#fff;
+  --cyan:#06b6d4;--purple:#7c3aed;--pink:#f43f5e;
+  --gold:#f59e0b;--gold2:#fbbf24;--orange:#f97316;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden}
+body{background:var(--void);color:var(--text);font-family:'Syne',sans-serif;cursor:none;user-select:none}
+
+#cur{position:fixed;width:10px;height:10px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:99999;transform:translate(-50%,-50%);box-shadow:0 0 14px var(--cyan),0 0 28px rgba(6,182,212,.5);transition:width .14s,height .14s,background .14s,box-shadow .14s}
+#cur-ring{position:fixed;width:34px;height:34px;border:1.5px solid rgba(6,182,212,.3);border-radius:50%;pointer-events:none;z-index:99998;transform:translate(-50%,-50%)}
+#stars{position:fixed;inset:0;z-index:0;pointer-events:none}
+.neb{position:fixed;border-radius:50%;filter:blur(140px);pointer-events:none;z-index:1;animation:nebdrift 20s ease-in-out infinite}
+.neb1{width:900px;height:700px;top:-220px;left:-200px;background:radial-gradient(circle,rgba(124,58,237,.13) 0%,transparent 65%)}
+.neb2{width:700px;height:600px;bottom:-200px;right:-160px;animation-delay:-9s;background:radial-gradient(circle,rgba(6,182,212,.1) 0%,transparent 65%)}
+.neb3{width:500px;height:500px;top:28%;left:42%;animation-delay:-15s;background:radial-gradient(circle,rgba(244,63,94,.07) 0%,transparent 65%)}
+@keyframes nebdrift{0%,100%{transform:translate(0,0) scale(1)}50%{transform:translate(28px,20px) scale(1.04)}}
+.scanlines{position:fixed;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.04) 2px,rgba(0,0,0,.04) 4px)}
+
+/* PREMIUM STRIP */
+#pstrip{position:fixed;top:0;left:0;right:0;height:50px;z-index:200;background:linear-gradient(90deg,rgba(245,158,11,.09),rgba(251,191,36,.05),rgba(245,158,11,.09));border-bottom:1px solid rgba(245,158,11,.2);display:flex;align-items:center;justify-content:space-between;padding:0 20px;cursor:pointer;backdrop-filter:blur(22px);transition:background .3s}
+#pstrip:hover{background:linear-gradient(90deg,rgba(245,158,11,.16),rgba(251,191,36,.1),rgba(245,158,11,.16))}
+.ps-left{display:flex;align-items:center;gap:10px;overflow:hidden;min-width:0}
+.ps-badge{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000;font-family:'Space Mono',monospace;font-size:.52rem;padding:3px 10px;border-radius:100px;font-weight:700;letter-spacing:.08em;flex-shrink:0}
+.ps-txt{font-family:'Space Mono',monospace;font-size:.58rem;letter-spacing:.07em;color:rgba(245,158,11,.82);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ps-upd{font-family:'Space Mono',monospace;font-size:.5rem;color:#3a3a52;letter-spacing:.06em;flex-shrink:0;white-space:nowrap}
+.ps-cta{background:linear-gradient(135deg,var(--gold),var(--orange));color:#000;font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.1em;padding:7px 20px;border-radius:100px;border:none;cursor:pointer;transition:all .25s;flex-shrink:0;white-space:nowrap}
+.ps-cta:hover{transform:scale(1.06);box-shadow:0 0 28px rgba(245,158,11,.55)}
+
+/* ── CARD CAROUSEL (replaces 3D orbs) ─────────── */
+#scene-wrap{position:fixed;top:50px;left:0;right:0;bottom:0;z-index:5;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+
+/* ── CAROUSEL VIEWPORT ── */
+#carousel-viewport{position:relative;width:100%;overflow:hidden;padding:20px 0 16px;z-index:8}
+#carousel-track{display:flex;gap:18px;padding:0 72px;
+  transition:transform .6s cubic-bezier(.23,1,.32,1);will-change:transform;cursor:grab}
+#carousel-track.dragging{transition:none;cursor:grabbing}
+
+/* ── CATEGORY CARDS ── */
+.cat-card{flex:0 0 210px;height:270px;
+  background:linear-gradient(145deg,rgba(13,13,30,.88),rgba(8,8,20,.94));
+  border:1px solid rgba(255,255,255,.06);border-radius:22px;
+  padding:24px 18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;
+  cursor:pointer;position:relative;overflow:hidden;
+  transition:all .42s cubic-bezier(.23,1,.32,1);backdrop-filter:blur(16px);user-select:none}
+.cat-card::before{content:'';position:absolute;inset:0;border-radius:inherit;
+  background:radial-gradient(circle at 50% 30%,var(--cg,rgba(124,58,237,.1)),transparent 70%);
+  opacity:0;transition:opacity .4s;pointer-events:none}
+.cat-card:hover::before{opacity:1}
+.cat-card::after{content:'';position:absolute;inset:-1px;border-radius:inherit;
+  background:linear-gradient(135deg,var(--ca,rgba(124,58,237,.45)),transparent 50%,var(--ca,rgba(124,58,237,.25)));
+  opacity:0;transition:opacity .4s;pointer-events:none;z-index:0;
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;mask-composite:exclude;padding:1px}
+.cat-card:hover::after{opacity:1}
+.cat-card:hover{transform:translateY(-8px) scale(1.05);
+  border-color:var(--ca,rgba(124,58,237,.5));
+  box-shadow:0 22px 65px rgba(0,0,0,.6),0 0 45px var(--cs,rgba(124,58,237,.18))}
+.cat-card .cc-sweep{position:absolute;inset:0;border-radius:inherit;overflow:hidden;pointer-events:none;z-index:1}
+.cat-card .cc-sweep::after{content:'';position:absolute;top:0;left:-150%;width:80%;height:100%;
+  background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.07) 50%,transparent 70%)}
+.cat-card:hover .cc-sweep::after{animation:ccSweep 1.1s ease forwards}
+@keyframes ccSweep{0%{left:-150%}100%{left:180%}}
+
+.cc-icon{width:60px;height:60px;border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);
+  position:relative;z-index:2;transition:all .4s;font-size:1.7rem}
+.cat-card:hover .cc-icon{transform:scale(1.12);
+  box-shadow:0 0 28px var(--cs,rgba(124,58,237,.35));border-color:var(--ca,rgba(124,58,237,.4))}
+.cc-svg{position:relative;z-index:2;filter:drop-shadow(0 0 8px rgba(255,255,255,.4))}
+.cc-label{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;
+  color:rgba(255,255,255,.95);letter-spacing:.05em;text-align:center;line-height:1.15;
+  position:relative;z-index:2;text-shadow:0 0 20px var(--cs,rgba(124,58,237,.3))}
+.cc-count{font-family:'Space Mono',monospace;font-size:.44rem;color:var(--muted);
+  letter-spacing:.1em;text-align:center;position:relative;z-index:2}
+.cc-tier{font-family:'Space Mono',monospace;font-size:.42rem;letter-spacing:.1em;
+  border-radius:100px;padding:3px 10px;position:relative;z-index:2;backdrop-filter:blur(4px)}
+.cc-tier.fr{color:#06b6d4;border:1px solid rgba(6,182,212,.4);background:rgba(6,182,212,.1)}
+.cc-tier.ft{color:#84cc16;border:1px solid rgba(132,204,22,.4);background:rgba(132,204,22,.1)}
+.cc-new{position:absolute;top:11px;right:11px;z-index:6;
+  background:linear-gradient(135deg,#10b981,#06b6d4);
+  color:#000;font-family:'Space Mono',monospace;font-size:.37rem;
+  padding:3px 8px;border-radius:100px;font-weight:700;letter-spacing:.05em;
+  box-shadow:0 0 14px rgba(16,185,129,.5)}
+
+/* ── GLOWING FADING ARROWS ── */
+.carousel-arrow{position:absolute;top:50%;z-index:20;
+  width:52px;height:52px;border-radius:50%;
+  background:rgba(6,182,212,.06);border:1px solid rgba(6,182,212,.2);
+  backdrop-filter:blur(18px);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:rgba(6,182,212,.85);font-size:1.5rem;font-weight:300;
+  transition:all .35s cubic-bezier(.23,1,.32,1);
+  transform:translateY(-50%);
+  animation:arrowPulse 2.8s ease-in-out infinite}
+.carousel-arrow:hover{background:rgba(6,182,212,.2);border-color:rgba(6,182,212,.65);
+  color:#fff;box-shadow:0 0 50px rgba(6,182,212,.4),0 0 100px rgba(6,182,212,.12);
+  transform:translateY(-50%) scale(1.14)}
+.carousel-arrow.left{left:10px}
+.carousel-arrow.right{right:10px}
+@keyframes arrowPulse{
+  0%,100%{box-shadow:0 0 16px rgba(6,182,212,.05),0 4px 20px rgba(0,0,0,.4)}
+  50%{box-shadow:0 0 36px rgba(6,182,212,.28),0 4px 24px rgba(0,0,0,.5)}}
+/* Edge fade masks — content fades into darkness at edges */
+.carousel-fade{position:absolute;top:0;bottom:0;width:72px;z-index:15;pointer-events:none}
+.carousel-fade.left{left:0;background:linear-gradient(90deg,var(--void) 0%,transparent 100%)}
+.carousel-fade.right{right:0;background:linear-gradient(270deg,var(--void) 0%,transparent 100%)}
+
+/* ── CAROUSEL DOTS ── */
+#carousel-dots{display:flex;justify-content:center;gap:8px;padding:8px 0 0;position:relative;z-index:10}
+.cdot{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.1);
+  border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:all .35s}
+.cdot.active{background:var(--cyan);width:26px;border-radius:4px;
+  box-shadow:0 0 14px rgba(6,182,212,.55);border-color:rgba(6,182,212,.5)}
+100%{transform:rotate(360deg) translateX(72px)}}
+
+/* ── FLOATING BACK / EXIT BUTTON ───────────── */
+#float-back{
+  position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(120px);
+  z-index:80;
+  background:rgba(6,182,212,.08);
+  border:1px solid rgba(6,182,212,.3);
+  backdrop-filter:blur(20px);
+  border-radius:100px;
+  padding:13px 34px;
+  display:flex;align-items:center;gap:10px;
+  color:rgba(6,182,212,.9);
+  font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.12em;
+  cursor:pointer;transition:all .5s cubic-bezier(.23,1,.32,1);
+  box-shadow:0 0 30px rgba(6,182,212,.08),0 8px 32px rgba(0,0,0,.4);
+  white-space:nowrap;
+}
+#float-back.visible{transform:translateX(-50%) translateY(0)}
+#float-back:hover{
+  background:rgba(6,182,212,.15);border-color:rgba(6,182,212,.6);
+  color:#fff;box-shadow:0 0 50px rgba(6,182,212,.25),0 8px 40px rgba(0,0,0,.5);
+  transform:translateX(-50%) translateY(-3px);
+}
+#float-back .fb-arrow{font-size:1rem;transition:transform .3s}
+#float-back:hover .fb-arrow{transform:translateX(-4px)}
+#float-back .fb-esc{font-size:.45rem;color:rgba(6,182,212,.45);background:rgba(6,182,212,.1);
+  border:1px solid rgba(6,182,212,.2);border-radius:4px;padding:1px 5px;letter-spacing:.05em}
+
+/* ── CARD SHIMMER + STAGGER ANIMATIONS ──── */
+@keyframes cardReveal{
+  0%{opacity:0;transform:translateY(24px) scale(.97)}
+  100%{opacity:1;transform:translateY(0) scale(1)}
+}
+@keyframes cardShimmer{
+  0%{background-position:-200% center}
+  100%{background-position:200% center}
+}
+.card{position:relative;overflow:hidden}
+.card .card-shimmer-line{
+  position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(105deg,transparent 40%,rgba(255,255,255,.04) 50%,transparent 60%);
+  background-size:200% 100%;opacity:0;transition:opacity .3s;
+}
+.card:hover .card-shimmer-line{opacity:1;animation:cardShimmer 1.4s ease infinite}
+/* Vibrant animated left accent border */
+.card::after{
+  content:'';position:absolute;left:0;top:20%;bottom:20%;width:2px;border-radius:2px;
+  background:var(--ca,#7c3aed);opacity:0;
+  transition:opacity .35s,top .35s,bottom .35s;
+  box-shadow:0 0 10px var(--ca,#7c3aed);
+}
+.card:hover::after{opacity:.8;top:8%;bottom:8%}
+/* API key button pulse */
+.api-btn{animation:apiBtnPulse 3s ease-in-out infinite}
+@keyframes apiBtnPulse{0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.0)}50%{box-shadow:0 0 0 4px rgba(34,197,94,.12)}}
+
+50%{box-shadow:0 0 80px rgba(6,182,212,.65),0 0 160px rgba(6,182,212,.28)}}
+
+/* FREE PANEL */
+#cpanel{position:fixed;inset:0;z-index:50;background:rgba(1,1,8,.97);backdrop-filter:blur(28px);transform:translateY(102%);transition:transform .9s cubic-bezier(.23,1,.32,1);overflow-y:auto;-webkit-overflow-scrolling:touch}
+#cpanel.open{transform:translateY(0)}
+#cph{position:sticky;top:0;z-index:20;padding:14px 24px;background:rgba(1,1,8,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:11px}
+.back-btn{background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.54rem;letter-spacing:.1em;padding:6px 13px;border-radius:100px;cursor:pointer;transition:all .25s;flex-shrink:0}
+.back-btn:hover{background:rgba(255,255,255,.1);color:var(--bright)}
+#pcatdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+#ptitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.3rem,2.5vw,2rem);line-height:1}
+#pdesc{font-size:.7rem;color:var(--muted);margin-top:1px}
+.free-upd-tag{font-family:'Space Mono',monospace;font-size:.47rem;color:#3a3a52;letter-spacing:.07em;margin-left:auto;flex-shrink:0;text-align:right;line-height:1.6;border:1px solid var(--border);border-radius:8px;padding:4px 9px}
+#pcount{font-family:'Bebas Neue',monospace;font-size:1.5rem;opacity:.18;flex-shrink:0}
+
+.pnav{position:sticky;top:61px;z-index:15;display:flex;justify-content:center;padding:7px 20px;background:rgba(1,1,8,.9);backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.03)}
+.pnav-inner{background:rgba(12,12,28,.9);border:1px solid var(--border);border-radius:100px;padding:4px;display:flex;gap:2px;flex-wrap:wrap;justify-content:center}
+.pnav-btn{padding:5px 12px;border-radius:100px;border:none;background:transparent;font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.09em;color:var(--muted);cursor:pointer;transition:all .22s;white-space:nowrap}
+.pnav-btn.active,.pnav-btn:hover{color:#fff}
+
+.srch-wrap{display:flex;justify-content:center;padding:20px 20px 14px;position:relative}
+.srch-box{width:100%;max-width:500px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:100px;padding:9px 20px 9px 38px;font-family:'Syne',sans-serif;font-size:.86rem;color:var(--text);outline:none;transition:border-color .25s,box-shadow .25s}
+.srch-box:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(6,182,212,.1)}
+.srch-box::placeholder{color:var(--muted)}
+.srch-ico{position:absolute;left:calc(50% - 228px);top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:.78rem}
+
+.ps-wrap{max-width:1380px;margin:0 auto;padding:24px 18px 0}
+.spotlight{background:linear-gradient(135deg,rgba(124,58,237,.07),rgba(6,182,212,.05));border:1px solid rgba(124,58,237,.18);border-radius:15px;padding:17px 21px;margin-bottom:22px;display:flex;align-items:flex-start;gap:12px}
+.spotlight-ico{font-size:1.25rem;flex-shrink:0;margin-top:2px}
+.spotlight h3{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;color:var(--bright);margin-bottom:3px}
+.spotlight p{font-size:.73rem;color:var(--muted);line-height:1.55}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:12px}
+.card{background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:16px 18px 14px;text-decoration:none;color:inherit;display:flex;flex-direction:column;gap:8px;transition:all .3s cubic-bezier(.23,1,.32,1);position:relative;overflow:hidden;cursor:pointer}
+.card::before{content:'';position:absolute;inset:0;background:var(--cg,transparent);opacity:0;transition:opacity .3s;border-radius:inherit}
+.card:hover::before{opacity:1}
+.card:hover{border-color:var(--ca,#7c3aed);transform:translateY(-3px) scale(1.009);box-shadow:0 16px 50px rgba(0,0,0,.55),0 0 0 1px var(--ca,#7c3aed),inset 0 1px 0 rgba(255,255,255,.05)}
+.card-top{display:flex;align-items:flex-start;gap:10px}
+.card-emoji{font-size:1.3rem;line-height:1;flex-shrink:0;margin-top:2px}
+.card-name{font-weight:700;font-size:.88rem;color:var(--bright);line-height:1.2}
+.card-domain{font-family:'Space Mono',monospace;font-size:.57rem;color:var(--ca,var(--muted));margin-top:1px;opacity:.78}
+.card-desc{font-size:.75rem;color:var(--muted);line-height:1.52;flex:1}
+.card-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:2px}
+.tag{font-family:'Space Mono',monospace;font-size:.52rem;padding:2px 7px;border-radius:100px;background:rgba(255,255,255,.06);color:var(--muted);letter-spacing:.04em}
+.tag.free{background:rgba(132,204,22,.1);color:#84cc16}
+.tag.cc0{background:rgba(6,182,212,.1);color:#06b6d4}
+.tag.attr{background:rgba(245,158,11,.1);color:#f59e0b}
+.tag.nowm{background:rgba(124,58,237,.1);color:#a78bfa}
+.tag.ft{background:rgba(56,189,248,.1);color:#38bdf8}
+.card-arrow{position:absolute;top:14px;right:14px;font-size:.78rem;opacity:0;transition:all .22s;color:var(--ca,#06b6d4)}
+.card:hover .card-arrow{opacity:1;transform:translate(2px,-2px)}
+.api-btn{display:inline-flex;align-items:center;gap:5px;margin-top:4px;padding:4px 10px;border-radius:100px;background:rgba(34,197,94,.09);border:1px solid rgba(34,197,94,.25);color:#4ade80;font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.07em;text-decoration:none;transition:all .22s;align-self:flex-start}
+.api-btn:hover{background:rgba(34,197,94,.18);transform:translateY(-1px)}
+#no-results{display:none;text-align:center;padding:60px 20px;font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--muted)}
+.pf{text-align:center;padding:40px 20px;border-top:1px solid var(--border);font-family:'Space Mono',monospace;font-size:.56rem;color:var(--muted);letter-spacing:.09em;line-height:2;margin-top:40px}
+.pf span{color:#ec4899}
+
+/* PREMIUM PANEL */
+#ppanel{position:fixed;top:50px;left:0;right:0;bottom:0;z-index:60;background:rgba(2,1,8,.98);backdrop-filter:blur(32px);transform:translateY(-102%);transition:transform .9s cubic-bezier(.23,1,.32,1);overflow-y:auto;-webkit-overflow-scrolling:touch}
+#ppanel.open{transform:translateY(0)}
+#pph{position:sticky;top:0;z-index:20;padding:15px 24px;background:linear-gradient(180deg,rgba(2,1,8,.99),rgba(2,1,8,.9));border-bottom:1px solid rgba(245,158,11,.12);display:flex;align-items:center;gap:13px;backdrop-filter:blur(20px)}
+.pp-crown{font-size:1.5rem;flex-shrink:0;animation:crownPulse 2.5s ease-in-out infinite}
+@keyframes crownPulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.5) drop-shadow(0 0 14px #f59e0b)}}
+.pp-hdr{flex:1}
+.pp-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;line-height:1;background:linear-gradient(90deg,var(--gold),var(--gold2),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.pp-sub{font-family:'Space Mono',monospace;font-size:.48rem;color:#78716c;letter-spacing:.1em;margin-top:1px}
+.pp-upd-tag{font-family:'Space Mono',monospace;font-size:.48rem;letter-spacing:.07em;color:rgba(245,158,11,.7);background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);border-radius:100px;padding:4px 11px;flex-shrink:0}
+#ppclose{background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:.54rem;letter-spacing:.1em;padding:6px 13px;border-radius:100px;cursor:pointer;transition:all .25s;flex-shrink:0}
+#ppclose:hover{background:rgba(255,255,255,.1);color:var(--bright)}
+
+.pp-tabs{position:sticky;top:69px;z-index:15;display:flex;justify-content:center;padding:7px 20px;background:rgba(2,1,8,.92);backdrop-filter:blur(18px);border-bottom:1px solid rgba(245,158,11,.06);gap:5px;flex-wrap:wrap}
+.pp-tab{padding:6px 14px;border-radius:100px;border:1px solid var(--border);background:transparent;font-family:'Space Mono',monospace;font-size:.54rem;letter-spacing:.1em;color:var(--muted);cursor:pointer;transition:all .22s;white-space:nowrap}
+.pp-tab.active,.pp-tab:hover{background:rgba(245,158,11,.1);border-color:rgba(245,158,11,.32);color:#fbbf24}
+
+.pp-banner{background:linear-gradient(135deg,rgba(245,158,11,.07),rgba(249,115,22,.05));border:1px solid rgba(245,158,11,.18);border-radius:18px;padding:20px 24px;margin:20px auto;max-width:1380px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.pp-banner h3{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;color:var(--gold2)}
+.pp-banner p{font-size:.73rem;color:var(--muted);margin-top:3px;line-height:1.55;max-width:520px}
+.pp-price{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);margin-left:auto;flex-shrink:0;line-height:1}
+.pp-price span{font-family:'Space Mono',monospace;font-size:.52rem;color:var(--muted);display:block;text-align:center;letter-spacing:.1em}
+.pp-sub-btn{background:linear-gradient(135deg,var(--gold),var(--orange));color:#000;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.1em;padding:11px 24px;border-radius:100px;border:none;cursor:pointer;transition:all .28s;flex-shrink:0;white-space:nowrap}
+.pp-sub-btn:hover{transform:scale(1.06);box-shadow:0 0 36px rgba(245,158,11,.45)}
+
+.bundle-sect-hd{font-family:'Space Mono',monospace;font-size:.54rem;letter-spacing:.2em;color:rgba(245,158,11,.45);text-transform:uppercase;padding:20px 22px 10px;max-width:1380px;margin:0 auto}
+.bundle-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(335px,1fr));gap:16px;padding:0 22px 24px;max-width:1380px;margin:0 auto}
+.bc{background:rgba(10,8,4,.88);border:1px solid rgba(245,158,11,.12);border-radius:20px;padding:21px;position:relative;overflow:hidden;transition:all .32s cubic-bezier(.23,1,.32,1);display:flex;flex-direction:column;gap:12px}
+.bc::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(245,158,11,.26),transparent)}
+.bc:hover{border-color:rgba(245,158,11,.3);transform:translateY(-3px);box-shadow:0 22px 60px rgba(0,0,0,.65),0 0 40px rgba(245,158,11,.05)}
+.bc-top{display:flex;align-items:flex-start;gap:13px}
+.bc-icon{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0;background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.14)}
+.bc-type{font-family:'Space Mono',monospace;font-size:.45rem;letter-spacing:.14em;color:rgba(245,158,11,.5);text-transform:uppercase;margin-bottom:3px}
+.bc-name{font-family:'Bebas Neue',sans-serif;font-size:1.32rem;color:var(--bright);line-height:1.05}
+.bc-tagline{font-size:.73rem;color:var(--muted);line-height:1.52}
+.bc-tools{display:flex;flex-wrap:wrap;gap:5px}
+.bc-tool{font-family:'Space Mono',monospace;font-size:.48rem;padding:2px 8px;border-radius:100px;background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.16);color:rgba(245,158,11,.78);letter-spacing:.04em}
+.bc-incl{font-size:.72rem;color:var(--muted);line-height:1.65;padding-left:2px}
+.bc-incl li{margin-left:15px;margin-bottom:2px}
+.bc-incl li::marker{color:#f59e0b}
+.bc-how-btn{display:flex;align-items:center;justify-content:space-between;background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.13);border-radius:10px;padding:8px 12px;cursor:pointer;transition:all .22s;font-family:'Space Mono',monospace;font-size:.54rem;letter-spacing:.07em;color:rgba(245,158,11,.6)}
+.bc-how-btn:hover{background:rgba(245,158,11,.1);color:#fbbf24}
+.bc-how-arrow{transition:transform .28s}
+.bc-how-content{display:none;background:rgba(0,0,0,.4);border-radius:10px;padding:14px;font-size:.72rem;color:var(--muted);line-height:1.7;margin-top:-4px}
+.bc-how-content.open{display:block}
+.bc-step{display:flex;gap:10px;margin-bottom:9px}
+.bc-sn{width:20px;height:20px;border-radius:50%;flex-shrink:0;margin-top:1px;background:rgba(245,158,11,.12);border:1px solid rgba(245,158,11,.28);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:.46rem;color:var(--gold)}
+.bc-st{flex:1;font-size:.71rem;color:rgba(210,215,230,.62);line-height:1.6}
+.bc-code{background:rgba(0,0,0,.55);border:1px solid rgba(245,158,11,.09);border-radius:9px;padding:10px 12px;margin-top:8px;font-family:'Space Mono',monospace;font-size:.52rem;color:#84cc16;line-height:1.75;overflow-x:auto;white-space:pre}
+.bc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:1px;flex-wrap:wrap;gap:5px}
+.bc-upd{font-family:'Space Mono',monospace;font-size:.46rem;color:#3a3a52;letter-spacing:.06em}
+.bc-new{background:linear-gradient(135deg,#10b981,#06b6d4);color:#000;font-family:'Space Mono',monospace;font-size:.42rem;padding:2px 7px;border-radius:100px;font-weight:700;letter-spacing:.05em}
+.bc-weekly{font-family:'Space Mono',monospace;font-size:.44rem;color:var(--gold);background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.14);border-radius:100px;padding:2px 8px}
+
+/* REGISTRATION MODAL */
+#reg-modal{position:fixed;inset:0;z-index:300;display:flex;padding:16px;opacity:0;pointer-events:none;transition:opacity .42s;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+#reg-modal.show{opacity:1;pointer-events:all}
+#reg-bd{position:absolute;inset:0;background:rgba(1,1,8,.88);backdrop-filter:blur(20px)}
+#reg-box{position:relative;z-index:1;background:linear-gradient(145deg,rgba(13,13,30,.93),rgba(8,8,20,.93));border:1px solid rgba(124,58,237,.25);border-radius:24px;padding:40px 36px 34px;max-width:410px;width:100%;margin:auto;max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);overflow-y:auto;overscroll-behavior:contain;transform:translateY(26px) scale(.96);transition:all .42s cubic-bezier(.23,1,.32,1);box-shadow:0 40px 120px rgba(0,0,0,.75),inset 0 1px 0 rgba(255,255,255,.06)}
+#reg-modal.show #reg-box{transform:translateY(0) scale(1)}
+#reg-box::before{content:'';position:absolute;top:-1px;left:20%;right:20%;height:1px;background:linear-gradient(90deg,transparent,rgba(6,182,212,.5),transparent)}
+.reg-sigil{text-align:center;font-size:1.8rem;margin-bottom:14px}
+.reg-title{font-family:'Bebas Neue',sans-serif;font-size:2rem;text-align:center;background:linear-gradient(90deg,#06b6d4,#7c3aed,#f43f5e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:7px}
+.reg-sub{font-size:.73rem;color:var(--muted);text-align:center;line-height:1.6;margin-bottom:22px}
+.reg-field{margin-bottom:11px}
+.reg-lbl{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.12em;color:#4a5568;margin-bottom:5px;display:block;text-transform:uppercase}
+.reg-in{width:100%;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:10px;padding:10px 13px;color:var(--text);font-family:'Syne',sans-serif;font-size:.86rem;outline:none;transition:border-color .25s,box-shadow .25s}
+.reg-in:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(6,182,212,.1)}
+.reg-in::placeholder{color:#2d3748}
+#reg-submit{width:100%;margin-top:8px;padding:12px;background:linear-gradient(135deg,#06b6d4,#7c3aed);border:none;border-radius:11px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:.1em;cursor:pointer;transition:all .28s}
+#reg-submit:hover{opacity:.9;transform:scale(1.02);box-shadow:0 0 40px rgba(6,182,212,.3)}
+.reg-terms{font-size:.57rem;color:#2d3748;text-align:center;margin-top:9px;line-height:1.5}
+.reg-error{color:#f87171;font-family:'Space Mono',monospace;font-size:.55rem;text-align:center;margin-top:6px;display:none}
+
+/* ── PAYMENT MODAL — 3 tabs ─────────────── */
+#pay-modal{position:fixed;inset:0;z-index:350;display:flex;padding:16px;opacity:0;pointer-events:none;transition:opacity .42s;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+#pay-modal.show{opacity:1;pointer-events:all}
+#pay-bd{position:absolute;inset:0;background:rgba(1,1,6,.91);backdrop-filter:blur(24px)}
+#pay-box{
+  position:relative;z-index:1;
+  background:linear-gradient(155deg,rgba(16,12,4,.98),rgba(9,7,3,.98));
+  border:1px solid rgba(245,158,11,.22);border-radius:24px;padding:38px 36px 32px;
+  max-width:420px;width:100%;margin:auto;
+  max-height:calc(100vh - 32px);max-height:calc(100dvh - 32px);
+  overflow-y:auto;overscroll-behavior:contain;
+  transform:translateY(26px) scale(.96);transition:all .42s cubic-bezier(.23,1,.32,1);
+  box-shadow:0 40px 120px rgba(0,0,0,.85),0 0 80px rgba(245,158,11,.04),inset 0 1px 0 rgba(255,255,255,.06);
+}
+#pay-modal.show #pay-box{transform:translateY(0) scale(1)}
+@media (max-height:780px){#pay-box{padding:26px 24px 20px}.pay-crown{font-size:1.2rem;margin-bottom:4px}.pay-title{font-size:1.5rem}.pay-amount{font-size:2.1rem}.pay-price-blk{margin-bottom:10px}.pay-tabs{margin-bottom:12px}}
+@media (max-width:420px){#pay-modal,#reg-modal{padding:10px}#pay-box,#reg-box{padding:24px 18px 20px}}
+#pay-box::before{content:'';position:absolute;top:-1px;left:20%;right:20%;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(245,158,11,.6),transparent)}
+#payclose{position:absolute;top:14px;right:16px;background:none;border:none;
+  color:var(--muted);font-size:1rem;cursor:pointer;padding:4px 8px;transition:color .2s}
+#payclose:hover{color:var(--bright)}
+.pay-crown{text-align:center;font-size:1.6rem;margin-bottom:10px;
+  animation:crownPulse 2.5s ease-in-out infinite}
+.pay-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;text-align:center;color:var(--gold2);margin-bottom:2px}
+.pay-price-blk{text-align:center;margin-bottom:16px}
+.pay-amount{font-family:'Bebas Neue',sans-serif;font-size:2.6rem;color:var(--gold)}
+.pay-period{font-family:'Space Mono',monospace;font-size:.52rem;color:var(--muted);letter-spacing:.1em;display:block;margin-top:-5px}
+/* Payment method tabs */
+.pay-tabs{display:flex;gap:4px;margin-bottom:20px;background:rgba(255,255,255,.04);
+  border-radius:12px;padding:4px;border:1px solid rgba(245,158,11,.1)}
+.pay-tab-btn{flex:1;padding:8px 6px;border:none;border-radius:9px;background:transparent;
+  font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.08em;
+  color:var(--muted);cursor:pointer;transition:all .25s;display:flex;
+  align-items:center;justify-content:center;gap:5px;flex-direction:column}
+.pay-tab-btn .ptb-icon{font-size:.95rem}
+.pay-tab-btn .ptb-lbl{font-size:.62rem;letter-spacing:.12em;font-weight:700}
+.pay-tab-btn.active{background:rgba(245,158,11,.12);color:#fbbf24;
+  box-shadow:0 0 18px rgba(245,158,11,.12)}
+/* Tab content panes */
+.pay-pane{display:none;animation:payPaneIn .3s ease}
+.pay-pane.active{display:block}
+@keyframes payPaneIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.pay-field{margin-bottom:10px}
+.pay-lbl{font-family:'Space Mono',monospace;font-size:.5rem;letter-spacing:.12em;color:#78716c;margin-bottom:5px;display:block;text-transform:uppercase}
+.pay-in{width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(245,158,11,.14);
+  border-radius:10px;padding:9px 13px;color:var(--text);
+  font-family:'Space Mono',monospace;font-size:.8rem;letter-spacing:.07em;
+  outline:none;transition:border-color .25s,box-shadow .25s}
+.pay-in:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(245,158,11,.1)}
+.pay-in::placeholder{color:#3f3f46;letter-spacing:.04em}
+.pay-row{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+/* PayPal pane */
+.pp-connect-info{text-align:center;padding:10px 0 16px}
+.pp-logo{font-size:2.2rem;margin-bottom:8px}
+.pp-desc{font-family:'Space Mono',monospace;font-size:.55rem;color:var(--muted);
+  letter-spacing:.07em;line-height:1.6;margin-bottom:14px}
+.pp-amount-preview{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.18);
+  border-radius:12px;padding:12px;text-align:center;margin-bottom:14px}
+.pp-amount-preview .pap-lbl{font-family:'Space Mono',monospace;font-size:.5rem;color:var(--muted);letter-spacing:.12em;margin-bottom:4px}
+.pp-amount-preview .pap-val{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold)}
+.pp-amount-preview .pap-sub{font-family:'Space Mono',monospace;font-size:.48rem;color:var(--muted)}
+.pp-pay-btn{width:100%;padding:13px;border-radius:11px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,#003087,#009cde);
+  color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1.15rem;
+  letter-spacing:.08em;transition:all .28s;display:flex;align-items:center;justify-content:center;gap:8px}
+.pp-pay-btn:hover{transform:scale(1.02);box-shadow:0 0 30px rgba(0,156,222,.35)}
+.pp-pay-btn .ppb-logo{font-size:1.1rem}
+/* Bank transfer pane */
+.bank-info{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;padding:16px;margin-bottom:14px}
+.bank-row{display:flex;justify-content:space-between;align-items:center;
+  padding:7px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.bank-row:last-child{border-bottom:none;padding-bottom:0}
+.bank-row-lbl{font-family:'Space Mono',monospace;font-size:.5rem;color:var(--muted);letter-spacing:.1em}
+.bank-row-val{font-family:'Space Mono',monospace;font-size:.6rem;color:var(--bright);letter-spacing:.05em;
+  display:flex;align-items:center;gap:6px}
+.bank-copy{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  border-radius:5px;padding:2px 7px;font-size:.42rem;cursor:pointer;color:var(--muted);
+  transition:all .2s;letter-spacing:.06em}
+.bank-copy:hover{color:#84cc16;border-color:rgba(132,204,22,.3)}
+.bank-ref-notice{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.18);
+  border-radius:10px;padding:10px 12px;font-family:'Space Mono',monospace;
+  font-size:.52rem;color:rgba(245,158,11,.7);letter-spacing:.07em;line-height:1.65;margin-bottom:14px}
+.bank-submit-btn{width:100%;padding:12px;border-radius:11px;border:none;cursor:pointer;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
+  color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.1em;transition:all .28s}
+.bank-submit-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(132,204,22,.3);color:#84cc16}
+/* Card submit */
+#pay-submit{width:100%;margin-top:7px;padding:12px;
+  background:linear-gradient(135deg,var(--gold),var(--orange));border:none;
+  border-radius:11px;color:#000;font-family:'Bebas Neue',sans-serif;
+  font-size:1.15rem;letter-spacing:.1em;cursor:pointer;transition:all .28s;font-weight:700}
+#pay-submit:hover{transform:scale(1.02);box-shadow:0 0 40px rgba(245,158,11,.42)}
+/* Confirmation overlay */
+#pay-confirm{
+  position:absolute;inset:0;border-radius:24px;
+  background:linear-gradient(155deg,rgba(16,12,4,.99),rgba(9,7,3,.99));
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:32px;z-index:10;
+  opacity:0;pointer-events:none;transition:opacity .4s;
+}
+#pay-confirm.show{opacity:1;pointer-events:all}
+.pc-icon{font-size:2.8rem;margin-bottom:12px;animation:pcIconPop .5s cubic-bezier(.23,1,.32,1)}
+@keyframes pcIconPop{0%{transform:scale(0) rotate(-20deg)}100%{transform:scale(1) rotate(0deg)}}
+.pc-title{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:#84cc16;margin-bottom:6px}
+.pc-sub{font-family:'Space Mono',monospace;font-size:.58rem;color:var(--muted);letter-spacing:.08em;text-align:center;line-height:1.65;margin-bottom:20px}
+.pc-details{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  border-radius:12px;padding:14px 18px;width:100%;margin-bottom:20px}
+.pc-row{display:flex;justify-content:space-between;padding:5px 0;
+  font-family:'Space Mono',monospace;font-size:.54rem;}
+.pc-row-lbl{color:var(--muted);letter-spacing:.08em}
+.pc-row-val{color:var(--bright);letter-spacing:.04em}
+.pc-close-btn{background:linear-gradient(135deg,#10b981,#06b6d4);color:#000;
+  font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.1em;
+  padding:11px 28px;border-radius:100px;border:none;cursor:pointer;transition:all .28s}
+.pc-close-btn:hover{transform:scale(1.05)}
+.pay-secure{display:flex;align-items:center;justify-content:center;gap:6px;
+  margin-top:10px;font-family:'Space Mono',monospace;font-size:.46rem;
+  color:#3f3f46;letter-spacing:.07em}
+.pay-error{color:#f87171;font-family:'Space Mono',monospace;font-size:.54rem;
+  text-align:center;margin-top:6px;display:none}
+
+@media(max-width:640px){
+  body{cursor:auto}
+  #cur,#cur-ring{display:none}
+  .ps-txt,.ps-upd{display:none}
+  .bundle-grid{grid-template-columns:1fr;padding:0 12px 24px}
+  #cph,#pph{padding:10px 12px}
+  .ps-wrap{padding:16px 12px 0}
+}
+
+/* ══════════════════ CARD CAROUSEL (replaces orbs) ══════════════════ */
+#scene-wrap{display:none !important}  /* 3D orb scene hidden — cards take over */
+#cat-rail{position:fixed;top:50px;left:0;right:0;bottom:0;z-index:5;
+  display:flex;flex-direction:column;align-items:stretch;justify-content:center;
+  padding:40px 12px;overflow:hidden}
+#cat-rail .cr-strip{display:flex;gap:18px;overflow-x:auto;overflow-y:hidden;padding:24px 80px;
+  scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  scrollbar-width:none;-ms-overflow-style:none}
+#cat-rail .cr-strip::-webkit-scrollbar{display:none}
+.cr-card{flex:0 0 280px;height:380px;border-radius:14px;cursor:pointer;
+  background:linear-gradient(155deg,rgba(20,22,42,.92),rgba(6,8,18,.98));
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 14px 36px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);
+  scroll-snap-align:center;transform-style:preserve-3d;position:relative;overflow:hidden;
+  transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s,border-color .35s;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding:34px 22px;
+  text-align:center;color:#dde4f0}
+.cr-card:hover{transform:translateY(-6px) scale(1.04);border-color:var(--cr-col,#06b6d4);
+  box-shadow:0 28px 60px rgba(0,0,0,.7),0 0 36px var(--cr-glow,rgba(6,182,212,.4)),inset 0 1px 0 rgba(255,255,255,.12)}
+.cr-card::before{content:'';position:absolute;inset:0;border-radius:14px;pointer-events:none;
+  background:radial-gradient(circle at 50% 0%,var(--cr-glow,rgba(6,182,212,.18)) 0%,transparent 60%);
+  opacity:.6;transition:opacity .35s}
+.cr-card:hover::before{opacity:1}
+.cr-emoji{font-size:4.2rem;line-height:1;margin-bottom:18px;
+  text-shadow:0 0 18px var(--cr-glow,rgba(6,182,212,.45));position:relative;z-index:1}
+.cr-lbl{font-family:'Bebas Neue','Syne',sans-serif;font-weight:800;
+  font-size:1.7rem;letter-spacing:.08em;color:#fff;line-height:1.1;margin-bottom:12px;position:relative;z-index:1}
+.cr-tier{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.22em;
+  padding:5px 12px;border-radius:99px;font-weight:700;text-transform:uppercase;position:relative;z-index:1;
+  background:rgba(132,204,22,.18);color:#84cc16;border:1px solid rgba(132,204,22,.45)}
+.cr-new{position:absolute;top:14px;right:14px;font-family:'Space Mono',monospace;
+  font-size:.55rem;font-weight:800;letter-spacing:.16em;padding:4px 10px;border-radius:99px;
+  color:#0a0a14;background:#fde047}
+.cr-card .cr-foot{margin-top:auto;font-family:'Space Mono',monospace;font-size:.6rem;
+  letter-spacing:.18em;color:rgba(220,228,240,.5);text-transform:uppercase;
+  border-top:1px solid rgba(255,255,255,.06);padding-top:12px;width:100%;text-align:center;position:relative;z-index:1}
+/* Nav arrows */
+.cr-arrow{position:absolute;top:50%;width:54px;height:54px;border-radius:50%;cursor:pointer;
+  background:linear-gradient(135deg,rgba(20,22,42,.92),rgba(6,8,18,.98));
+  border:1px solid rgba(6,182,212,.45);color:#06b6d4;
+  font-size:1.5rem;display:flex;align-items:center;justify-content:center;z-index:10;
+  box-shadow:0 0 18px rgba(6,182,212,.35),inset 0 1px 0 rgba(255,255,255,.08);
+  transform:translateY(-50%);transition:.25s;
+  animation:crArrowPulse 2.6s ease-in-out infinite}
+.cr-arrow.left{left:18px}
+.cr-arrow.right{right:18px}
+.cr-arrow:hover{transform:translateY(-50%) scale(1.1);color:#fff;border-color:#06b6d4;
+  box-shadow:0 0 38px rgba(6,182,212,.7),inset 0 1px 0 rgba(255,255,255,.18)}
+@keyframes crArrowPulse{
+  0%,100%{box-shadow:0 0 14px rgba(6,182,212,.32),inset 0 1px 0 rgba(255,255,255,.06)}
+  50%   {box-shadow:0 0 32px rgba(6,182,212,.7),inset 0 1px 0 rgba(255,255,255,.16)}}
+/* Scroll hint (fading hand) — Arkbase only, per design */
+#fb-scroll-hint{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:6;
+  display:inline-flex;align-items:center;gap:10px;padding:9px 18px;border-radius:99px;
+  background:rgba(8,14,28,.62);backdrop-filter:blur(8px);
+  border:1px solid rgba(6,182,212,.32);
+  font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.16em;
+  color:rgba(220,240,255,.78);text-transform:uppercase;font-weight:700;
+  pointer-events:none;opacity:0;animation:fbHintFade 1s ease 1.4s forwards}
+#fb-scroll-hint.off{opacity:0;animation:none}
+@keyframes fbHintFade{to{opacity:1}}
+#fb-scroll-hint .fhi{font-size:1.05rem;animation:fbHandWave 2.2s ease-in-out infinite;display:inline-block;line-height:1}
+@keyframes fbHandWave{0%,100%{transform:translateX(-3px) rotate(-3deg);opacity:.6}50%{transform:translateX(3px) rotate(3deg);opacity:1}}
+@media(max-width:640px){
+  .cr-card{flex-basis:80%;height:340px}
+  #cat-rail .cr-strip{padding:24px 12px;gap:12px}
+  .cr-arrow{width:42px;height:42px;font-size:1.2rem}
+}
+
+/* ── PayPal glassmorphic card (matches xmqa.pro) ── */
+.pp-glass-card{position:relative;overflow:hidden;border-radius:14px;
+  border:1px solid rgba(0,156,232,.5);padding:22px;
+  background:
+    radial-gradient(ellipse 120% 80% at 20% 0%,rgba(0,156,232,.18),transparent 55%),
+    radial-gradient(ellipse 100% 90% at 90% 100%,rgba(0,48,135,.28),transparent 60%),
+    linear-gradient(160deg,#040b1a 0%,#020610 100%);
+  backdrop-filter:blur(10px) saturate(1.2);
+  box-shadow:0 0 28px rgba(0,156,232,.32),0 18px 44px -14px rgba(0,0,0,.7),
+    inset 0 1px 0 rgba(255,255,255,.06),inset 0 0 22px rgba(0,156,232,.06);
+  animation:ppBreathe 4.4s ease-in-out infinite}
+@keyframes ppBreathe{
+  0%,100%{box-shadow:0 0 26px rgba(0,156,232,.28),0 18px 44px -14px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.06),inset 0 0 22px rgba(0,156,232,.06)}
+  50%{box-shadow:0 0 46px rgba(0,156,232,.55),0 22px 50px -14px rgba(0,0,0,.7),inset 0 1px 0 rgba(255,255,255,.1),inset 0 0 30px rgba(0,156,232,.12)}}
+.pp-glass-card::before{content:'';position:absolute;top:-60%;left:-30%;width:40%;height:220%;
+  background:linear-gradient(110deg,transparent 0%,rgba(180,225,255,.18) 50%,transparent 100%);
+  transform:rotate(8deg);pointer-events:none;animation:ppSheen 7s ease-in-out infinite;z-index:0}
+@keyframes ppSheen{0%,72%{transform:translateX(0) rotate(8deg)}100%{transform:translateX(520%) rotate(8deg)}}
+.pp-glass-card::after{content:'';position:absolute;inset:0;pointer-events:none;border-radius:14px;
+  background:linear-gradient(135deg,rgba(0,200,255,.15),transparent 40%,transparent 60%,rgba(0,48,135,.18));
+  mix-blend-mode:screen;z-index:0}
+.pp-glass-card > *{position:relative;z-index:1}
+.pp-glass-header{display:flex;align-items:center;gap:12px;flex-wrap:wrap;
+  font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:600;
+  background:linear-gradient(135deg,#ffffff 0%,#9be4ff 45%,#4ba3e6 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:10px}
+.pp-glass-logo{display:inline-flex;align-items:center;justify-content:center;
+  width:38px;height:38px;border-radius:50%;
+  background:linear-gradient(135deg,#003087,#0070ba 55%,#009cde);
+  box-shadow:0 0 18px rgba(0,156,232,.55),inset 0 1px 0 rgba(255,255,255,.25);
+  font-family:'Trebuchet MS',Arial,sans-serif;font-weight:900;font-style:italic;
+  font-size:1.2rem;letter-spacing:-.06em;flex-shrink:0;
+  text-shadow:0 1px 4px rgba(0,0,0,.4)}
+.pgl-a{color:#fff}.pgl-b{color:#9be4ff;margin-left:-3px}
+.pp-glass-badge{font-size:.52rem;font-family:'Space Mono',monospace;color:#bfe6ff;
+  font-weight:700;padding:4px 10px;border-radius:99px;
+  border:1px solid rgba(0,200,255,.45);background:rgba(0,200,255,.10);
+  text-transform:uppercase;letter-spacing:.14em;margin-left:auto;
+  box-shadow:0 0 14px rgba(0,200,255,.32)}
+.pp-glass-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.pp-glass-pill{font-family:'Space Mono',monospace;font-size:.52rem;letter-spacing:.16em;
+  text-transform:uppercase;padding:4px 10px;border-radius:99px;
+  background:rgba(0,156,232,.14);border:1px solid rgba(0,200,255,.4);color:#bfe6ff}
+.pp-glass-desc{font-size:.78rem;color:rgba(220,240,255,.78);line-height:1.65;margin-bottom:14px}
+.pp-glass-amount{background:rgba(0,156,232,.08);border:1px solid rgba(0,200,255,.2);
+  border-radius:12px;padding:12px;text-align:center;margin-bottom:14px}
+.pga-lbl{font-family:'Space Mono',monospace;font-size:.5rem;color:rgba(191,230,255,.5);letter-spacing:.14em;margin-bottom:4px}
+.pga-val{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;
+  background:linear-gradient(135deg,#fff,#9be4ff);-webkit-background-clip:text;
+  background-clip:text;color:transparent}
+.pga-sub{font-family:'Space Mono',monospace;font-size:.46rem;color:rgba(191,230,255,.5)}
+.pp-glass-btn{width:100%;padding:13px;border-radius:11px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,#003087,#009cde);
+  color:#fff;font-family:'Bebas Neue',sans-serif;font-size:1.15rem;
+  letter-spacing:.08em;transition:all .28s;display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 4px 20px rgba(0,156,232,.4)}
+.pp-glass-btn:hover{transform:scale(1.02);box-shadow:0 0 40px rgba(0,156,232,.5)}
+
+
+
+/* ══════════ MUSEUM WALK + SPLIT-DOOR REVEAL ══════════ */
+/* Override viewport for true 3D perspective */
+#carousel-viewport{
+  perspective:2200px !important;
+  perspective-origin:50% 38%;
+  padding:60px 0 50px !important;
+  overflow:visible !important;
+}
+#carousel-track{
+  transform-style:preserve-3d;
+  padding:0 14vw !important;
+  gap:32px !important;
+  transition:none !important;
+  will-change:transform;
+}
+
+/* Each card sits in 3D space — JS sets --depth/--rot/--scl/--bri/--sat per card */
+.cat-card{
+  flex:0 0 240px !important;
+  height:340px !important;
+  transform-style:preserve-3d;
+  transform:translateZ(var(--depth,0px)) rotateY(var(--rot,0deg)) scale(var(--scl,1));
+  transition:transform .55s cubic-bezier(.22,1,.36,1),
+             box-shadow .45s ease,
+             border-color .35s ease,
+             filter .5s ease,
+             opacity .5s ease;
+  filter:brightness(var(--bri,1)) saturate(var(--sat,1));
+  will-change:transform,filter,opacity;
+  border-radius:20px !important;
+  background:linear-gradient(160deg,rgba(20,20,38,.96),rgba(6,8,18,.99)) !important;
+  box-shadow:
+    0 30px 60px -10px rgba(0,0,0,.7),
+    0 0 0 1px rgba(255,255,255,.04) inset,
+    0 1px 0 rgba(255,255,255,.06) inset,
+    0 -20px 40px -16px rgba(0,0,0,.5) inset;
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+}
+
+/* Focus state — the card under the spotlight */
+.cat-card.is-focus{
+  border-color:var(--ca,rgba(124,58,237,.8)) !important;
+  box-shadow:
+    0 40px 90px -10px rgba(0,0,0,.85),
+    0 0 60px var(--cs,rgba(124,58,237,.45)),
+    0 0 0 1px var(--ca,rgba(124,58,237,.5)) inset,
+    0 1px 0 rgba(255,255,255,.1) inset !important;
+}
+.cat-card.is-focus .cc-icon{
+  transform:scale(1.16) translateZ(20px);
+  box-shadow:0 0 40px var(--cs,rgba(124,58,237,.7));
+  border-color:var(--ca,rgba(124,58,237,.7));
+}
+.cat-card.is-focus .cc-label{
+  text-shadow:0 0 30px var(--cs,rgba(124,58,237,.6)),0 0 60px var(--cs,rgba(124,58,237,.3));
+  letter-spacing:.06em;
+}
+.cc-icon{transform:translateZ(15px);transition:all .5s cubic-bezier(.22,1,.36,1);
+  width:74px !important;height:74px !important;border-radius:20px !important;font-size:2.1rem !important}
+.cc-label{transform:translateZ(8px);transition:all .5s cubic-bezier(.22,1,.36,1);font-size:1.5rem !important}
+.cc-count, .cc-tier{transform:translateZ(4px)}
+
+/* Hide edge fades, we use depth instead */
+.carousel-fade{display:none !important}
+
+/* Bigger arrows */
+.carousel-arrow{
+  width:64px !important;height:64px !important;
+  font-size:1.8rem !important;font-weight:300;
+  background:rgba(6,182,212,.04) !important;
+  border:1px solid rgba(6,182,212,.18) !important;
+  box-shadow:0 0 24px rgba(6,182,212,.1),0 8px 28px rgba(0,0,0,.5) !important;
+}
+.carousel-arrow.left{left:24px !important}
+.carousel-arrow.right{right:24px !important}
+.carousel-arrow:hover{
+  box-shadow:0 0 60px rgba(6,182,212,.5),0 8px 32px rgba(0,0,0,.6) !important;
+  transform:translateY(-50%) scale(1.18) !important;
+}
+
+/* Subtle gallery floor line */
+#carousel-viewport::after{
+  content:'';position:absolute;left:0;right:0;bottom:8%;height:1px;
+  background:linear-gradient(90deg,transparent 0%,rgba(6,182,212,.15) 30%,rgba(6,182,212,.25) 50%,rgba(6,182,212,.15) 70%,transparent 100%);
+  z-index:1;pointer-events:none;
+}
+
+/* ══════════ SPLIT-DOOR ANIMATION ══════════ */
+/* When opening: chosen card becomes right door (transform-origin:left)
+   and rotates -180° to swing open inward to the left.
+   Card immediately to its left becomes left door (transform-origin:right)
+   and rotates +180° to swing open inward to the right.
+   All other cards fade and translate out. */
+.cat-card.door-right{
+  z-index:50 !important;
+  transform-origin:left center !important;
+  transition:transform 1.1s cubic-bezier(.62,.04,.34,1),
+             box-shadow .8s,
+             border-color .5s !important;
+  box-shadow:
+    0 50px 100px -20px rgba(0,0,0,.92),
+    -30px 0 60px -10px rgba(0,0,0,.6),
+    0 0 80px var(--cs,rgba(124,58,237,.55)) !important;
+}
+.cat-card.door-left{
+  z-index:50 !important;
+  transform-origin:right center !important;
+  transition:transform 1.1s cubic-bezier(.62,.04,.34,1),
+             box-shadow .8s,
+             border-color .5s !important;
+  box-shadow:
+    0 50px 100px -20px rgba(0,0,0,.92),
+    30px 0 60px -10px rgba(0,0,0,.6),
+    0 0 80px var(--cs,rgba(124,58,212,.55)) !important;
+}
+/* Open positions — swung open ~140deg so they show their backs facing center */
+.cat-card.door-right.opening{
+  transform:translateX(0) translateZ(80px) rotateY(-160deg) scale(1.08) !important;
+}
+.cat-card.door-left.opening{
+  transform:translateX(0) translateZ(80px) rotateY(160deg) scale(1.08) !important;
+}
+
+/* Other cards fade and recede */
+.cat-card.door-other{
+  opacity:0 !important;
+  transform:translateZ(-300px) scale(.4) rotateY(var(--rot,0deg)) !important;
+  pointer-events:none;
+  transition:all .9s cubic-bezier(.62,.04,.34,1) !important;
+}
+
+/* The reveal content panel sits between the doors */
+#door-reveal{
+  position:fixed;top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(.6);
+  width:min(720px,92vw);max-height:80vh;overflow-y:auto;
+  background:linear-gradient(160deg,rgba(6,8,18,.985),rgba(2,4,12,.99));
+  border:1px solid var(--ca,rgba(124,58,237,.4));
+  border-radius:24px;
+  box-shadow:
+    0 60px 140px rgba(0,0,0,.9),
+    0 0 100px var(--cs,rgba(124,58,237,.4)),
+    0 0 0 1px rgba(255,255,255,.06) inset;
+  opacity:0;pointer-events:none;z-index:40;
+  transition:opacity .7s .55s ease,transform .9s .45s cubic-bezier(.22,1,.36,1);
+  -webkit-overflow-scrolling:touch;
+}
+#door-reveal.open{opacity:1;pointer-events:auto;transform:translate(-50%,-50%) scale(1)}
+#door-reveal-close{position:sticky;top:14px;float:right;margin-right:14px;
+  width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.12);color:#fff;cursor:pointer;font-size:1rem;
+  z-index:5;transition:all .25s}
+#door-reveal-close:hover{background:rgba(255,80,80,.16);border-color:rgba(255,100,100,.4)}
+#door-reveal-head{padding:28px 32px 18px;border-bottom:1px solid rgba(255,255,255,.06);
+  display:flex;align-items:center;gap:14px}
+.dr-dot{width:14px;height:14px;border-radius:50%}
+#door-reveal-head h2{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;
+  letter-spacing:.06em;margin:0;color:#fff}
+#door-reveal-head p{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.16em;
+  color:rgba(255,255,255,.5);margin:4px 0 0;text-transform:uppercase}
+#door-reveal-spotlight{margin:20px 32px;padding:16px 18px;border-radius:14px;
+  background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+  display:flex;gap:14px;align-items:flex-start}
+.drs-ico{font-size:1.8rem;line-height:1;flex-shrink:0}
+.drs-text h3{font-family:'Space Mono',monospace;font-size:.66rem;letter-spacing:.16em;
+  color:var(--ca,#06b6d4);margin:0 0 4px;text-transform:uppercase}
+.drs-text p{font-size:.82rem;color:rgba(220,228,240,.7);line-height:1.6;margin:0}
+#door-reveal-grid{padding:0 32px 28px;display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.dr-card{padding:14px;border-radius:12px;background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);cursor:pointer;transition:all .25s;position:relative}
+.dr-card:hover{background:rgba(255,255,255,.06);border-color:var(--ca,rgba(124,58,237,.4));transform:translateY(-2px)}
+.drc-top{display:flex;gap:10px;margin-bottom:8px}
+.drc-emoji{font-size:1.3rem;line-height:1}
+.drc-name{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.04em;color:#fff;line-height:1.15}
+.drc-domain{font-family:'Space Mono',monospace;font-size:.5rem;color:rgba(255,255,255,.4);letter-spacing:.08em}
+.drc-desc{font-size:.72rem;color:rgba(220,228,240,.55);line-height:1.55;margin-bottom:8px}
+.drc-tags{display:flex;flex-wrap:wrap;gap:4px}
+.drc-tag{font-family:'Space Mono',monospace;font-size:.45rem;letter-spacing:.08em;
+  padding:2px 6px;border-radius:99px;color:#bff6ff;
+  background:rgba(0,229,255,.08);border:1px solid rgba(0,229,255,.2)}
+
+@media(max-width:680px){
+  #carousel-viewport{perspective:1400px}
+  .cat-card{flex:0 0 200px !important;height:280px !important}
+  #carousel-track{padding:0 8vw !important;gap:24px !important}
+  .carousel-arrow{width:48px !important;height:48px !important}
+  #door-reveal{width:96vw;max-height:84vh}
+  #door-reveal-grid{padding:0 18px 22px;grid-template-columns:1fr}
+  #door-reveal-head{padding:22px 18px 14px}
+}
+
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+<canvas id="stars"></canvas>
+<div class="neb neb1"></div><div class="neb neb2"></div><div class="neb neb3"></div>
+<div class="scanlines"></div>
+
+<!-- PREMIUM STRIP -->
+<div id="pstrip" onclick="openPremium()">
+  <div class="ps-left">
+    <div class="ps-badge">⚡ PREMIUM</div>
+    <div class="ps-txt">Weekly bundles · Python scripts · Tech stacks · AI agents · Bots · Deploy-ready configs</div>
+    <div class="ps-upd" id="ps-upd-txt">Weekly updates · Free: quarterly</div>
+  </div>
+  <button class="ps-cta" onclick="event.stopPropagation();openPayModal();">SUBSCRIBE $5/MO →</button>
+</div>
+
+<!-- 3D SCENE -->
+<!-- ══════════ NEW: CATEGORY CARD RAIL (replaces the 3D orb scene) ══════════ -->
+<div id="cat-rail" aria-label="Category carousel">
+  <button class="cr-arrow left"  type="button" id="cr-prev" aria-label="Previous category">‹</button>
+  <button class="cr-arrow right" type="button" id="cr-next" aria-label="Next category">›</button>
+  <div class="cr-strip" id="cr-strip"></div>
+</div>
+<div id="fb-scroll-hint" aria-hidden="true">
+  <span class="fhi">👆</span>
+  <span>Swipe / scroll · or use the arrows</span>
+</div>
+
+<div id="scene-wrap">
+  <div id="ucenter">
+    <div class="uc-badge">◈ FREE FOREVER · AI + CREATIVE</div>
+    <div id="utitle">
+      <span class="ut1">FREE</span>
+      <span class="ut2">BASE</span>
+    </div>
+    <div class="uc-sub">BROWSE CATEGORIES BELOW</div>
+    <div class="uc-drag">← SWIPE · SCROLL · CLICK →</div>
+  </div>
+  <div id="carousel-viewport">
+    <div class="carousel-fade left"></div>
+    <div class="carousel-arrow left" id="arr-l" onclick="cNav(-1)">‹</div>
+    <div id="carousel-track"></div>
+    <div class="carousel-arrow right" id="arr-r" onclick="cNav(1)">›</div>
+    <div class="carousel-fade right"></div>
+  </div>
+  <div id="carousel-dots"></div>
+</div>
+
+
+<!-- DOOR REVEAL PANEL — appears between the two split doors -->
+<div id="door-reveal" role="dialog" aria-hidden="true">
+  <button id="door-reveal-close" onclick="closeDoorReveal()">✕</button>
+  <div id="door-reveal-head">
+    <div class="dr-dot" id="dr-dot"></div>
+    <div>
+      <h2 id="dr-title">Category</h2>
+      <p id="dr-meta">0 free resources</p>
+    </div>
+  </div>
+  <div id="door-reveal-spotlight">
+    <div class="drs-ico" id="dr-spot-ico">◈</div>
+    <div class="drs-text">
+      <h3 id="dr-spot-h">Spotlight</h3>
+      <p id="dr-spot-b">…</p>
+    </div>
+  </div>
+  <div id="door-reveal-grid"></div>
+</div>
+
+<!-- FREE PANEL -->
+<div id="cpanel">
+  <div id="cph">
+    <button class="back-btn" onclick="closePanel()">← UNIVERSE</button>
+    <div id="pcatdot"></div>
+    <div><div id="ptitle">CATEGORY</div><div id="pdesc">Loading…</div></div>
+    <div class="free-upd-tag">QUARTERLY UPDATE<br><span id="free-upd-date">Q1 2025</span></div>
+    <div id="pcount">0</div>
+  </div>
+  <div class="pnav"><div class="pnav-inner" id="pnav-inner"></div></div>
+  <div class="srch-wrap">
+    <span class="srch-ico">🔍</span>
+    <input class="srch-box" id="searchInput" type="text" placeholder="Search by name, tag, or type…">
+  </div>
+  <div class="ps-wrap" id="panel-content"></div>
+  <div id="no-results">🌌 Nothing found for "<span id="search-term"></span>"</div>
+  <div class="pf">ARKBASE · FREE SECTION · Quarterly updates<br>Built with <span>♥</span> for creators worldwide · Always verify license before commercial use</div>
+</div>
+
+<!-- PREMIUM PANEL -->
+<div id="ppanel">
+  <div id="pph">
+    <div class="pp-crown">⚡</div>
+    <div class="pp-hdr">
+      <div class="pp-title">ARKBASE PREMIUM</div>
+      <div class="pp-sub">WEEKLY BUNDLES · PYTHON SCRIPTS · TECH STACKS · AGENTS · BOTS</div>
+    </div>
+    <div class="pp-upd-tag" id="pp-upd-tag">↺ UPDATED —</div>
+    <button id="ppclose" onclick="closePremium()">← UNIVERSE</button>
+  </div>
+  <div class="pp-tabs">
+    <button class="pp-tab active" onclick="filterBundles('all',this)">ALL</button>
+    <button class="pp-tab" onclick="filterBundles('creative',this)">🎬 CREATIVE</button>
+    <button class="pp-tab" onclick="filterBundles('devstack',this)">⚡ DEV STACKS</button>
+    <button class="pp-tab" onclick="filterBundles('python',this)">🐍 PYTHON</button>
+    <button class="pp-tab" onclick="filterBundles('agents',this)">🤖 AGENTS</button>
+    <button class="pp-tab" onclick="filterBundles('automation',this)">🔁 AUTOMATION</button>
+  </div>
+  <div class="pp-banner">
+    <div>
+      <h3>UNLOCK THE FULL ARSENAL</h3>
+      <p>Weekly curated bundles. Pre-configured tech stacks. Python scripts, bots and AI agent configs — tested and ready to deploy. New drops every Monday.</p>
+    </div>
+    <div class="pp-price">$5<span>/ MONTH</span></div>
+    <button class="pp-sub-btn" onclick="openPayModal();">SUBSCRIBE NOW →</button>
+  </div>
+  <div class="bundle-sect-hd" id="bundle-sect-hd">ALL BUNDLES</div>
+  <div class="bundle-grid" id="bundle-grid"></div>
+  <div class="pf" style="border-color:rgba(245,158,11,.1)">ARKBASE PREMIUM · $5/month · Cancel anytime · Updated every Monday<br>All bundles tested and verified · <span>♥</span> Built for builders</div>
+</div>
+
+<!-- REGISTRATION MODAL -->
+<div id="reg-modal">
+  <div id="reg-bd" onclick="closeRegModal()"></div>
+  <div id="reg-box">
+    <div class="reg-sigil">⬡</div>
+    <div class="reg-title">JOIN ARKBASE</div>
+    <p class="reg-sub">Enter the universe. Get notified when new free AI tools and assets drop. Zero spam — always.</p>
+    <div class="reg-field"><label class="reg-lbl" for="rn">YOUR NAME</label><input class="reg-in" id="rn" type="text" placeholder="e.g. Alex Chen" autocomplete="name"></div>
+    <div class="reg-field"><label class="reg-lbl" for="re">EMAIL ADDRESS</label><input class="reg-in" id="re" type="email" placeholder="you@domain.com" autocomplete="email"></div>
+    <button id="reg-submit" onclick="submitReg()">ENTER THE UNIVERSE →</button>
+    <div class="reg-error" id="reg-error">Please fill in all fields correctly.</div>
+    <p class="reg-terms">Occasional free resource digests. Unsubscribe anytime.</p>
+  </div>
+</div>
+
+<!-- FLOATING BACK BUTTON -->
+<div id="float-back" onclick="floatBackAction()">
+  <span class="fb-arrow">←</span>
+  <span>EXIT TO UNIVERSE</span>
+  <span class="fb-esc">ESC</span>
+</div>
+
+<!-- PAYMENT MODAL — 3 tabs: Card / PayPal / Bank -->
+<div id="pay-modal">
+  <div id="pay-bd" onclick="closePayModal()"></div>
+  <div id="pay-box">
+    <button id="payclose" onclick="closePayModal()">✕</button>
+    <div class="pay-crown">⚡</div>
+    <div class="pay-title">GO PREMIUM</div>
+    <div class="pay-price-blk">
+      <div class="pay-amount" id="fb-head-amt">$5</div>
+      <span class="pay-period" id="fb-head-per">PER MONTH · CANCEL ANYTIME</span>
+    </div>
+
+    <!-- Plan choice -->
+    <div class="pay-tabs">
+      <button class="pay-tab-btn active" id="fb-tab-monthly" type="button" onclick="pickPlan('monthly',this)">
+        <span class="ptb-icon">⚡</span><span class="ptb-lbl">MONTHLY · $5</span>
+      </button>
+      <button class="pay-tab-btn" id="fb-tab-annual" type="button" onclick="pickPlan('annual',this)">
+        <span class="ptb-icon">★</span><span class="ptb-lbl">ANNUAL · $48</span>
+      </button>
+    </div>
+
+    <!-- PAYPAL — glassmorphic card (matches xmqa.pro). Opens the live PayPal checkout on xmqa.pro. -->
+    <div class="pay-pane active" id="pane-paypal">
+      <div class="pp-glass-card">
+        <div class="pp-glass-header">
+          <span class="pp-glass-logo"><span class="pgl-a">Pay</span><span class="pgl-b">Pal</span></span>
+          <span>PayPal · Card · Wallet</span>
+          <span class="pp-glass-badge">Secure · Instant</span>
+        </div>
+        <div class="pp-glass-pills">
+          <span class="pp-glass-pill">256-bit SSL</span>
+          <span class="pp-glass-pill">Buyer Protection</span>
+          <span class="pp-glass-pill">Instant Capture</span>
+        </div>
+        <div class="pp-glass-desc">Pay with your PayPal balance, or any debit or credit card, on PayPal's secure checkout. You don't need a PayPal account to pay by card.</div>
+        <div class="pp-glass-amount">
+          <div class="pga-lbl">TOTAL TODAY</div>
+          <div class="pga-val" id="fb-amt">$5.00</div>
+          <div class="pga-sub" id="fb-amt-sub">then $5.00 / month — cancel anytime</div>
+        </div>
+        <a class="pp-glass-btn" id="fb-pp-link" href="https://xmqa.pro/?action=freebase-pay&amp;plan=monthly" rel="noopener" style="text-decoration:none">
+          <span class="ppb-logo" style="font-size:1.1rem">🅿</span>
+          <span>PAY WITH PAYPAL</span>
+        </a>
+        <a class="pp-glass-btn" id="fb-card-link" href="https://xmqa.pro/?action=freebase-pay&amp;plan=monthly" rel="noopener" style="text-decoration:none;margin-top:10px;background:transparent;border:1px solid rgba(155,228,255,.45);color:#9be4ff">
+          <span style="font-size:1.05rem">💳</span>
+          <span id="fb-card-lbl">PAY BY CARD</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="pay-secure">🔒 SECURED · SSL ENCRYPTED · CANCEL ANYTIME</div>
+
+
+</div>
+
+<script>
+// ════════════════════════════════════════════════════
+// FREE CATEGORIES DATA
+// ════════════════════════════════════════════════════
+const CATS = [
+  {id:'motion',emoji:'🌀',lbl:'MOTION\nGFX',color:'#7c3aed',rgb:'124,58,237',
+   title:'MOTION GRAPHICS',desc:'Animated backgrounds, overlays, intros & cinematic effects',isNew:false,tier:'FREE',
+   spot:{ico:'🌀',h:'ALL FREE · NO WATERMARK',b:'Every resource verified for free commercial use. <b style="color:#84cc16">FREE</b>=commercial OK, <b style="color:#06b6d4">CC0</b>=no attribution, <b style="color:#a78bfa">NO-WM</b>=zero watermarks.'},
+   cards:[
+    {e:'🌀',n:'Mixkit Motion Graphics',d:'mixkit.co',u:'https://mixkit.co/free-stock-video/motion-graphics/',desc:'86+ royalty-free HD/4K motion clips. No sign-up, no watermark, no attribution. Completely free for commercial projects.',tags:['free','nowm','cc0'],api:null},
+    {e:'✦',n:'Vecteezy Motion',d:'vecteezy.com',u:'https://www.vecteezy.com/free-motion-graphics',desc:'400,000+ motion graphic vectors. Massive library. Free tier with attribution on commercial use.',tags:['free','attr'],api:null},
+    {e:'🔮',n:'Pixabay Motion',d:'pixabay.com',u:'https://pixabay.com/videos/search/motion%20graphics/',desc:'9,800+ free 4K HD motion clips. CC0 — no attribution required, unlimited commercial use.',tags:['cc0','nowm','free'],api:null},
+    {e:'🎞',n:'Videvo Motion',d:'videvo.net',u:'https://www.videvo.net/free-motion-graphics/',desc:'HD and 4K motion graphics. Free tier with account. Some clips require attribution.',tags:['free','attr'],api:null},
+    {e:'🌊',n:'Videezy',d:'videezy.com',u:'https://www.videezy.com/',desc:'Huge library of animated backgrounds, looping effects and particles. Generous free tier.',tags:['free'],api:null},
+    {e:'🎪',n:'Coverr',d:'coverr.co',u:'https://coverr.co',desc:'Beautiful looping video clips. No attribution required. Refreshed weekly. Forever free.',tags:['cc0','free','nowm'],api:null},
+    {e:'💠',n:'Life of Vids',d:'lifeofvids.com',u:'https://www.lifeofvids.com',desc:'Free looping video clips and motion resources. CC0 — no attribution, no registration.',tags:['cc0','free'],api:null},
+    {e:'⚡',n:'Motion Array Free',d:'motionarray.com',u:'https://motionarray.com/browse/motion-graphics?free=true',desc:'Curated free motion graphics and After Effects templates. Free account required.',tags:['free'],api:null},
+   ]},
+  {id:'video',emoji:'📽',lbl:'STOCK\nVIDEO',color:'#ef4444',rgb:'239,68,68',
+   title:'STOCK VIDEO',desc:'Free 4K stock footage — no watermarks, no fees ever',isNew:false,tier:'FREE',
+   spot:{ico:'📽',h:'4K FOOTAGE · CC0 · ZERO COST',b:'All footage verified free for commercial use. Quality from HD to 4K UHD. Most require zero attribution.'},
+   cards:[
+    {e:'🎥',n:'Pexels Videos',d:'pexels.com',u:'https://www.pexels.com/videos/',desc:'12,000+ free HD stock videos. No attribution required. Free for all personal and commercial uses — forever.',tags:['cc0','free','nowm'],api:null},
+    {e:'🌍',n:'Pixabay Videos',d:'pixabay.com',u:'https://pixabay.com/videos/',desc:'2.7M+ free CC0 stock videos. No attribution, unlimited commercial use allowed.',tags:['cc0','free'],api:null},
+    {e:'🎬',n:'Videvo Free HD',d:'videvo.net',u:'https://www.videvo.net/free-stock-video/',desc:'Thousands of HD and 4K stock video clips. Some require attribution on free tier.',tags:['free','attr'],api:null},
+    {e:'🎞',n:'Dareful',d:'dareful.com',u:'https://dareful.com',desc:'Free 4K CC0 stock footage. High production quality, no attribution, no login needed.',tags:['cc0','free'],api:null},
+    {e:'🌅',n:'Mazwai',d:'mazwai.com',u:'https://mazwai.com',desc:'Beautifully curated cinematic stock videos. Creative Commons attribution license.',tags:['free','attr'],api:null},
+    {e:'🎭',n:'Splitshire',d:'splitshire.com',u:'https://www.splitshire.com',desc:'Free CC0 stock video. Use however you like, commercially or personally, forever.',tags:['cc0','free'],api:null},
+    {e:'🌊',n:'Stockio Video',d:'stockio.com',u:'https://www.stockio.com/free-videos/',desc:'Free stock videos by category. Personal and commercial use allowed with attribution.',tags:['free'],api:null},
+    {e:'🎪',n:'Mixkit Stock',d:'mixkit.co',u:'https://mixkit.co/free-stock-video/',desc:'Stunning stock clips. Completely free with no attribution required.',tags:['free','nowm'],api:null},
+   ]},
+  {id:'vectors',emoji:'⬡',lbl:'VECTORS',color:'#06b6d4',rgb:'6,182,212',
+   title:'VECTORS & SVG',desc:'Scalable graphics, SVGs, geometric assets and design elements',isNew:false,tier:'FREE',
+   spot:{ico:'⬡',h:'INFINITELY SCALABLE · FREE',b:'Vector graphics scale to any size without quality loss. Perfect for logos, UI, print and web at any DPI.'},
+   cards:[
+    {e:'🔷',n:'Vecteezy Vectors',d:'vecteezy.com',u:'https://www.vecteezy.com/free-vector',desc:'400,000+ free vectors. Enormous variety. Free tier requires attribution on commercial use.',tags:['free','attr'],api:null},
+    {e:'🎨',n:'Freepik Vectors',d:'freepik.com',u:'https://www.freepik.com/free-vectors',desc:'Millions of free vectors, graphics and templates updated daily. Free with attribution.',tags:['free','attr'],api:null},
+    {e:'💎',n:'SVG Repo',d:'svgrepo.com',u:'https://www.svgrepo.com',desc:'500,000+ open-licensed SVG vectors. CC0, MIT, Apache. Instant download, no registration.',tags:['cc0','free'],api:null},
+    {e:'🌀',n:'Haikei',d:'haikei.app',u:'https://haikei.app',desc:'Generate unique SVG blobs, shapes, backgrounds and patterns. Fully customizable. Completely free.',tags:['free'],api:null},
+    {e:'⬡',n:'Heroicons',d:'heroicons.com',u:'https://heroicons.com',desc:'Beautiful hand-crafted SVG icons by the Tailwind CSS team. MIT license. Free forever.',tags:['cc0','free'],api:null},
+    {e:'🎯',n:'unDraw',d:'undraw.co',u:'https://undraw.co',desc:'Open-source illustrations. Change accent colour, download SVG/PNG. MIT license — completely free.',tags:['cc0','free'],api:null},
+    {e:'🌈',n:'Pattern.monster',d:'pattern.monster',u:'https://pattern.monster',desc:'Create beautiful tileable SVG patterns. Customize and export — always free.',tags:['free'],api:null},
+    {e:'📐',n:'Coolors',d:'coolors.co',u:'https://coolors.co',desc:'Super-fast color scheme generator. Export palettes as SVG, CSS variables and more. Free.',tags:['free'],api:null},
+   ]},
+  {id:'anim',emoji:'✨',lbl:'ANIMA\nTIONS',color:'#f59e0b',rgb:'245,158,11',
+   title:'ANIMATIONS & LOTTIE',desc:'JSON animations, Lottie files, CSS effects and animated assets',isNew:false,tier:'FREE',
+   spot:{ico:'✨',h:'LOTTIE · CSS · GSAP · ALL FREE',b:'Lightweight JSON animations that play on web, iOS and Android. Many editable in-browser. Free tiers are genuinely unlimited.'},
+   cards:[
+    {e:'🎭',n:'LottieFiles Free',d:'lottiefiles.com',u:'https://lottiefiles.com/featured',desc:'Thousands of free Lottie JSON animations. Lightweight, scalable, editable in-browser. Free plan is very generous.',tags:['free'],api:null},
+    {e:'🌀',n:'Lordicon',d:'lordicon.com',href:'https://lordicon.com',u:'https://lordicon.com',desc:'Powerful animated icon library. Free plan includes 200+ animated icons with customizable colours.',tags:['free'],api:null},
+    {e:'⚡',n:'AnimXYZ',d:'animxyz.com',u:'https://animxyz.com',desc:'Composable CSS animation toolkit. Open-source, zero JavaScript required, ultra-lightweight. MIT license.',tags:['cc0','free'],api:null},
+    {e:'💫',n:'Animate.css',d:'animate.style',u:'https://animate.style',desc:'Just-add-water CSS animations. Open source, battle-tested animation library. MIT. Free forever.',tags:['cc0','free'],api:null},
+    {e:'🌊',n:'GSAP Core (Free)',d:'gsap.com',u:'https://gsap.com/pricing/',desc:'The gold standard of web animation. Core GSAP library completely free including commercial projects.',tags:['free'],api:null},
+    {e:'🎆',n:'Spline (Free)',d:'spline.design',u:'https://spline.design',desc:'Design and publish 3D web experiences. Free tier includes unlimited public scenes.',tags:['free'],api:null},
+    {e:'🎇',n:'Rive (Free)',d:'rive.app',u:'https://rive.app',desc:'Create and ship beautiful animations for any platform. Free community plan with unlimited storage.',tags:['free'],api:null},
+    {e:'⚙',n:'Motion One',d:'motion.dev',u:'https://motion.dev',desc:'Web Animations API animation library. Free and open-source, hardware-accelerated. MIT.',tags:['cc0','free'],api:null},
+   ]},
+  {id:'icons',emoji:'🔷',lbl:'ICONS',color:'#ec4899',rgb:'236,72,153',
+   title:'ICON PACKS',desc:'Thousands of free icons for every design and dev need',isNew:false,tier:'FREE',
+   spot:{ico:'🔷',h:'SVG · FONT · REACT · ALL FREE',b:'Every icon set listed has a completely free tier or is open-source MIT. Many support tree-shaking for optimal bundle size.'},
+   cards:[
+    {e:'💠',n:'Phosphor Icons',d:'phosphoricons.com',u:'https://phosphoricons.com',desc:'Flexible icon family. 1,000+ icons in 6 weights. MIT licensed. Available as SVG, React, Vue, Svelte.',tags:['cc0','free'],api:null},
+    {e:'🔵',n:'Lucide Icons',d:'lucide.dev',u:'https://lucide.dev',desc:'Beautiful & consistent icon toolkit. 1,500+ icons, ISC license. React, Vue, Svelte packages included.',tags:['cc0','free'],api:null},
+    {e:'🎪',n:'Tabler Icons',d:'tabler.io',u:'https://tabler.io/icons',desc:'5,000+ free MIT-licensed SVG icons. Pixel perfect outline style with React components.',tags:['cc0','free'],api:null},
+    {e:'🌈',n:'Bootstrap Icons',d:'icons.getbootstrap.com',u:'https://icons.getbootstrap.com',desc:'1,800+ free high-quality SVG icons for Bootstrap or any project. MIT license — forever free.',tags:['cc0','free'],api:null},
+    {e:'⚡',n:'Feather Icons',d:'feathericons.com',u:'https://feathericons.com',desc:'286 simply beautiful open-source icons. MIT licensed. Clean, minimal, timeless.',tags:['cc0','free'],api:null},
+    {e:'🎭',n:'Iconoir',d:'iconoir.com',u:'https://iconoir.com',desc:'1,500+ consistent SVG icons in one collection. Open-source MIT license.',tags:['cc0','free'],api:null},
+    {e:'🔥',n:'Font Awesome Free',d:'fontawesome.com',u:'https://fontawesome.com',desc:'2,000+ free icons in SVG, web font and React. The world\'s most popular icon set.',tags:['free'],api:null},
+    {e:'🌙',n:'Radix Icons',d:'radix-ui.com',u:'https://www.radix-ui.com/icons',desc:'Crisp set of 15×15 MIT-licensed icons by Radix UI. Perfect for UI design systems.',tags:['cc0','free'],api:null},
+   ]},
+  {id:'illustr',emoji:'🖼',lbl:'ILLUS\nTRATION',color:'#84cc16',rgb:'132,204,22',
+   title:'ILLUSTRATIONS',desc:'Flat art, character packs and editorial artwork — all free',isNew:false,tier:'FREE',
+   spot:{ico:'🖼',h:'EDITABLE SVG · COMMERCIAL · FREE',b:'Most packs are editable SVG — change colours, remix freely. MIT and CC0 options let you use commercially with zero attribution.'},
+   cards:[
+    {e:'🧑‍🎨',n:'unDraw',d:'undraw.co',u:'https://undraw.co',desc:'Open-source illustrations for every concept. Change accent colour, download SVG/PNG. MIT license. Completely free.',tags:['cc0','free'],api:null},
+    {e:'🌍',n:'Open Doodles',d:'opendoodles.com',u:'https://www.opendoodles.com',desc:'Free-to-use sketchbook illustrations of people. CC0 — no attribution required.',tags:['cc0','free'],api:null},
+    {e:'🎨',n:'DrawKit',d:'drawkit.com',u:'https://www.drawkit.com',desc:'Hand-drawn illustration packs for digital products. Free and premium options available.',tags:['free'],api:null},
+    {e:'💡',n:'Storyset by Freepik',d:'storyset.com',u:'https://storyset.com',desc:'Awesome free customizable illustrations. Editable in-browser. Free with attribution.',tags:['free','attr'],api:null},
+    {e:'🌈',n:'Blush Design',d:'blush.design',u:'https://blush.design',desc:'Create and customize stunning illustrations. Free plan with Figma plugin.',tags:['free'],api:null},
+    {e:'🎭',n:'Humaaans',d:'humaaans.com',u:'https://www.humaaans.com',desc:'Mix-and-match people illustrations. Free with attribution, made for Sketch and Figma.',tags:['free','attr'],api:null},
+    {e:'⚡',n:'ManyPixels Gallery',d:'manypixels.co',u:'https://www.manypixels.co/gallery',desc:'2,500+ royalty-free SVG illustrations. Fully editable. CC0 or attribution-based.',tags:['free','attr'],api:null},
+    {e:'🌊',n:'Absurd Design',d:'absurd.design',u:'https://absurd.design',desc:'Surrealist illustrations for presentations, websites or landing pages. Free plan available.',tags:['free'],api:null},
+   ]},
+  {id:'3d',emoji:'🧊',lbl:'3D &\nGAME',color:'#fb923c',rgb:'251,146,60',
+   title:'3D & GAME ART',desc:'Free 3D models, textures, sprites and production-ready assets',isNew:false,tier:'FREE',
+   spot:{ico:'🧊',h:'CC0 · BLENDER · GAME-READY',b:'All 3D assets verified for free use. Many are CC0 — no attribution, no strings. Ready for Blender, Unity, Unreal and any game engine.'},
+   cards:[
+    {e:'🌀',n:'Sketchfab Free',d:'sketchfab.com',u:'https://sketchfab.com/store?price=0',desc:'Millions of free 3D models downloadable in any format. Filter by CC license for free commercial use.',tags:['free'],api:null},
+    {e:'🎮',n:'Kenney Assets',d:'kenney.nl',u:'https://kenney.nl/assets',desc:'40,000+ CC0 public domain game assets — sprites, 3D models, audio, UI. No attribution ever required.',tags:['cc0','free'],api:null},
+    {e:'🧊',n:'Poly Pizza',d:'poly.pizza',u:'https://poly.pizza',desc:'Thousands of free low-poly 3D models. CC0 license, perfect for games and rapid prototyping.',tags:['cc0','free'],api:null},
+    {e:'⚡',n:'AmbientCG Textures',d:'ambientcg.com',u:'https://ambientcg.com',desc:'1,000+ CC0 PBR materials and textures in up to 4K resolution. No registration needed.',tags:['cc0','free'],api:null},
+    {e:'🔮',n:'Open3DModel',d:'open3dmodel.com',u:'https://open3dmodel.com',desc:'Free 3D models in OBJ, STL, 3DS, C4D, FBX formats. Personal and commercial use allowed.',tags:['free'],api:null},
+    {e:'🌍',n:'NASA 3D Resources',d:'nasa3d.arc.nasa.gov',u:'https://nasa3d.arc.nasa.gov',desc:'Free 3D models from NASA — spacecraft, planets, vehicles. Public domain, fully free.',tags:['cc0','free'],api:null},
+    {e:'🎭',n:'Mixamo',d:'mixamo.com',u:'https://www.mixamo.com',desc:'Free 3D character models and animations. Free Adobe account required. 2,000+ animations.',tags:['free'],api:null},
+    {e:'🏔',n:'CGTrader Free',d:'cgtrader.com',u:'https://www.cgtrader.com/free-3d-models',desc:'Free 3D models from community artists. Huge library across all categories.',tags:['free'],api:null},
+   ]},
+  {id:'tools',emoji:'🛠',lbl:'TOOLS',color:'#38bdf8',rgb:'56,189,248',
+   title:'CREATIVE TOOLS',desc:'Free software and browser tools for designers and artists',isNew:false,tier:'FREE',
+   spot:{ico:'🛠',h:'FREE SOFTWARE · OPEN SOURCE',b:'Professional-grade creative tools that cost absolutely nothing. Many are open-source alternatives to paid software costing hundreds per month.'},
+   cards:[
+    {e:'🎬',n:'DaVinci Resolve',d:'blackmagicdesign.com',u:'https://www.blackmagicdesign.com/products/davinciresolve/',desc:'Professional video editing, color grading and audio in one suite. Industry standard. Completely free.',tags:['free'],api:null},
+    {e:'🌀',n:'Blender',d:'blender.org',u:'https://blender.org',desc:'Free open-source 3D creation suite. Modeling, animation, rendering, VFX, motion tracking. GPL license.',tags:['cc0','free'],api:null},
+    {e:'✏',n:'Inkscape',d:'inkscape.org',u:'https://inkscape.org',desc:'Open-source professional SVG editor. Free alternative to Illustrator with full feature parity.',tags:['cc0','free'],api:null},
+    {e:'🖼',n:'GIMP',d:'gimp.org',u:'https://gimp.org',desc:'GNU Image Manipulation Program — free open-source Photoshop alternative. GPL license.',tags:['cc0','free'],api:null},
+    {e:'⚛',n:'Remotion',d:'remotion.dev',u:'https://remotion.dev',desc:'Create videos programmatically with React. Use CSS and web APIs, render as MP4. Free for personal use.',tags:['free'],api:null},
+    {e:'⚡',n:'Motion Canvas',d:'motioncanvas.io',u:'https://motioncanvas.io',desc:'TypeScript library for code-driven animations and motion graphics. MIT license. Free forever.',tags:['cc0','free'],api:null},
+    {e:'🎨',n:'Canva Free',d:'canva.com',u:'https://www.canva.com',desc:'Drag-and-drop design with millions of free templates, videos and graphics. Free tier is very generous.',tags:['free'],api:null},
+    {e:'🖊',n:'Figma Free',d:'figma.com',u:'https://www.figma.com',desc:'Browser-based collaborative design. Free tier includes unlimited projects and full prototyping.',tags:['free'],api:null},
+   ]},
+  {id:'software',emoji:'💻',lbl:'AI\nSOFTWARE',color:'#10b981',rgb:'16,185,129',
+   title:'AI CODING TOOLS',desc:'Free AI-powered editors, builders and completion engines',isNew:true,tier:'FREE TIER',
+   spot:{ico:'🔑',h:'FREE API KEYS · FREE TIERS',b:'AI coding tools have transformed development. Every tool listed offers a genuinely useful free tier. API key links provided where applicable.'},
+   cards:[
+    {e:'⚡',n:'Cursor AI',d:'cursor.sh',u:'https://cursor.sh',desc:'AI-first VS Code fork. Understands your whole codebase. Free tier: 2,000 completions/month + Sonnet access.',tags:['ft'],api:{l:'Get Free Access',u:'https://cursor.sh'}},
+    {e:'🌊',n:'Codeium / Windsurf',d:'codeium.com',u:'https://codeium.com',desc:'Free AI code completion for 70+ languages and 40+ IDEs. Unlimited completions on free plan — genuinely unlimited.',tags:['free'],api:{l:'Get Free API Key',u:'https://codeium.com/profile'}},
+    {e:'⚙',n:'Continue.dev',d:'continue.dev',u:'https://continue.dev',desc:'Open-source AI assistant for VS Code and JetBrains. Use any LLM — Ollama, Groq, Gemini. MIT license.',tags:['cc0','free'],api:{l:'Free Setup Guide',u:'https://docs.continue.dev/setup/configuration'}},
+    {e:'🔥',n:'Bolt.new',d:'bolt.new',u:'https://bolt.new',desc:'AI full-stack app builder in your browser. Write, run and deploy full apps from one prompt. Free tier available.',tags:['ft'],api:{l:'Start Free',u:'https://bolt.new'}},
+    {e:'🎯',n:'v0 by Vercel',d:'v0.dev',u:'https://v0.dev',desc:'Generate React/shadcn UI components from text prompts. Free tier: 10 generations/day. Exceptional quality.',tags:['ft'],api:{l:'Get Free Access',u:'https://v0.dev'}},
+    {e:'🤗',n:'Hugging Face',d:'huggingface.co',u:'https://huggingface.co/spaces',desc:'Deploy AI models and apps free. Inference API for 100k+ models. Free tier is very generous.',tags:['ft'],api:{l:'Get Free API Key',u:'https://huggingface.co/settings/tokens'}},
+    {e:'🌀',n:'Tabnine Free',d:'tabnine.com',u:'https://tabnine.com',desc:'AI code completion for any IDE. Free plan with whole-line completions. Works offline with local model.',tags:['free'],api:{l:'Get Free Access',u:'https://app.tabnine.com/signup'}},
+    {e:'💡',n:'Replit AI',d:'replit.com',u:'https://replit.com',desc:'AI-powered cloud IDE. Free Replit account includes AI assistant for code generation and debugging.',tags:['ft'],api:{l:'Start Free',u:'https://replit.com/signup'}},
+   ]},
+  {id:'music',emoji:'🎵',lbl:'AI\nMUSIC',color:'#a855f7',rgb:'168,85,247',
+   title:'AI MUSIC GENERATION',desc:'Generate full songs, beats and audio with AI — free tiers',isNew:true,tier:'FREE TIER',
+   spot:{ico:'🎵',h:'TEXT-TO-MUSIC · FREE TIER · AI VOCALS',b:'Create professional music tracks from text prompts. Free tiers range from 50 to 300 generations per month. Quality improves every few weeks.'},
+   cards:[
+    {e:'🎸',n:'Suno AI',d:'suno.com',u:'https://suno.com',desc:'Generate full songs with AI vocals from a text prompt. Free tier: 50 songs/day. Eerily realistic across all genres.',tags:['ft'],api:{l:'Start Free',u:'https://suno.com/sign-up'}},
+    {e:'🎹',n:'Udio',d:'udio.com',u:'https://udio.com',desc:'AI music creation with fine-grained style control. Free tier: 300 tracks/month. Excellent production quality.',tags:['ft'],api:{l:'Join Free',u:'https://www.udio.com/sign-in'}},
+    {e:'🎻',n:'AIVA',d:'aiva.ai',u:'https://aiva.ai',desc:'AI composition assistant. Free plan: 3 downloads/month, royalty-free for personal use.',tags:['ft'],api:{l:'Get Free Plan',u:'https://app.aiva.ai/'}},
+    {e:'🥁',n:'Beatoven.ai',d:'beatoven.ai',u:'https://beatoven.ai',desc:'AI royalty-free music generator for video, podcasts and games. Free tier available.',tags:['ft'],api:{l:'Start Free',u:'https://www.beatoven.ai/sign-up'}},
+    {e:'🌐',n:'Mubert',d:'mubert.com',u:'https://mubert.com',desc:'AI streaming music generation. Generate unique tracks from genre prompts. Free plan included.',tags:['ft'],api:{l:'Get Free API Key',u:'https://mubert.com/render/pricing'}},
+    {e:'🎷',n:'Stable Audio',d:'stability.ai',u:'https://www.stability.ai/stable-audio',desc:'Stability AI audio generation. Generate music and sound effects from text. Free access via Stability platform.',tags:['ft'],api:{l:'Get Free Access',u:'https://platform.stability.ai/'}},
+    {e:'🎤',n:'MusicGen (Meta)',d:'huggingface.co',u:'https://huggingface.co/spaces/facebook/MusicGen',desc:'Meta\'s open-source music generation model. Run completely free on HuggingFace Spaces. Open weights.',tags:['cc0','free'],api:{l:'Run Free on HF',u:'https://huggingface.co/spaces/facebook/MusicGen'}},
+    {e:'🔊',n:'ElevenLabs Free',d:'elevenlabs.io',u:'https://elevenlabs.io',desc:'AI voice and audio generation. Free plan: 10,000 characters/month + voice cloning + sound effects.',tags:['ft'],api:{l:'Get Free API Key',u:'https://elevenlabs.io/sign-up'}},
+   ]},
+  {id:'aivideo',emoji:'🎞',lbl:'AI\nVIDEO',color:'#f43f5e',rgb:'244,63,94',
+   title:'AI VIDEO GENERATION',desc:'Create cinematic videos from text with AI — free tiers',isNew:true,tier:'FREE TIER',
+   spot:{ico:'🎞',h:'TEXT-TO-VIDEO · FREE CREDITS',b:'AI video tools offer free tiers from 5 to 125 generation credits/month. Quality and duration improve monthly — bookmark and revisit.'},
+   cards:[
+    {e:'🚀',n:'Runway ML',d:'runwayml.com',u:'https://runwayml.com',desc:'Professional AI video generation. Gen-3 Alpha. Free plan: 125 one-time credits included on signup.',tags:['ft'],api:{l:'Get Free Credits',u:'https://app.runwayml.com/login'}},
+    {e:'🎬',n:'Pika Labs',d:'pika.art',u:'https://pika.art',desc:'Create and edit AI videos from images or text. Realistic motion, lip sync, special effects. Free tier included.',tags:['ft'],api:{l:'Start Free',u:'https://pika.art/login'}},
+    {e:'🌠',n:'Luma Dream Machine',d:'lumalabs.ai',u:'https://lumalabs.ai/dream-machine',desc:'Photorealistic video from text or images. Incredible camera motion and physics simulation. Free tier available.',tags:['ft'],api:{l:'Get Free Access',u:'https://lumalabs.ai/dream-machine'}},
+    {e:'🎭',n:'Kling AI',d:'klingai.com',u:'https://klingai.com',desc:'High-quality video generation by Kuaishou AI. Free daily credits. 5-second to 2-minute clips.',tags:['ft'],api:{l:'Start Free',u:'https://klingai.com/login'}},
+    {e:'⚡',n:'Hailuo AI',d:'hailuoai.com',u:'https://hailuoai.com',desc:'Fast AI video generation with strong motion quality. Free tier with daily generation quota.',tags:['ft'],api:{l:'Join Free',u:'https://hailuoai.com/login'}},
+    {e:'🎥',n:'InVideo AI',d:'invideo.ai',u:'https://invideo.ai',desc:'AI video creation from scripts and text. Free plan: 10 exports/week. Solid for quick content.',tags:['ft'],api:{l:'Start Free',u:'https://invideo.ai/signup/'}},
+    {e:'🌊',n:'Stable Video Diffusion',d:'huggingface.co',u:'https://huggingface.co/stabilityai/stable-video-diffusion-img2vid',desc:'Stability AI image-to-video model. Run free on HuggingFace. Fully open weights — CC0.',tags:['cc0','free'],api:{l:'Run on HuggingFace',u:'https://huggingface.co/stabilityai/stable-video-diffusion-img2vid'}},
+    {e:'✂',n:'Kapwing AI',d:'kapwing.com',u:'https://kapwing.com',desc:'AI-powered browser video editor. Auto subtitles, background removal, AI voiceover. Free tier included.',tags:['ft'],api:{l:'Start Free',u:'https://www.kapwing.com/signup'}},
+   ]},
+  {id:'agents',emoji:'🤖',lbl:'AI\nAGENTS',color:'#22d3ee',rgb:'34,211,238',
+   title:'AI AGENTS & ORCHESTRATION',desc:'Autonomous agents, multi-agent frameworks and workflow AI',isNew:true,tier:'FREE',
+   spot:{ico:'🤖',h:'OPEN SOURCE · SELF-HOSTABLE · FREE APIS',b:'AI agents complete complex tasks autonomously. All tools are free — open-source or generous free tiers. Free API key links included where needed.'},
+   cards:[
+    {e:'🔁',n:'n8n Workflow AI',d:'n8n.io',u:'https://n8n.io',desc:'Visual workflow automation with 400+ integrations and AI nodes. Free self-hosted forever, generous cloud free tier.',tags:['cc0','free'],api:{l:'Free Self-Host Docs',u:'https://docs.n8n.io/hosting/'}},
+    {e:'🧠',n:'AutoGPT',d:'agpt.co',u:'https://agpt.co',desc:'The original autonomous AI agent. Open-source platform for building and running custom AI agents. Free forever.',tags:['cc0','free'],api:{l:'Get Groq API (Free)',u:'https://console.groq.com/'}},
+    {e:'⚓',n:'CrewAI',d:'crewai.com',u:'https://crewai.com',desc:'Multi-agent orchestration framework. Build teams of AI agents that collaborate on complex tasks. MIT license.',tags:['cc0','free'],api:{l:'Get Groq API (Free)',u:'https://console.groq.com/'}},
+    {e:'🌊',n:'Flowise AI',d:'flowiseai.com',u:'https://flowiseai.com',desc:'Drag-and-drop LLM app and agent builder. Open-source, self-hostable, deploy locally in minutes.',tags:['cc0','free'],api:{l:'Get Gemini API (Free)',u:'https://aistudio.google.com/apikey'}},
+    {e:'🤖',n:'AgentGPT',d:'agentgpt.reworkd.ai',u:'https://agentgpt.reworkd.ai',desc:'Deploy autonomous AI agents in your browser. Set a goal, watch it research, plan and execute. Free tier.',tags:['ft'],api:{l:'Get Free Access',u:'https://agentgpt.reworkd.ai/'}},
+    {e:'⚡',n:'Dify.ai',d:'dify.ai',u:'https://dify.ai',desc:'LLM app development platform with visual workflow builder. Free self-hosted or generous cloud free tier.',tags:['ft'],api:{l:'Get Free Cloud',u:'https://cloud.dify.ai/signin'}},
+    {e:'🔥',n:'LangChain',d:'langchain.com',u:'https://langchain.com',desc:'The foundational framework for LLM apps and agents. Open-source MIT, 85k+ GitHub stars.',tags:['cc0','free'],api:{l:'Get Groq API (Free)',u:'https://console.groq.com/'}},
+    {e:'🌐',n:'OpenRouter Free Models',d:'openrouter.ai',u:'https://openrouter.ai',desc:'Route to 100+ AI models via one API. Dozens of completely free models — Llama 3.3, DeepSeek, Gemma and more.',tags:['free'],api:{l:'Get Free API Key',u:'https://openrouter.ai/keys'}},
+   ]},
+];
+
+// ════════════════════════════════════════════════════
+// PREMIUM BUNDLES DATA
+// ════════════════════════════════════════════════════
+const BUNDLES = [
+  {
+    id:'b1',cat:'creative',icon:'🎬',type:'CREATIVE BUNDLE',
+    name:'THE CONTENT CREATOR STACK',
+    tagline:'Full pipeline from idea to published video — zero subscription cost.',
+    tools:['Suno AI','ElevenLabs','Runway ML','DaVinci Resolve','Canva'],
+    tagBadge:'WEEKLY',isNew:true,
+    updFreq:'Every Monday',
+    incl:['AI music generation with Suno (free tier)','AI voiceover via ElevenLabs free','Video generation with Runway or Pika','Edit in DaVinci Resolve (free)','Thumbnail design in Canva'],
+    steps:[
+      {n:1,t:'Generate your background music',d:'Prompt Suno AI: "upbeat lo-fi hip hop, 2 minutes, no lyrics, focus music" → download MP3'},
+      {n:2,t:'Create your voiceover',d:'Paste your script into ElevenLabs → choose a voice clone → export WAV'},
+      {n:3,t:'Generate B-roll footage',d:'Use Runway Gen-3 or Pika: "aerial drone shot city sunrise cinematic slow motion" → 5-10 clips'},
+      {n:4,t:'Assemble in DaVinci Resolve',d:'Drop clips into timeline, layer audio tracks, colour grade with a LUT'},
+    ],
+    code:`# Automate ElevenLabs TTS (free tier)
+import requests
+
+def generate_voice(text, voice_id="Rachel"):
+    resp = requests.post(
+        "https://api.elevenlabs.io/v1/text-to-speech/" + voice_id,
+        headers={"xi-api-key": "YOUR_FREE_KEY"},
+        json={"text": text, "model_id": "eleven_monolingual_v1"}
+    )
+    with open("voiceover.mp3", "wb") as f:
+        f.write(resp.content)
+    print("✓ Voiceover saved")`
+  },
+  {
+    id:'b2',cat:'devstack',icon:'⚡',type:'DEV STACK BUNDLE',
+    name:'THE INDIE SAAS STARTER',
+    tagline:'Full SaaS tech stack you can deploy this weekend — all free tiers.',
+    tools:['Next.js','Supabase','Vercel','Clerk','Resend','Stripe'],
+    tagBadge:'WEEKLY',isNew:true,
+    updFreq:'Every Monday',
+    incl:['Next.js 15 App Router with TypeScript','Supabase (Postgres + Auth + Storage)','Vercel deployment — free hobby tier','Clerk authentication (10k MAU free)','Resend for transactional email (3k/mo free)','Stripe integration for payments'],
+    steps:[
+      {n:1,t:'Bootstrap the project',d:'npx create-next-app@latest myapp --typescript --tailwind → connect to Vercel'},
+      {n:2,t:'Add Supabase backend',d:'Create Supabase project → copy URL + anon key → npm install @supabase/supabase-js'},
+      {n:3,t:'Add Clerk auth',d:'npm install @clerk/nextjs → wrap layout in ClerkProvider → protect routes with middleware'},
+      {n:4,t:'Wire up Stripe',d:'npm install stripe @stripe/stripe-js → create products in Stripe dashboard → build checkout route'},
+    ],
+    code:`# Full stack setup script
+npx create-next-app@latest myapp \\
+  --typescript --tailwind --eslint \\
+  --app --src-dir --import-alias "@/*"
+
+cd myapp
+npm install @supabase/supabase-js \\
+  @clerk/nextjs stripe @stripe/stripe-js \\
+  resend
+
+# Copy env template
+cat > .env.local << 'EOF'
+NEXT_PUBLIC_SUPABASE_URL=your_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_key
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_xxx
+CLERK_SECRET_KEY=sk_xxx
+STRIPE_SECRET_KEY=sk_xxx
+RESEND_API_KEY=re_xxx
+EOF`
+  },
+  {
+    id:'b3',cat:'python',icon:'🐍',type:'PYTHON SCRIPT',
+    name:'AI CONTENT PIPELINE BOT',
+    tagline:'One Python script that researches, writes and posts content automatically.',
+    tools:['OpenRouter','Groq API','Tweepy','Schedule','Python 3.11'],
+    tagBadge:'WEEKLY',isNew:false,
+    updFreq:'Every Monday',
+    incl:['Fetches trending topics via RSS feeds','Generates article summaries with Groq (free)','Posts to Twitter/X via Tweepy API','Runs on a schedule — set and forget','Logs everything to a local SQLite database'],
+    steps:[
+      {n:1,t:'Install dependencies',d:'pip install groq tweepy schedule feedparser sqlite3 python-dotenv'},
+      {n:2,t:'Get free Groq API key',d:'console.groq.com → create account → API Keys → copy key → paste in .env'},
+      {n:3,t:'Configure Twitter API',d:'developer.twitter.com → create app → copy bearer token + credentials → paste in .env'},
+      {n:4,t:'Run and schedule',d:'python bot.py → it will run every 2 hours and post 1 thread per trending topic'},
+    ],
+    code:`import groq, feedparser, schedule, time
+from tweepy import Client
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+gc = groq.Groq(api_key=os.getenv("GROQ_KEY"))
+tw = Client(
+    consumer_key=os.getenv("TW_KEY"),
+    consumer_secret=os.getenv("TW_SECRET"),
+    access_token=os.getenv("TW_TOKEN"),
+    access_token_secret=os.getenv("TW_TSECRET")
+)
+
+def get_trending():
+    feed = feedparser.parse("https://feeds.feedburner.com/TechCrunch")
+    return [e.title for e in feed.entries[:3]]
+
+def write_and_post():
+    for topic in get_trending():
+        r = gc.chat.completions.create(
+            model="llama3-8b-8192",  # free
+            messages=[{"role":"user",
+              "content":f"Write a punchy 2-sentence take on: {topic}"}]
+        )
+        tweet = r.choices[0].message.content[:280]
+        tw.create_tweet(text=tweet)
+        print(f"✓ Posted: {tweet[:60]}...")
+
+schedule.every(2).hours.do(write_and_post)
+while True: schedule.run_pending(); time.sleep(60)`
+  },
+  {
+    id:'b4',cat:'agents',icon:'🤖',type:'AI AGENT BUNDLE',
+    name:'THE RESEARCH AGENT CREW',
+    tagline:'Multi-agent system that researches any topic and writes a full report.',
+    tools:['CrewAI','Groq API','Serper API','Python 3.11'],
+    tagBadge:'WEEKLY',isNew:true,
+    updFreq:'Every Monday',
+    incl:['Researcher agent scrapes the web for sources','Writer agent drafts a structured report','Editor agent reviews for quality and coherence','Output: clean markdown report saved to disk','Powered entirely by free APIs'],
+    steps:[
+      {n:1,t:'Install CrewAI',d:'pip install crewai crewai-tools groq python-dotenv'},
+      {n:2,t:'Get free API keys',d:'Groq: console.groq.com (free) · Serper: serper.dev (2500 free searches)'},
+      {n:3,t:'Define your crew',d:'Three agents: Researcher, Writer, Editor — each with a specific role and goal'},
+      {n:4,t:'Kick off the crew',d:'crew.kickoff(inputs={"topic": "quantum computing trends 2025"}) → markdown report saved'},
+    ],
+    code:`from crewai import Agent, Task, Crew, Process
+from crewai_tools import SerperDevTool
+import os
+
+search = SerperDevTool()
+
+researcher = Agent(role="Senior Researcher",
+    goal="Find the 5 most important facts about {topic}",
+    tools=[search], llm="groq/llama3-70b-8192",
+    backstory="Expert at finding credible sources fast.")
+
+writer = Agent(role="Technical Writer",
+    goal="Turn research into a clear 800-word report",
+    llm="groq/llama3-70b-8192",
+    backstory="Converts complex info into digestible content.")
+
+t1 = Task(description="Research {topic}. Find 5 key facts with sources.",
+    agent=researcher, expected_output="5 bullet points with sources")
+
+t2 = Task(description="Write an 800-word report from the research.",
+    agent=writer, expected_output="Full markdown report",
+    output_file="report.md")
+
+crew = Crew(agents=[researcher, writer],
+    tasks=[t1, t2], process=Process.sequential)
+
+result = crew.kickoff(inputs={"topic": "AI agents 2025"})`
+  },
+  {
+    id:'b5',cat:'automation',icon:'🔁',type:'AUTOMATION BUNDLE',
+    name:'THE N8N AI AUTOMATION KIT',
+    tagline:'5 ready-to-import n8n workflows for common AI automation tasks.',
+    tools:['n8n','OpenRouter','Gmail','Slack','Notion','Webhook'],
+    tagBadge:'WEEKLY',isNew:true,
+    updFreq:'Every Monday',
+    incl:['Email → AI summary → Slack notification','PDF to structured JSON extractor','Daily news briefing to your inbox','GitHub PR auto-reviewer with AI','Social media scheduler with AI captions'],
+    steps:[
+      {n:1,t:'Install n8n locally',d:'npm install -g n8n → n8n start → open localhost:5678'},
+      {n:2,t:'Import the workflow JSON',d:'Settings → Import Workflow → paste the JSON below → click Import'},
+      {n:3,t:'Connect your credentials',d:'Click each node → add Gmail/Slack/Notion credentials → use OAuth or API keys'},
+      {n:4,t:'Activate and test',d:'Toggle "Active" → trigger manually first → check execution log → enable schedule'},
+    ],
+    code:`// n8n Email-to-Slack AI Summary Workflow (JSON)
+{
+  "nodes": [
+    {"type": "n8n-nodes-base.emailReadImap",
+     "name": "Watch Gmail",
+     "parameters": {"mailbox": "INBOX", "format": "simple"}},
+    {"type": "@n8n/n8n-nodes-langchain.openAi",
+     "name": "Summarize Email",
+     "parameters": {
+       "model": "gpt-4o-mini",
+       "prompt": "=Summarize this email in 3 bullet points:\\n{{$json.text}}"
+     }},
+    {"type": "n8n-nodes-base.slack",
+     "name": "Post to Slack",
+     "parameters": {
+       "channel": "#summaries",
+       "text": "=📧 New email summary:\\n{{$json.message.content}}"
+     }}
+  ]
+}`
+  },
+  {
+    id:'b6',cat:'devstack',icon:'🧱',type:'DEV STACK BUNDLE',
+    name:'THE AI APP FULL STACK',
+    tagline:'Deploy a full AI-powered web app in under an hour — all free APIs.',
+    tools:['FastAPI','React','OpenRouter','Supabase','Railway'],
+    tagBadge:'WEEKLY',isNew:false,
+    updFreq:'Every Monday',
+    incl:['FastAPI Python backend with streaming LLM responses','React frontend with real-time streaming UI','OpenRouter for LLM routing (free models included)','Supabase for auth and conversation history','Railway for free backend hosting (500hr/mo free)'],
+    steps:[
+      {n:1,t:'Create the FastAPI backend',d:'pip install fastapi uvicorn openai httpx → create main.py with streaming endpoint'},
+      {n:2,t:'Bootstrap React frontend',d:'npm create vite@latest ui -- --template react-ts → npm install'},
+      {n:3,t:'Connect OpenRouter',d:'openrouter.ai → get free API key → set in .env → pick a free model like Llama 3.3'},
+      {n:4,t:'Deploy to Railway',d:'railway init → railway up → set env vars in Railway dashboard → share your URL'},
+    ],
+    code:`# FastAPI streaming LLM backend
+from fastapi import FastAPI
+from fastapi.responses import StreamingResponse
+import httpx, json, os
+
+app = FastAPI()
+
+@app.post("/chat")
+async def chat(body: dict):
+    async def stream():
+        async with httpx.AsyncClient() as client:
+            async with client.stream("POST",
+              "https://openrouter.ai/api/v1/chat/completions",
+              headers={"Authorization": f"Bearer {os.getenv('OR_KEY')}"},
+              json={"model": "meta-llama/llama-3.3-70b-instruct:free",
+                    "messages": body["messages"], "stream": True},
+              timeout=60) as r:
+                async for chunk in r.aiter_lines():
+                    if chunk.startswith("data: "):
+                        yield chunk + "\\n\\n"
+    return StreamingResponse(stream(), media_type="text/event-stream")`
+  },
+  {
+    id:'b7',cat:'python',icon:'📊',type:'PYTHON SCRIPT',
+    name:'AI DATA ANALYST BOT',
+    tagline:'Drop a CSV. Get a full AI-written analysis report in seconds.',
+    tools:['Pandas','Groq API','Matplotlib','FPDF','Python 3.11'],
+    tagBadge:'WEEKLY',isNew:false,
+    updFreq:'Every Monday',
+    incl:['Reads any CSV file automatically','Generates statistical summary with Pandas','Groq writes a natural language analysis (free)','Creates charts with Matplotlib','Exports a PDF report ready to share'],
+    steps:[
+      {n:1,t:'Install dependencies',d:'pip install pandas groq matplotlib fpdf2 python-dotenv'},
+      {n:2,t:'Add your CSV',d:'Drop your data.csv in the folder — any format works, the script adapts'},
+      {n:3,t:'Run the analyst',d:'python analyst.py data.csv → wait ~10 seconds → report.pdf created'},
+      {n:4,t:'Customise the prompt',d:'Edit ANALYSIS_PROMPT in the script to focus on specific business questions'},
+    ],
+    code:`import pandas as pd, groq, sys, os
+from fpdf import FPDF
+from dotenv import load_dotenv
+
+load_dotenv()
+client = groq.Groq(api_key=os.getenv("GROQ_KEY"))
+
+def analyse(filepath):
+    df = pd.read_csv(filepath)
+    stats = df.describe().to_string()
+    prompt = f"""You are a data analyst. Here are statistics from a CSV:
+{stats}
+
+Columns: {list(df.columns)}
+Rows: {len(df)}
+
+Write a 5-paragraph business analysis report. Be specific and insightful."""
+
+    r = client.chat.completions.create(
+        model="llama3-70b-8192",  # free
+        messages=[{"role": "user", "content": prompt}]
+    )
+    analysis = r.choices[0].message.content
+
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Helvetica", size=12)
+    pdf.multi_cell(0, 8, analysis)
+    pdf.output("report.pdf")
+    print("✓ report.pdf created")
+
+analyse(sys.argv[1] if len(sys.argv) > 1 else "data.csv")`
+  },
+  {
+    id:'b8',cat:'agents',icon:'🕵',type:'AI AGENT BUNDLE',
+    name:'THE AUTONOMOUS WEB SCRAPER AGENT',
+    tagline:'AI agent that scrapes, filters and summarises any website on demand.',
+    tools:['Playwright','BeautifulSoup','Groq','SQLite','Python 3.11'],
+    tagBadge:'WEEKLY',isNew:false,
+    updFreq:'Every Monday',
+    incl:['Headless browser via Playwright handles JS-rendered pages','BeautifulSoup extracts clean text from HTML','Groq AI filters and summarises the content','Results stored in SQLite for querying later','Schedule to run daily and email digest'],
+    steps:[
+      {n:1,t:'Install dependencies',d:'pip install playwright beautifulsoup4 groq → playwright install chromium'},
+      {n:2,t:'Define your targets',d:'Edit URLS list in the script — can be any publicly accessible page'},
+      {n:3,t:'Run the agent',d:'python scraper_agent.py → each page scraped, summarised, saved to DB'},
+      {n:4,t:'Query results',d:'sqlite3 scrapes.db "SELECT * FROM results ORDER BY created_at DESC LIMIT 10"'},
+    ],
+    code:`import asyncio, groq, sqlite3
+from playwright.async_api import async_playwright
+from bs4 import BeautifulSoup
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+gc = groq.Groq(api_key=os.getenv("GROQ_KEY"))
+db = sqlite3.connect("scrapes.db")
+db.execute("CREATE TABLE IF NOT EXISTS results(url TEXT, summary TEXT, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
+
+URLS = ["https://techcrunch.com", "https://news.ycombinator.com"]
+
+async def scrape_and_summarise(url):
+    async with async_playwright() as p:
+        browser = await p.chromium.launch()
+        page = await browser.new_page()
+        await page.goto(url, timeout=30000)
+        html = await page.content()
+        await browser.close()
+
+    text = BeautifulSoup(html, "html.parser").get_text()[:4000]
+    r = gc.chat.completions.create(
+        model="llama3-8b-8192",
+        messages=[{"role":"user","content":f"Summarise the top 5 stories from:\\n{text}"}]
+    )
+    summary = r.choices[0].message.content
+    db.execute("INSERT INTO results(url,summary) VALUES(?,?)", (url, summary))
+    db.commit()
+    print(f"✓ {url} → {summary[:80]}...")
+
+asyncio.run(asyncio.gather(*[scrape_and_summarise(u) for u in URLS]))`
+  },
+  {
+    id:'b9',cat:'creative',icon:'🎨',type:'CREATIVE BUNDLE',
+    name:'THE AI ART DIRECTOR STACK',
+    tagline:'Generate, upscale and publish stunning AI imagery — fully automated.',
+    tools:['Stable Diffusion','ComfyUI','AUTOMATIC1111','Hugging Face','GIMP'],
+    tagBadge:'WEEKLY',isNew:false,
+    updFreq:'Every Monday',
+    incl:['ComfyUI for node-based image generation workflows','SDXL model via Hugging Face (free inference)','Batch generation via Python + REST API','Upscaling with Real-ESRGAN (4x free)','Post-processing automation via GIMP Script-Fu'],
+    steps:[
+      {n:1,t:'Set up ComfyUI',d:'git clone https://github.com/comfyanonymous/ComfyUI → pip install -r requirements.txt → python main.py'},
+      {n:2,t:'Load SDXL model',d:'Download sdxl_base_1.0.safetensors from Hugging Face → place in models/checkpoints/'},
+      {n:3,t:'Use the API',d:'ComfyUI runs on port 8188 — submit workflows via JSON to /prompt endpoint'},
+      {n:4,t:'Automate batch generation',d:'Use the Python script below to queue 50 variations from a prompt list'},
+    ],
+    code:`import requests, json, time, uuid
+
+COMFY_URL = "http://127.0.0.1:8188"
+PROMPTS = [
+    "cyberpunk city rain neon lights 8k",
+    "ancient forest sunbeams misty",
+    "abstract geometric art minimalist"
+]
+
+def queue_prompt(positive, negative="blurry, low quality"):
+    workflow = {
+        "3": {"inputs": {"seed": int(time.time()), "steps": 20,
+               "cfg": 7, "sampler_name": "dpmpp_2m",
+               "scheduler": "karras", "denoise": 1,
+               "model": ["4", 0], "positive": ["6", 0],
+               "negative": ["7", 0], "latent_image": ["5", 0]},
+              "class_type": "KSampler"},
+        "6": {"inputs": {"text": positive, "clip": ["4", 1]},
+              "class_type": "CLIPTextEncode"},
+        "7": {"inputs": {"text": negative, "clip": ["4", 1]},
+              "class_type": "CLIPTextEncode"},
+    }
+    r = requests.post(f"{COMFY_URL}/prompt",
+        json={"prompt": workflow, "client_id": str(uuid.uuid4())})
+    return r.json().get("prompt_id")
+
+for p in PROMPTS:
+    pid = queue_prompt(p)
+    print(f"✓ Queued: {p[:40]}... → {pid}")`
+  },
+  {
+    id:'b10',cat:'automation',icon:'📨',type:'AUTOMATION BUNDLE',
+    name:'THE SMART EMAIL AGENT',
+    tagline:'AI reads your inbox, drafts replies and files emails — runs locally.',
+    tools:['Python','Groq API','Gmail API','SQLite','Schedule'],
+    tagBadge:'WEEKLY',isNew:true,
+    updFreq:'Every Monday',
+    incl:['Connects to Gmail via OAuth2 (no password stored)','Classifies emails: urgent / newsletter / reply-needed','Drafts suggested replies with Groq AI (free)','Archives newsletters automatically','Sends you a daily digest of what needs attention'],
+    steps:[
+      {n:1,t:'Enable Gmail API',d:'console.cloud.google.com → create project → enable Gmail API → download credentials.json'},
+      {n:2,t:'Install dependencies',d:'pip install google-auth google-auth-oauthlib google-api-python-client groq schedule'},
+      {n:3,t:'Authenticate once',d:'python email_agent.py --auth → browser opens → grant access → token.json saved locally'},
+      {n:4,t:'Run the agent',d:'python email_agent.py → processes last 20 unread → drafts.db contains AI reply suggestions'},
+    ],
+    code:`from googleapiclient.discovery import build
+from google.oauth2.credentials import Credentials
+import groq, sqlite3, base64, os
+from dotenv import load_dotenv
+
+load_dotenv()
+gc = groq.Groq(api_key=os.getenv("GROQ_KEY"))
+db = sqlite3.connect("drafts.db")
+db.execute("CREATE TABLE IF NOT EXISTS drafts(id TEXT, subject TEXT, draft TEXT, created TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
+
+def process_emails():
+    creds = Credentials.from_authorized_user_file("token.json")
+    service = build("gmail", "v1", credentials=creds)
+    msgs = service.users().messages().list(
+        userId="me", labelIds=["UNREAD"], maxResults=10).execute()
+
+    for m in msgs.get("messages", []):
+        msg = service.users().messages().get(userId="me", id=m["id"]).execute()
+        subj = next((h["value"] for h in msg["payload"]["headers"] if h["name"]=="Subject"), "No subject")
+        body = base64.urlsafe_b64decode(msg["payload"].get("body",{}).get("data","") + "==").decode("utf-8", errors="ignore")[:2000]
+
+        r = gc.chat.completions.create(
+            model="llama3-8b-8192",
+            messages=[{"role":"user","content":f"Draft a professional reply to this email. Subject: {subj}\\n\\n{body}"}]
+        )
+        draft = r.choices[0].message.content
+        db.execute("INSERT INTO drafts(id,subject,draft) VALUES(?,?,?)", (m["id"],subj,draft))
+        db.commit()
+        print(f"✓ Draft created for: {subj[:50]}")
+
+process_emails()`
+  },
+];
+
+// ════════════════════════════════════════════════════
+// DATES
+// ════════════════════════════════════════════════════
+function getWeeklyUpdateDate() {
+  const now = new Date();
+  const day = now.getDay();
+  const diff = now.getDate() - day + (day === 0 ? -6 : 1);
+  const monday = new Date(now.setDate(diff));
+  return monday.toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'});
+}
+function getQuarterlyDate() {
+  const now = new Date();
+  const q = Math.ceil((now.getMonth()+1)/3);
+  return `Q${q} ${now.getFullYear()}`;
+}
+document.getElementById('ps-upd-txt').textContent = `Updated: ${getWeeklyUpdateDate()} · Free: ${getQuarterlyDate()}`;
+document.getElementById('pp-upd-tag').textContent = `↺ UPDATED ${getWeeklyUpdateDate().toUpperCase()}`;
+document.getElementById('free-upd-date').textContent = getQuarterlyDate();
+
+// ════════════════════════════════════════════════════
+// STARFIELD
+// ════════════════════════════════════════════════════
+(function(){
+  const c = document.getElementById('stars'), ctx = c.getContext('2d');
+  let stars=[];
+  function resize(){
+    c.width=innerWidth; c.height=innerHeight;
+    stars=Array.from({length:240},()=>({
+      x:Math.random()*c.width,y:Math.random()*c.height,
+      r:Math.random()*1.4+.2,o:Math.random()*.7+.1,
+      sp:Math.random()*.5+.1,ph:Math.random()*Math.PI*2
+    }));
+  }
+  resize(); addEventListener('resize',resize);
+  function draw(t){
+    ctx.clearRect(0,0,c.width,c.height);
+    stars.forEach(s=>{
+      const op=s.o*(.4+.6*Math.abs(Math.sin(t*.001*s.sp+s.ph)));
+      ctx.beginPath(); ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,255,${op})`; ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// ════════════════════════════════════════════════════
+// CURSOR
+// ════════════════════════════════════════════════════
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  cur.style.left=mx+'px';cur.style.top=my+'px';
+});
+(function animRing(){
+  rx+=(mx-rx)*.1;ry+=(my-ry)*.1;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+})();
+document.addEventListener('mouseover',e=>{
+  if(e.target.closest('a,button,.cat-card,.card,.api-btn,.pp-tab,.pnav-btn,.bc-how-btn')){
+    cur.style.width='18px';cur.style.height='18px';
+    cur.style.background='#ec4899';cur.style.boxShadow='0 0 16px #ec4899,0 0 32px rgba(236,72,153,.5)';
+  }
+});
+document.addEventListener('mouseout',e=>{
+  if(e.target.closest('a,button,.cat-card,.card,.api-btn,.pp-tab,.pnav-btn,.bc-how-btn')){
+    cur.style.width='10px';cur.style.height='10px';
+    cur.style.background='#06b6d4';cur.style.boxShadow='0 0 14px #06b6d4,0 0 28px rgba(6,182,212,.5)';
+  }
+});
+
+// ════════════════════════════════════════════════════
+// SVG ICONS PER CATEGORY
+// ════════════════════════════════════════════════════
+const CAT_SVGS={
+  motion:`<svg width="38" height="38" viewBox="0 0 38 38" fill="none"><polygon points="11,7 33,19 11,31" fill="rgba(255,255,255,.93)"/><rect x="4" y="7" width="5" height="24" rx="2.5" fill="rgba(255,255,255,.55)"/></svg>`,
+  video:`<svg width="38" height="38" viewBox="0 0 38 38" fill="none"><rect x="2" y="10" width="22" height="18" rx="3" fill="rgba(255,255,255,.82)"/><polygon points="24,15 36,9 36,29 24,23" fill="rgba(255,255,255,.65)"/><circle cx="9" cy="19" r="3.5" fill="rgba(239,68,68,.85)"/></svg>`,
+  vectors:`<svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path d="M6 32 C6 32 15 6 19 6 C23 6 32 32 32 32" stroke="rgba(255,255,255,.9)" stroke-width="2.5" fill="none" stroke-linecap="round"/><circle cx="6" cy="32" r="4" fill="rgba(6,182,212,1)"/><circle cx="19" cy="6" r="4" fill="rgba(6,182,212,1)"/><circle cx="32" cy="32" r="4" fill="rgba(6,182,212,1)"/><line x1="6" y1="32" x2="2" y2="20" stroke="rgba(6,182,212,.6)" stroke-width="1.5"/><line x1="19" y1="6" x2="25" y2="2" stroke="rgba(6,182,212,.6)" stroke-width="1.5"/></svg>`,
+  anim:`<svg width="38" height="38" viewBox="0 0 38 38" fill="none"><circle cx="19" cy="19" r="5.5" fill="rgba(245,158,11,.98)"/><rect x="18" y="2" width="2.5" height="8" rx="1.25" fill="rgba(245,158,11,.9)" /><rect x="18" y="28" width="2.5" height="8" rx="1.25" fill="rgba(245,158,11,.6)"/><rect x="28" y="18" width="8" height="2.5" rx="1.25" fill="rgba(245,158,11,.9)"/><rect x="2" y="18" width="8" height="2.5" rx="1.25" fill="rgba(245,158,11,.6)"/><rect x="25.7" y="5.7" width="2.5" height="8" rx="1.25" fill="rgba(245,158,11,.75)" transform="rotate(45 25.7 5.7)"/><rect x="5.3" y="24.3" width="2.5" height="8" rx="1.25" fill="rgba(245,158,11,.5)" transform="rotate(45 5.3 24.3)"/><rect x="25.7" y="23.5" width="2.5" height="8" rx="1.25" fill="rgba(245,158,11,.65)" transform="rotate(-45 25.7 23.5)"/><rect x="5.3" y="4.9" width="2.5" height="8" rx="1.25" fill="rgba(245,158,11,.4)" transform="rotate(-45 5.3 4.9)"/></svg>`,
+  icons:`<svg width="38" height="38" viewBox="0 0 38 38" fill="none"><rect x="3" y="3" width="14" height="14" rx="3.5" fill="rgba(255,255,255,.88)"/><rect x="21" y="3" width="14" height="14" rx="3.5" fill="rgba(236,72,153,.85)"/><rect x="3" y="21" width="14" height="14" rx="3.5" fill="rgba(236,72,153,.7)"/><rect x="21" y="21" width="14" height="14" rx="3.5" fill="rgba(255,255,255,.75)"/></svg>`,
+  illustr:`<svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path d="M9 30 Q13 12 19 10 Q25 12 27 22 Q29 30 35 32" stroke="rgba(132,204,22,.95)" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="8" cy="31" rx="6" ry="4" fill="rgba(132,204,22,.7)" transform="rotate(-18 8 31)"/><circle cx="19" cy="10" r="3.5" fill="rgba(255,255,255,.65)"/></svg>`,
+  '3d':`<svg width="38" height="38" viewBox="0 0 38 38" fill="none"><polygon points="19,3 35,13 35,25 19,35 3,25 3,13" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.5"/><polygon points="19,3 35,13 19,19" fill="rgba(251,146,60,.4)"/><polygon points="19,3 3,13 19,19" fill="rgba(251,146,60,.6)"/><polygon points="3,13 19,19 3,25" fill="rgba(251,146,60,.45)"/><polygon points="35,13 19,19 35,25" fill="rgba(251,146,60,.3)"/><line x1="19" y1="3" x2="19" y2="19" stroke="rgba(255,255,255,.45)" stroke-width="1"/><line x1="3" y1="13" x2="19" y2="19" stroke="rgba(255,255,255,.45)" stroke-width="1"/><line x1="35" y1="13" x2="19" y2="19" stroke="rgba(255,255,255,.45)" stroke-width="1"/></svg>`,
+  tools:`<svg width="38" height="38" viewBox="0 0 38 38" fill="none"><circle cx="19" cy="19" r="8" fill="none" stroke="rgba(56,189,248,.95)" stroke-width="2.5"/><circle cx="19" cy="19" r="3.5" fill="rgba(56,189,248,.95)"/><rect x="17.75" y="3" width="2.5" height="8" rx="1.25" fill="rgba(56,189,248,.72)"/><rect x="17.75" y="27" width="2.5" height="8" rx="1.25" fill="rgba(56,189,248,.55)"/><rect x="3" y="17.75" width="8" height="2.5" rx="1.25" fill="rgba(56,189,248,.72)"/><rect x="27" y="17.75" width="8" height="2.5" rx="1.25" fill="rgba(56,189,248,.55)"/></svg>`,
+  software:`<svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path d="M5 20 L13 12 L5 4" stroke="rgba(16,185,129,.95)" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/><line x1="17" y1="26" x2="33" y2="26" stroke="rgba(16,185,129,.75)" stroke-width="3" stroke-linecap="round"/><rect x="3" y="30" width="32" height="5" rx="2.5" fill="none" stroke="rgba(16,185,129,.35)" stroke-width="1.5"/></svg>`,
+  music:`<svg width="38" height="38" viewBox="0 0 38 38" fill="none"><rect x="4" y="16" width="4" height="15" rx="2" fill="rgba(168,85,247,.95)"/><rect x="11" y="9" width="4" height="22" rx="2" fill="rgba(168,85,247,.8)"/><rect x="18" y="19" width="4" height="12" rx="2" fill="rgba(168,85,247,.95)"/><rect x="25" y="4" width="4" height="27" rx="2" fill="rgba(168,85,247,.65)"/><rect x="32" y="12" width="4" height="19" rx="2" fill="rgba(168,85,247,.82)"/></svg>`,
+  aivideo:`<svg width="38" height="38" viewBox="0 0 38 38" fill="none"><rect x="2" y="10" width="21" height="18" rx="3" fill="rgba(244,63,94,.2)" stroke="rgba(244,63,94,.85)" stroke-width="1.5"/><polygon points="23,15 34,9 34,29 23,23" fill="rgba(244,63,94,.72)"/><polygon points="10,15 19.5,20 10,25" fill="rgba(255,255,255,.92)"/><circle cx="30" cy="7" r="4" fill="rgba(244,63,94,.9)"/><path d="M28 5 L32 5" stroke="rgba(255,210,0,.9)" stroke-width="1.8" stroke-linecap="round"/><path d="M30 3 L30 7" stroke="rgba(255,210,0,.9)" stroke-width="1.8" stroke-linecap="round"/></svg>`,
+  agents:`<svg width="38" height="38" viewBox="0 0 38 38" fill="none"><circle cx="19" cy="6" r="4.5" fill="rgba(34,211,238,.95)"/><circle cx="6" cy="27" r="4.5" fill="rgba(34,211,238,.75)"/><circle cx="32" cy="27" r="4.5" fill="rgba(34,211,238,.75)"/><circle cx="19" cy="32" r="4.5" fill="rgba(34,211,238,.88)"/><line x1="19" y1="11" x2="8" y2="23" stroke="rgba(34,211,238,.5)" stroke-width="1.5"/><line x1="19" y1="11" x2="30" y2="23" stroke="rgba(34,211,238,.5)" stroke-width="1.5"/><line x1="19" y1="11" x2="19" y2="28" stroke="rgba(34,211,238,.65)" stroke-width="1.5"/><line x1="8.5" y1="30.5" x2="15" y2="32" stroke="rgba(34,211,238,.35)" stroke-width="1"/><line x1="29.5" y1="30.5" x2="23" y2="32" stroke="rgba(34,211,238,.35)" stroke-width="1"/></svg>`,
+};
+
+
+// ════════════════════════════════════════════════════
+// MUSEUM-WALK CAROUSEL + SPLIT-DOOR REVEAL
+// ════════════════════════════════════════════════════
+const track=document.getElementById('carousel-track');
+const dotsC=document.getElementById('carousel-dots');
+const vp=document.getElementById('carousel-viewport');
+
+let _xPos=0, _xTarget=0, _xVel=0;
+const FRICTION=0.94, SPRING=0.10;
+let _rafActive=false;
+let _doorMode=false; // when true, carousel is in split-door view
+let _doorIdx=-1;
+
+const CW = ()=> (window.innerWidth<680?224:272);
+
+CATS.forEach((cat,i)=>{
+  const c=document.createElement('div');
+  c.className='cat-card';
+  c.style.setProperty('--ca',cat.color);
+  c.style.setProperty('--cg','rgba('+cat.rgb+',.16)');
+  c.style.setProperty('--cs','rgba('+cat.rgb+',.42)');
+  c.dataset.idx=i;
+  c.style.opacity='0';
+  setTimeout(()=>{ c.style.transition='opacity .8s '+(i*.08)+'s ease'; c.style.opacity='1'; }, 100);
+  const sw=document.createElement('div');sw.className='cc-sweep';
+  const ico=document.createElement('div');ico.className='cc-icon';
+  if(typeof CAT_SVGS!=='undefined'&&CAT_SVGS[cat.id]){
+    const sv=document.createElement('div');sv.className='cc-svg';sv.innerHTML=CAT_SVGS[cat.id];ico.appendChild(sv);
+  } else { ico.textContent=cat.emoji; }
+  const lb=document.createElement('div');lb.className='cc-label';lb.textContent=cat.title;
+  const ct=document.createElement('div');ct.className='cc-count';ct.textContent=cat.cards.length+' FREE RESOURCES';
+  const ti=document.createElement('div');ti.className='cc-tier '+(cat.tier.includes('TIER')?'ft':'fr');ti.textContent=cat.tier;
+  c.appendChild(sw);c.appendChild(ico);c.appendChild(lb);c.appendChild(ct);c.appendChild(ti);
+  if(cat.isNew){const nb=document.createElement('div');nb.className='cc-new';nb.textContent='NEW';c.appendChild(nb);}
+  c.addEventListener('click',(e)=>{
+    if(_dragMoved){ _dragMoved=false; return; }
+    if(_doorMode) return;
+    handleOrbClick(i);
+  });
+  track.appendChild(c);
+});
+
+function buildDots(){
+  dotsC.innerHTML='';
+  CATS.forEach((_,i)=>{
+    const d=document.createElement('div');d.className='cdot';
+    d.addEventListener('click',()=>{
+      if(_doorMode) return;
+      _xTarget = -(i * CW()) + (vp.clientWidth/2 - CW()/2);
+      startRAF();
+    });
+    dotsC.appendChild(d);
+  });
+}
+buildDots();
+
+function tick(){
+  if(_doorMode){ _rafActive=false; return; }
+  const diff = _xTarget - _xPos;
+  _xVel += diff * SPRING;
+  _xVel *= FRICTION;
+  _xPos += _xVel;
+  track.style.transform='translateX('+_xPos+'px)';
+  const vpCenter = vp.clientWidth/2;
+  const cards = track.children;
+  let nearestIdx = 0, nearestDist = Infinity;
+  for(let i=0;i<cards.length;i++){
+    const card = cards[i];
+    const cardCenter = card.offsetLeft + card.offsetWidth/2 + _xPos;
+    const dist = cardCenter - vpCenter;
+    const absDist = Math.abs(dist);
+    if(absDist < nearestDist){ nearestDist = absDist; nearestIdx = i; }
+    const norm = dist / vpCenter;
+    const clamped = Math.max(-1.5, Math.min(1.5, norm));
+    const depth = -Math.abs(clamped) * 120;
+    const rot = -clamped * 18;
+    const scl = 1 - Math.abs(clamped) * 0.18;
+    const bri = 1 - Math.abs(clamped) * 0.35;
+    const sat = 1 - Math.abs(clamped) * 0.4;
+    card.style.setProperty('--depth', depth+'px');
+    card.style.setProperty('--rot', rot+'deg');
+    card.style.setProperty('--scl', scl);
+    card.style.setProperty('--bri', bri);
+    card.style.setProperty('--sat', sat);
+    if(absDist < CW()/2){ card.classList.add('is-focus'); }
+    else card.classList.remove('is-focus');
+  }
+  const dots = dotsC.children;
+  for(let i=0;i<dots.length;i++){ dots[i].classList.toggle('active', i===nearestIdx); }
+  const maxX = vp.clientWidth/2 - CW()/2;
+  const minX = -(CATS.length-1)*CW() + maxX;
+  const arrL=document.getElementById('arr-l'), arrR=document.getElementById('arr-r');
+  if(arrL) arrL.style.opacity = _xPos >= maxX - 5 ? '.3' : '1';
+  if(arrR) arrR.style.opacity = _xPos <= minX + 5 ? '.3' : '1';
+  if(Math.abs(_xVel) > 0.02 || Math.abs(diff) > 0.5){ requestAnimationFrame(tick); }
+  else { _rafActive=false; }
+}
+function startRAF(){ if(!_rafActive && !_doorMode){ _rafActive=true; requestAnimationFrame(tick); } }
+
+function resetCarousel(){
+  _xPos = vp.clientWidth/2 - CW()/2;
+  _xTarget = _xPos; _xVel = 0;
+  startRAF();
+}
+setTimeout(resetCarousel, 50);
+
+function cNav(dir){
+  if(_doorMode) return;
+  _xTarget += -dir * CW();
+  const maxX = vp.clientWidth/2 - CW()/2;
+  const minX = -(CATS.length-1)*CW() + maxX;
+  _xTarget = Math.max(minX - 30, Math.min(maxX + 30, _xTarget));
+  startRAF();
+}
+
+let _wheelTimer=0;
+vp.addEventListener('wheel', e=>{
+  if(_doorMode) return;
+  e.preventDefault();
+  const dx = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+  _xVel -= dx * 0.7;
+  startRAF();
+},{passive:false});
+
+let _dragging=false, _dragStartX=0, _dragStartPos=0, _dragLastX=0, _dragLastT=0, _dragMoved=false;
+track.addEventListener('mousedown', e=>{
+  if(_doorMode) return;
+  _dragging=true; _dragStartX=e.clientX; _dragStartPos=_xPos;
+  _dragLastX=e.clientX; _dragLastT=performance.now(); _dragMoved=false;
+  track.classList.add('dragging'); e.preventDefault();
+});
+document.addEventListener('mousemove', e=>{
+  if(!_dragging) return;
+  const diff = e.clientX - _dragStartX;
+  if(Math.abs(diff) > 5) _dragMoved=true;
+  _xPos = _dragStartPos + diff; _xTarget = _xPos;
+  const now = performance.now(); const dt = now - _dragLastT;
+  if(dt > 0){ _xVel = (e.clientX - _dragLastX)/dt * 16; }
+  _dragLastX = e.clientX; _dragLastT = now;
+  startRAF();
+});
+document.addEventListener('mouseup', e=>{
+  if(!_dragging) return;
+  _dragging=false; track.classList.remove('dragging');
+  _xTarget = _xPos + _xVel * 12;
+  startRAF();
+});
+let _tStartX = 0;
+track.addEventListener('touchstart', e=>{
+  if(_doorMode) return;
+  _tStartX = e.touches[0].clientX; _dragStartPos = _xPos;
+  _dragLastX = _tStartX; _dragLastT = performance.now(); _dragMoved=false;
+  track.classList.add('dragging');
+},{passive:true});
+track.addEventListener('touchmove', e=>{
+  if(_doorMode) return;
+  const x = e.touches[0].clientX; const diff = x - _tStartX;
+  if(Math.abs(diff) > 5) _dragMoved=true;
+  _xPos = _dragStartPos + diff; _xTarget = _xPos;
+  const now = performance.now(); const dt = now - _dragLastT;
+  if(dt > 0){ _xVel = (x - _dragLastX)/dt * 16; }
+  _dragLastX = x; _dragLastT = now;
+  startRAF();
+},{passive:true});
+track.addEventListener('touchend', e=>{
+  if(_doorMode) return;
+  track.classList.remove('dragging');
+  _xTarget = _xPos + _xVel * 12;
+  startRAF();
+});
+document.addEventListener('keydown', e=>{
+  if(_doorMode){
+    if(e.key === 'Escape') closeDoorReveal();
+    return;
+  }
+  if(document.querySelector('#reg-modal.show, #pay-modal.show, #premium-panel.open')) return;
+  if(e.key === 'ArrowLeft'){ cNav(-1); e.preventDefault(); }
+  else if(e.key === 'ArrowRight'){ cNav(1); e.preventDefault(); }
+});
+window.addEventListener('resize', ()=>{ buildDots(); if(!_doorMode) resetCarousel(); });
+
+// ════════════════════════════════════════════════════
+// SPLIT-DOOR REVEAL — replaces the old #cpanel slide-up
+// ════════════════════════════════════════════════════
+function openDoorReveal(idx){
+  _doorMode = true;
+  _doorIdx = idx;
+  const cards = Array.from(track.children);
+  const chosen = cards[idx];
+  const leftIdx = idx > 0 ? idx-1 : (CATS.length>1 ? CATS.length-1 : idx);
+  const leftCard = cards[leftIdx];
+  // Mark roles
+  cards.forEach((c,i)=>{
+    c.classList.remove('door-right','door-left','door-other','is-focus','opening');
+    if(c === chosen) c.classList.add('door-right');
+    else if(c === leftCard && leftCard !== chosen) c.classList.add('door-left');
+    else c.classList.add('door-other');
+  });
+  // Position the doors at center first (smooth move into place)
+  const vpCenter = vp.clientWidth/2;
+  const chosenCenter = chosen.offsetLeft + chosen.offsetWidth/2 + _xPos;
+  const leftCenter = leftCard.offsetLeft + leftCard.offsetWidth/2 + _xPos;
+  // Calculate how much to shift so the right door sits just right of center
+  // and the left door just left of center
+  const halfCard = chosen.offsetWidth/2;
+  const targetRight = vpCenter + 8; // right door starts 8px right of center
+  const targetLeft  = vpCenter - 8 - chosen.offsetWidth; // left door ends 8px left of center
+  // Compute extra translateX for each door beyond the carousel translation
+  const dxRight = targetRight - chosenCenter + halfCard;
+  // We'll set inline transforms to position both doors then add .opening to swing them
+  chosen.style.transform = 'translateX('+dxRight+'px) translateZ(60px) rotateY(0deg) scale(1.08)';
+  chosen.style.setProperty('--depth','60px');
+  chosen.style.setProperty('--rot','0deg');
+  chosen.style.setProperty('--scl','1.08');
+  chosen.style.setProperty('--bri','1');
+  chosen.style.setProperty('--sat','1');
+  if(leftCard !== chosen){
+    const dxLeft = (targetLeft + halfCard) - leftCenter;
+    leftCard.style.transform = 'translateX('+dxLeft+'px) translateZ(60px) rotateY(0deg) scale(1.08)';
+    leftCard.style.setProperty('--depth','60px');
+    leftCard.style.setProperty('--rot','0deg');
+    leftCard.style.setProperty('--scl','1.08');
+    leftCard.style.setProperty('--bri','1');
+    leftCard.style.setProperty('--sat','1');
+  }
+  // After cards reach center, swing the doors open
+  setTimeout(()=>{
+    chosen.classList.add('opening');
+    chosen.style.transform = ''; // let CSS .opening rule take over
+    if(leftCard !== chosen){
+      leftCard.classList.add('opening');
+      leftCard.style.transform = '';
+    }
+  }, 320);
+  // Populate and open the reveal panel
+  populateDoorReveal(idx);
+  setTimeout(()=>{
+    document.getElementById('door-reveal').classList.add('open');
+    document.getElementById('door-reveal').setAttribute('aria-hidden','false');
+  }, 200);
+}
+
+function populateDoorReveal(idx){
+  const cat = CATS[idx];
+  const drv = document.getElementById('door-reveal');
+  drv.style.setProperty('--ca', cat.color);
+  drv.style.setProperty('--cs', 'rgba('+cat.rgb+',.4)');
+  document.getElementById('dr-dot').style.background = cat.color;
+  document.getElementById('dr-dot').style.boxShadow = '0 0 14px '+cat.color;
+  document.getElementById('dr-title').textContent = cat.title;
+  const name = sessionStorage.getItem('fb_name');
+  document.getElementById('dr-meta').textContent = cat.cards.length + ' free resources' + (name ? ' · welcome, '+name.split(' ')[0] : '');
+  document.getElementById('dr-spot-ico').textContent = cat.spot.ico;
+  document.getElementById('dr-spot-h').textContent = cat.spot.h;
+  document.getElementById('dr-spot-b').textContent = cat.spot.b;
+  const grid = document.getElementById('door-reveal-grid');
+  grid.innerHTML = '';
+  cat.cards.forEach((c)=>{
+    const card = document.createElement('div');
+    card.className = 'dr-card';
+    const tags = c.tags.map(t => '<span class="drc-tag">' + ({free:'FREE',cc0:'CC0',attr:'ATTR',nowm:'NO-WM',ft:'FREE TIER'}[t]||t.toUpperCase()) + '</span>').join('');
+    card.innerHTML =
+      '<div class="drc-top"><div class="drc-emoji">'+c.e+'</div><div><div class="drc-name">'+c.n+'</div><div class="drc-domain">'+c.d+'</div></div></div>'+
+      '<div class="drc-desc">'+c.desc+'</div>'+
+      '<div class="drc-tags">'+tags+'</div>';
+    card.addEventListener('click',()=>{ window.open(c.u,'_blank','noopener'); });
+    grid.appendChild(card);
+  });
+}
+
+function closeDoorReveal(){
+  document.getElementById('door-reveal').classList.remove('open');
+  document.getElementById('door-reveal').setAttribute('aria-hidden','true');
+  // Reverse the doors
+  const cards = Array.from(track.children);
+  cards.forEach((c)=>{
+    c.classList.remove('opening');
+    c.style.transform = ''; // back to CSS-driven position
+  });
+  // After doors close, restore normal carousel
+  setTimeout(()=>{
+    cards.forEach(c=>{
+      c.classList.remove('door-right','door-left','door-other');
+    });
+    _doorMode = false;
+    _xVel = 0;
+    resetCarousel();
+  }, 1100);
+}
+
+// Override handleOrbClick so it uses the door reveal instead of the old slide-up panel
+const _origOrbClick = (typeof handleOrbClick === 'function') ? handleOrbClick : null;
+window.handleOrbClick = function(idx){
+  pendingIdx = idx;
+  if(!registered){ showRegModal(); }
+  else { openDoorReveal(idx); }
+};
+// Also make the old "openPanel" call route to door reveal (for registration flow)
+window.openPanel = function(idx){ openDoorReveal(idx); };
+// Close door reveal when clicking outside it (on the receded backdrop)
+document.addEventListener('click', function(e){
+  if(!_doorMode) return;
+  if(e.target === document.getElementById('door-reveal')) return;
+  if(e.target.closest('#door-reveal')) return;
+  if(e.target.closest('.cat-card.door-right, .cat-card.door-left')) return;
+  // clicking elsewhere closes
+  if(e.target.closest('.carousel-arrow, .cdot')) return;
+  // Don't auto-close — let user use ✕ button
+});
+
+
+// ════════════════════════════════════════════════════
+// REGISTRATION
+// ════════════════════════════════════════════════════
+let registered=sessionStorage.getItem('fb_reg')==='1';
+let pendingIdx=null;
+
+function handleOrbClick(idx){
+  pendingIdx=idx;
+  if(!registered){ showRegModal(); } else { openPanel(idx); }
+}
+function showRegModal(){ document.getElementById('reg-modal').classList.add('show'); setTimeout(()=>document.getElementById('rn').focus(),300); }
+function closeRegModal(){ document.getElementById('reg-modal').classList.remove('show'); }
+function submitReg(){
+  const n=document.getElementById('rn').value.trim();
+  const e=document.getElementById('re').value.trim();
+  const err=document.getElementById('reg-error');
+  if(!n||!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){err.style.display='block';setTimeout(()=>err.style.display='none',2500);return;}
+  const btn=document.getElementById('reg-submit');
+  btn.textContent='✓ WELCOME TO ARKBASE';
+  btn.style.background='linear-gradient(135deg,#10b981,#06b6d4)';
+  sessionStorage.setItem('fb_reg','1');
+  sessionStorage.setItem('fb_name',n);
+  registered=true;
+  setTimeout(()=>{
+    closeRegModal();
+    if(pendingIdx!==null) setTimeout(()=>openPanel(pendingIdx),400);
+    btn.textContent='ENTER THE UNIVERSE →';
+    btn.style.background='linear-gradient(135deg,#06b6d4,#7c3aed)';
+  },900);
+}
+document.getElementById('re').addEventListener('keydown',e=>{ if(e.key==='Enter') submitReg(); });
+
+// ════════════════════════════════════════════════════
+// FREE PANEL
+// ════════════════════════════════════════════════════
+function openPanel(idx){
+  
+  const cat=CATS[idx];
+  document.getElementById('ptitle').textContent=cat.title;
+  document.getElementById('ptitle').style.color=cat.color;
+  document.getElementById('pdesc').textContent=(()=>{const n=sessionStorage.getItem('fb_name');return n?`Welcome, ${n.split(' ')[0]}. ${cat.desc}`:cat.desc;})();
+  document.getElementById('pcount').textContent=cat.cards.length;
+  const dot=document.getElementById('pcatdot');
+  dot.style.background=cat.color;dot.style.boxShadow=`0 0 10px ${cat.color}`;
+
+  const content=document.getElementById('panel-content');
+  content.innerHTML='';
+
+  const spot=document.createElement('div');
+  spot.className='spotlight';
+  spot.innerHTML=`<div class="spotlight-ico">${cat.spot.ico}</div><div><h3>${cat.spot.h}</h3><p>${cat.spot.b}</p></div>`;
+  content.appendChild(spot);
+
+  const grid=document.createElement('div');
+  grid.className='card-grid';grid.id='card-grid';
+
+  cat.cards.forEach(c=>{
+    const card=document.createElement('div');
+    card.className='card';
+    card.style.setProperty('--ca',cat.color);
+    card.style.setProperty('--cg',`radial-gradient(circle at top left,rgba(${cat.rgb},.06),transparent)`);
+    card.setAttribute('data-search',`${c.n} ${c.d} ${c.desc} ${c.tags.join(' ')}`);
+    const tags=c.tags.map(t=>`<span class="tag ${t}">${{free:'FREE',cc0:'CC0',attr:'ATTR',nowm:'NO-WM',ft:'FREE TIER'}[t]||t.toUpperCase()}</span>`).join('');
+    const api=c.api?`<a class="api-btn" href="${c.api.u}" target="_blank" rel="noopener" onclick="event.stopPropagation()">🔑 ${c.api.l}</a>`:'';
+    card.innerHTML=`<div class="card-shimmer-line"></div><div class="card-top"><div class="card-emoji">${c.e}</div><div><div class="card-name">${c.n}</div><div class="card-domain">${c.d}</div></div></div><div class="card-desc">${c.desc}</div><div class="card-tags">${tags}</div>${api}<span class="card-arrow">↗</span>`;
+    card.addEventListener('click',ev=>{ if(ev.target.closest('.api-btn'))return; window.open(c.u,'_blank','noopener'); });
+    grid.appendChild(card);
+  });
+  content.appendChild(grid);
+
+  document.getElementById('cpanel').classList.add('open');
+  document.getElementById('cpanel').scrollTop=0;
+  showFloatBack();
+  document.getElementById('searchInput').value='';
+  document.getElementById('no-results').style.display='none';
+
+  setTimeout(()=>{
+    document.querySelectorAll('#card-grid .card').forEach((c,i)=>{
+      c.style.opacity='0';c.style.transform='translateY(18px)';
+      c.style.transition=`opacity .45s ${(i%8)*.05}s ease,transform .45s ${(i%8)*.05}s ease,border-color .3s,box-shadow .3s`;
+      setTimeout(()=>{c.style.opacity='1';c.style.transform='translateY(0)';},40+(i%8)*50);
+    });
+  },150);
+}
+function closePanel(){ document.getElementById('cpanel').classList.remove('open');hideFloatBack(); }
+
+document.getElementById('searchInput').addEventListener('input',function(){
+  const q=this.value.toLowerCase().trim();
+  const cards=document.querySelectorAll('#card-grid .card');
+  let vis=0;
+  cards.forEach(c=>{ const m=!q||c.getAttribute('data-search').toLowerCase().includes(q);c.style.display=m?'':'none';if(m)vis++; });
+  const nr=document.getElementById('no-results');
+  nr.style.display=vis===0?'block':'none';
+  if(vis===0) document.getElementById('search-term').textContent=this.value;
+});
+
+// ════════════════════════════════════════════════════
+// PREMIUM PANEL
+// ════════════════════════════════════════════════════
+function openPremium(){
+  document.getElementById('ppanel').classList.add('open');
+  
+  showFloatBack();
+  renderBundles('all');
+}
+function closePremium(){ document.getElementById('ppanel').classList.remove('open');hideFloatBack(); }
+
+function renderBundles(cat){
+  const grid=document.getElementById('bundle-grid');
+  grid.innerHTML='';
+  const filtered=cat==='all'?BUNDLES:BUNDLES.filter(b=>b.cat===cat);
+  filtered.forEach((b,i)=>{
+    const el=document.createElement('div');
+    el.className='bc';el.dataset.cat=b.cat;
+    const tools=b.tools.map(t=>`<span class="bc-tool">${t}</span>`).join('');
+    const incl=b.incl.map(x=>`<li>${x}</li>`).join('');
+    const steps=b.steps.map(s=>`<div class="bc-step"><div class="bc-sn">${s.n}</div><div class="bc-st"><b style="color:#fbbf24">${s.t}</b><br>${s.d}</div></div>`).join('');
+    el.innerHTML=`
+      <div class="bc-top">
+        <div class="bc-icon">${b.icon}</div>
+        <div>
+          <div class="bc-type">${b.type}</div>
+          <div class="bc-name">${b.name}</div>
+        </div>
+      </div>
+      <div class="bc-tagline">${b.tagline}</div>
+      <div class="bc-tools">${tools}</div>
+      <ul class="bc-incl">${incl}</ul>
+      <button class="bc-how-btn" onclick="toggleHow(this)">
+        <span>⚡ HOW TO USE + CODE EXAMPLE</span>
+        <span class="bc-how-arrow">▼</span>
+      </button>
+      <div class="bc-how-content">
+        ${steps}
+        <div class="bc-code">${escHtml(b.code)}</div>
+      </div>
+      <div class="bc-foot">
+        <span class="bc-upd">↺ ${b.updFreq}</span>
+        ${b.isNew?'<span class="bc-new">NEW THIS WEEK</span>':''}
+        <span class="bc-weekly">${b.tagBadge}</span>
+      </div>`;
+    el.style.opacity='0';el.style.transform='translateY(18px)';
+    grid.appendChild(el);
+    setTimeout(()=>{
+      el.style.transition=`opacity .45s ${i*.06}s ease,transform .45s ${i*.06}s ease`;
+      el.style.opacity='1';el.style.transform='translateY(0)';
+    },40);
+  });
+  document.getElementById('bundle-sect-hd').textContent=
+    cat==='all'?`ALL BUNDLES (${filtered.length})`:cat.toUpperCase()+` BUNDLES (${filtered.length})`;
+}
+
+function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+function toggleHow(btn){
+  const c=btn.nextElementSibling;
+  const open=c.classList.toggle('open');
+  btn.querySelector('.bc-how-arrow').style.transform=open?'rotate(180deg)':'';
+}
+
+function filterBundles(cat,btn){
+  document.querySelectorAll('.pp-tab').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderBundles(cat);
+}
+
+// ════════════════════════════════════════════════════
+// FLOATING BACK BUTTON
+// ════════════════════════════════════════════════════
+const floatBack=document.getElementById('float-back');
+function showFloatBack(){ setTimeout(()=>floatBack.classList.add('visible'),600); }
+function hideFloatBack(){ floatBack.classList.remove('visible'); }
+function floatBackAction(){
+  if(document.getElementById('cpanel').classList.contains('open')) closePanel();
+  else if(document.getElementById('ppanel').classList.contains('open')) closePremium();
+}
+
+// ════════════════════════════════════════════════════
+// PAYMENT MODAL — 3 tabs
+// ════════════════════════════════════════════════════
+function openPayModal(){
+  document.getElementById('pay-modal').classList.add('show');
+  setTimeout(()=>{ const el=document.getElementById('fb-pp-link'); if(el) el.focus(); },300);
+}
+function closePayModal(){ document.getElementById('pay-modal').classList.remove('show'); }
+
+// Real checkout routing. PayPal opens the live PayPal checkout on xmqa.pro.
+// Card: set ARKBASE_CHECKOUT to a Kelviq product URL to take cards through Kelviq;
+// left empty, card payments go through PayPal's guest card checkout.
+const ARKBASE_PLANS={
+  monthly:{paypal:'https://xmqa.pro/?action=freebase-pay&plan=monthly',checkout:'',amt:'$5.00',head:'$5',per:'PER MONTH · CANCEL ANYTIME',sub:'then $5.00 / month — cancel anytime'},
+  annual:{paypal:'https://xmqa.pro/?action=freebase-pay&plan=annual',checkout:'',amt:'$48.00',head:'$48',per:'PER YEAR · SAVE ABOUT 20%',sub:'billed once a year — about 20% off monthly'}
+};
+function pickPlan(id,btn){
+  const p=ARKBASE_PLANS[id]; if(!p) return;
+  document.querySelectorAll('#pay-box .pay-tab-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.getElementById('fb-amt').textContent=p.amt;
+  document.getElementById('fb-head-amt').textContent=p.head;
+  document.getElementById('fb-head-per').textContent=p.per;
+  document.getElementById('fb-amt-sub').textContent=p.sub;
+  document.getElementById('fb-pp-link').href=p.paypal;
+  const card=document.getElementById('fb-card-link');
+  card.href=p.checkout||p.paypal;
+  document.getElementById('fb-card-lbl').textContent=p.checkout?'CARD · KELVIQ':'PAY BY CARD';
+}
+pickPlan('monthly',null);
+
+
+// ════════════════════════════════════════════════════
+// KEYBOARD
+// ════════════════════════════════════════════════════
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(document.getElementById('pay-modal').classList.contains('show')) closePayModal();
+    else if(document.getElementById('reg-modal').classList.contains('show')) closeRegModal();
+    else if(document.getElementById('cpanel').classList.contains('open')) closePanel();
+    else if(document.getElementById('ppanel').classList.contains('open')) closePremium();
+  }
+});
+
+/* ══════════════════ CARD RAIL — replaces the 3D orb scene ══════════════════ */
+(function initCatRail(){
+  function hexToRgba(hex,a){
+    hex=(hex||'').replace('#',''); if(hex.length===3) hex=hex.split('').map(c=>c+c).join('');
+    var n=parseInt(hex||'06b6d4',16);
+    return 'rgba('+((n>>16)&255)+','+((n>>8)&255)+','+(n&255)+','+a+')';
+  }
+  function renderRail(){
+    var strip=document.getElementById('cr-strip'); if(!strip || typeof CATS==='undefined') return;
+    strip.innerHTML = CATS.map(function(c,i){
+      var glow=hexToRgba(c.color,.42), accent=c.color;
+      var lbl=(c.lbl||'').replace(/\n/g,' ');
+      return '<div class="cr-card" data-idx="'+i+'" style="--cr-col:'+accent+';--cr-glow:'+glow+'">'
+        + (c.isNew?'<div class="cr-new">NEW</div>':'')
+        + '<div class="cr-emoji">'+(c.emoji||'⬡')+'</div>'
+        + '<div class="cr-lbl">'+lbl+'</div>'
+        + '<div class="cr-tier">'+(c.tier||'FREE')+' · '+(c.cards?c.cards.length:0)+' items</div>'
+        + '<div class="cr-foot">'+(c.desc||'').slice(0,72)+(c.desc&&c.desc.length>72?'…':'')+'</div>'
+      + '</div>';
+    }).join('');
+    // Click → existing flow
+    strip.querySelectorAll('.cr-card').forEach(function(el){
+      el.addEventListener('click',function(){
+        var idx=Number(el.dataset.idx);
+        if(typeof handleOrbClick==='function') handleOrbClick(idx);
+      });
+    });
+  }
+  function setupArrows(){
+    var strip=document.getElementById('cr-strip');
+    var prev=document.getElementById('cr-prev');
+    var next=document.getElementById('cr-next');
+    if(!strip || !prev || !next) return;
+    function step(dir){
+      var card=strip.querySelector('.cr-card');
+      var w = card ? (card.offsetWidth + 18) : 300;
+      strip.scrollBy({left: dir*w, behavior:'smooth'});
+    }
+    prev.addEventListener('click', function(){ step(-1); });
+    next.addEventListener('click', function(){ step(+1); });
+    // Keyboard
+    document.addEventListener('keydown', function(e){
+      // Don't intercept inside the open panel / reg modal
+      var anyOpen = document.getElementById('cpanel').classList.contains('open')
+                 || document.getElementById('ppanel').classList.contains('open')
+                 || document.getElementById('reg-modal').classList.contains('show');
+      if(anyOpen) return;
+      if(e.key==='ArrowRight') step(+1);
+      if(e.key==='ArrowLeft')  step(-1);
+    });
+    // Mouse wheel becomes horizontal scroll on the strip
+    strip.addEventListener('wheel', function(e){
+      if(Math.abs(e.deltaY) > Math.abs(e.deltaX)){
+        e.preventDefault();
+        strip.scrollLeft += e.deltaY;
+      }
+    }, {passive:false});
+    // Hide the scroll hint after first interaction
+    var hint=document.getElementById('fb-scroll-hint');
+    function killHint(){ if(hint){ hint.classList.add('off'); hint.style.display='none'; } }
+    ['scroll','wheel','touchmove'].forEach(function(ev){ strip.addEventListener(ev, killHint, {passive:true, once:true}); });
+    prev.addEventListener('click', killHint, {once:true});
+    next.addEventListener('click', killHint, {once:true});
+  }
+  // Boot
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded', function(){ renderRail(); setupArrows(); });
+  } else { renderRail(); setupArrows(); }
+})();
+</script>
+</body>
+</html>
