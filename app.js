@@ -43,14 +43,15 @@
   function renderPacks() {
     $("#packGrid").innerHTML = CAT.bundles.map(b => {
       const bp = P.bundlePrice(CAT, b);
+      const appraised = bp.basis === "appraised";
       return `<article class="pack${b.ownership ? " crown" : ""}">
         <span class="eyebrow">${b.ownership ? "Complete set · five products" : "Five-pack"}</span><h3 style="margin-top:6px">${esc(b.name)}</h3>
         <p class="muted" style="font-size:14px;margin-top:6px">${esc(b.blurb)}</p>
         <ol>${b.items.map(id => { const it = byId(id);
           const free = id === CAT.noraRule.target && CAT.noraRule.requires.every(r => b.items.includes(r));
           const ed = (b.editions && it.editions.find(e => e.id === b.editions[id])) || it.editions[0];
-          return `<li><a href="#" data-detail="${id}">${esc(it.name.split(" — ")[0])}</a> <span class="mono" style="font-size:12px;color:var(--dim)">${free ? "free" : money(ed.value || ed.price)}</span></li>`; }).join("")}</ol>
-        <div class="pricing"><b>${money(bp.price)}</b><span class="saving">${money(bp.was - bp.price)} less than buying separately</span></div>
+          return `<li><a href="#" data-detail="${id}">${esc(it.name.split(" — ")[0])}</a> <span class="mono" style="font-size:12px;color:var(--dim)">${free ? "free" : money(appraised ? (ed.value || ed.price) : ed.price)}</span></li>`; }).join("")}</ol>
+        <div class="pricing"><b>${money(bp.price)}</b><span class="saving">${appraised ? `${money(bp.was)} appraised value · save ${Math.round(100 - bp.price / bp.was * 100)}%` : `${money(bp.was - bp.price)} less than buying separately`}</span></div>
         <button class="btn btn-brass" type="button" data-add="b:${b.id}" data-label="Add five-pack" data-name="${esc(b.name)}">Add five-pack</button>
       </article>`;
     }).join("");

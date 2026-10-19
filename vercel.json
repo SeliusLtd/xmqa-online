@@ -4,11 +4,11 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
+    { "source": "/online", "destination": "/" },
+    { "source": "/online/:path*", "destination": "/:path*" },
     { "source": "/arkbase", "destination": "/arkbase/index.html" }
   ],
   "redirects": [
-    { "source": "/online", "destination": "/", "permanent": true },
-    { "source": "/online/:path*", "destination": "/:path*", "permanent": true },
     { "source": "/freebase", "destination": "/arkbase/", "permanent": true },
     { "source": "/freebase/:path*", "destination": "/arkbase/", "permanent": true }
   ],

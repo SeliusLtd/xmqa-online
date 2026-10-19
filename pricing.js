@@ -21,13 +21,36 @@
   const baseEd = it => it.editions[0];
   const worth = e => (e.value || e.price || 0);
 
+  // What the same products cost when bought one by one. Fixed-price packs compare
+  // against appraised value; the others compare against the live edition prices.
+  // Free items (Nora, when her three ownership products are in the pack) are never
+  // counted in either total.
+  function bundleWas(cat, b) {
+    const ix = index(cat), rule = cat.noraRule;
+    const appraised = typeof b.price === "number" && typeof b.value === "number";
+    const editionOf = id => {
+      const it = ix.items[id];
+      if (!it) return null;
+      return (b.editions && it.editions.find(x => x.id === b.editions[id])) || baseEd(it);
+    };
+    const noraFree = b.items.includes(rule.target) && rule.requires.every(r =>
+      b.items.includes(r) && editionOf(r) && editionOf(r).id === rule.edition);
+    let was = 0;
+    for (const id of b.items) {
+      if (id === rule.target && noraFree) continue;
+      const ed = editionOf(id);
+      if (!ed) continue;
+      was += appraised ? (ed.value || ed.price || 0) : (typeof ed.price === "number" ? ed.price : 0);
+    }
+    return round2(was);
+  }
+
   // Five-pack price: fixed if the pack sets one, otherwise the bundle discount off the five base editions.
   function bundlePrice(cat, b) {
-    const ix = index(cat);
-    if (typeof b.price === "number") return { price: b.price, was: b.value || b.price };
-    let was = 0;
-    for (const id of b.items) was += (ix.items[id] && baseEd(ix.items[id]).price) || 0;
-    return { price: Math.round(was * (1 - cat.bundleDiscount)), was: round2(was) };
+    const was = bundleWas(cat, b);
+    const basis = typeof b.price === "number" && typeof b.value === "number" ? "appraised" : "sum";
+    if (typeof b.price === "number") return { price: b.price, was, basis };
+    return { price: Math.round(was * (1 - cat.bundleDiscount)), was, basis };
   }
 
   // MT5 keys: m:<index> (one item) | mc:<categoryIndex> (the whole category)
@@ -86,9 +109,9 @@
         }
         if (it.id === rule.target && noraFree) { price = 0; note = "Free with AAM, DEVI-CRONS and Aura Suite in full ownership"; }
         if (it.sub && !note) note = `per ${it.sub}`;
-        out.lines.push({ key: k, name: it.name, edition: e.label, price, was: e.value && price ? e.value : (price === 0 && e.price ? e.value || e.price : undefined), note });
+        out.lines.push({ key: k, name: it.name, edition: e.label, price, was: price ? worth(e) : undefined, note });
         if (price) out.total += price;
-        out.was += price === null ? 0 : worth(e);
+        if (price) out.was += worth(e);
       } else if (p[0] === "b") {
         const b = ix.bundles[p[1]];
         if (!b || p.length !== 2) { out.errors.push(k); continue; }
@@ -102,7 +125,7 @@
         const price = covered ? 0 : m.price;
         out.lines.push({ key: k, name: m.name, edition: p[0] === "mc" ? "Every tool in this category" : (m.type === "e" ? "MT5 Expert Advisor" : "MT5 Indicator"),
           price, was: m.was, note: covered ? "Included in the category you're buying" : "" });
-        out.total += price; out.was += covered ? 0 : m.was;
+        if (price) { out.total += price; out.was += m.was; }
       } else out.errors.push(k);
     }
     out.total = round2(out.total); out.was = round2(out.was);

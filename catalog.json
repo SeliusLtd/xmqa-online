@@ -1,1 +1,956 @@
-{"version":"2026-09-28b","bundleDiscount":0.45,"noraRule":{"target":"nora","requires":["aam","devi","aura"],"edition":"ownership"},"categories":{"assets":"Software you can own","apps":"Apps & dev tools","tools":"Browser tools","web":"Websites & templates","saas":"SaaS","trading":"Trading tools","library":"Codex & bundles","services":"Services"},"items":[{"id":"aam","cat":"assets","name":"AAM — Autonomous App Marketplace","blurb":"A ready-to-launch developer marketplace. Developers list apps, buyers pay by Stripe, PayPal or Lemon Squeezy, and you run it all from a private payments and payout console.","features":["App catalogue with search, categories and listing pages","Accounts with hashed passwords and signed sessions","Three payment gateways, amounts re-checked with the processor","Owner console: ledger, payouts with 5% platform fee, CSV export","Community forum with AI moderator, owner AI console","Windows one-click launcher · Express + React 19 + TypeScript","Bonus: Selius Cleaner Suite"],"editions":[{"id":"licence","label":"Commercial licence","price":399},{"id":"ownership","label":"Full ownership","price":2340,"value":3900}],"status":"available"},{"id":"devi","cat":"assets","name":"DEVI-CRONS — Agentic Cron Automation","blurb":"An always-on automation engine: 401 scheduled jobs, 264 AI agent templates, an encrypted key vault and a multi-provider AI router. Browser or Windows desktop app.","features":["401-job catalogue across 19 groups","Minute-level scheduler with separate system and AI lanes","264 agent templates across 17 categories","AES-256-GCM credential vault with automatic key rotation","Router across Gemini, Groq, OpenRouter, NVIDIA, Ollama and more","Next.js + PostgreSQL + Electron installer","Bonus: Selius Cleaner Suite"],"editions":[{"id":"licence","label":"Licence edition","price":1072},{"id":"ownership","label":"Full ownership","price":1860,"value":3100}],"status":"available"},{"id":"aura","cat":"assets","name":"Aura Suite — Five-Studio AI Content Suite","blurb":"Five AI creative studios in one installable app, with accounts, a credit system and PayPal checkout already built.","features":["AuraShot headshots · AuraSpace interior staging · AuraFood menus","AuraWear lookbooks · AuraBill receipt splitting","Email-verified accounts, 15 starter credits, server-side credit ledger","PayPal credit refills and Pro plan, confirmed before granting","Admin portal, installable PWA, 13 passing automated tests","Bonus: Selius Cleaner Suite"],"editions":[{"id":"licence","label":"Commercial licence","price":399},{"id":"ownership","label":"Full ownership","price":2520,"value":4200}],"status":"available"},{"id":"nora","cat":"assets","name":"Nora — Creative Services Marketplace","blurb":"A creative-services business in a box: 31 ready-to-sell services, card checkout, and an agent pipeline that plans, drafts, reviews and revises until you approve.","features":["31 services across 6 categories, each with its own page and checkout","Lemon Squeezy or Stripe card payments with signed webhooks","Plan → draft → scored review → revise, 24/7, human approval last","Pooled AI keys with load balancing and failover","Admin console, order tracking by private link, content studio","Free when AAM, DEVI-CRONS and Aura Suite are in the same order"],"editions":[{"id":"ownership","label":"Full ownership","price":6000,"value":10000}],"status":"available"},{"id":"argent","cat":"assets","name":"ARGENT — Prop Trading Firm Platform","blurb":"A turnkey prop-firm platform: public site, trader dashboard and owner console, with an automatic risk engine and phase promotions.","features":["Subscribe → pay → trade, with idempotent account provisioning","Risk engine: daily loss, static or trailing max loss, targets, min days","Rules compile into a knowledge base for a voice-and-text support robot","Pluggable payments (Stripe / PayPal) and AI (OpenAI / Gemini / Anthropic / offline)","14 plugins incl. MT4/MT5/cTrader bridge intake, Discord, TradingView","Next.js + SQLite / PostgreSQL / MySQL · Docker included"],"editions":[{"id":"regular","label":"Regular licence","price":349},{"id":"extended","label":"Extended licence","price":499},{"id":"ownership","label":"Full ownership","price":12000,"value":18000}],"status":"available"},{"id":"android-scaffold","cat":"apps","name":"Android Scaffold","blurb":"A self-hosted app that turns a few dropdowns into a complete, Gradle-syncable Android Studio project.","features":["Kotlin or Java · Compose, XML or both","MVVM, MVI or Clean Architecture with real package structures","13 toggleable features: Hilt, Room, Retrofit, CameraX, Firebase Auth…","Built-in bring-your-own-key AI assistant","Next.js 16 · no database · full source"],"editions":[{"id":"licence","label":"One-time licence","price":59}],"status":"available"},{"id":"qr-suite","cat":"apps","name":"QR Atelier Suite 3-in-1","blurb":"Three self-hosted QR products in one: glassmorphism studio, black-glass business card minter, and dynamic QR with scan tracking.","features":["QR Atelier V2 BlackFable + QR Atelier V1 + QR Coder Ez","Full Next.js 16 source for all three","No monthly fees, no API keys"],"editions":[{"id":"standard","label":"Standard","price":79,"value":94},{"id":"extended","label":"Extended (resell / white-label)","price":149}],"status":"available"},{"id":"qr-v2","cat":"apps","name":"QR Atelier V2 BlackFable","blurb":"QR studio plus a Business Card Studio that mints digital business cards with their own QR codes.","features":["A4 print sheets, 1–9 codes per page","Business cards with founder-tier gold foil","PNG export up to 4096px · no database"],"editions":[{"id":"starter","label":"Starter","price":30},{"id":"pro","label":"Pro — 10 client projects","price":49},{"id":"agency","label":"Agency — unlimited, white-label","price":199}],"status":"available"},{"id":"qr-v1","cat":"apps","name":"QR Atelier V1","blurb":"The original four-button glassmorphism QR studio — lean, fast and print-ready.","features":["URL, phone, WiFi and email codes","True-A4 print sheets, 6 layouts","PNG up to 4096px · no database"],"editions":[{"id":"starter","label":"Starter","price":30},{"id":"pro","label":"Pro — 10 client projects","price":45},{"id":"agency","label":"Agency — unlimited, white-label","price":179}],"status":"available"},{"id":"qr-ez","cat":"apps","name":"QR Coder Ez","blurb":"Dynamic QR codes you can re-point after printing, with per-code scan tracking.","features":["Change a printed code's destination any time","Scan counters and full event log","REST API · Next.js + PostgreSQL"],"editions":[{"id":"standard","label":"Standard","price":34},{"id":"pro","label":"Pro","price":49}],"status":"available"},{"id":"hustlebrah","cat":"apps","name":"HustleBrah v4 — Hustle Kit","blurb":"A hustle toolkit for micro-entrepreneurs: studio, dashboard, and a lead, deal, outreach and earnings pipeline.","features":["Lead → deal → outreach → earnings pipeline","Studio and dashboard","Standalone or as an add-on"],"editions":[{"id":"standalone","label":"Standalone","price":12}],"status":"available"},{"id":"fablekit","cat":"tools","name":"Fablekit — all ten browser tools","blurb":"Ten finished single-file web apps with installers and previews. No build step, no backend, no API keys.","features":["InvoiceForge, GridSnap, MetaMint, PulseBoard, ChromaVault","QuoteCraft, FormWeave, CronCanvas, LedgerLite, PitchPress","72 automated checks pass","One-click installers for Windows, macOS and Linux"],"editions":[{"id":"bundle","label":"All ten","price":12},{"id":"resell","label":"Resell rights","price":29},{"id":"ownership","label":"Full ownership","price":99}],"status":"available"},{"id":"fk-invoiceforge","cat":"tools","name":"InvoiceForge","blurb":"Invoices, quotes and receipts, printed to PDF. A single HTML file that runs offline.","features":["Invoices, quotes and receipts, printed to PDF","Installer + local server script included","Standard licence"],"editions":[{"id":"unit","label":"Single unit","price":4}],"status":"available"},{"id":"fk-gridsnap","cat":"tools","name":"GridSnap","blurb":"CSS Grid and Flexbox built visually, exported as code. A single HTML file that runs offline.","features":["CSS Grid and Flexbox built visually, exported as code","Installer + local server script included","Standard licence"],"editions":[{"id":"unit","label":"Single unit","price":4}],"status":"available"},{"id":"fk-metamint","cat":"tools","name":"MetaMint","blurb":"Meta tags, social previews and JSON-LD schema. A single HTML file that runs offline.","features":["Meta tags, social previews and JSON-LD schema","Installer + local server script included","Standard licence"],"editions":[{"id":"unit","label":"Single unit","price":4}],"status":"available"},{"id":"fk-pulseboard","cat":"tools","name":"PulseBoard","blurb":"CSV to KPI dashboard with charts and deltas. A single HTML file that runs offline.","features":["CSV to KPI dashboard with charts and deltas","Installer + local server script included","Standard licence"],"editions":[{"id":"unit","label":"Single unit","price":4}],"status":"available"},{"id":"fk-chromavault","cat":"tools","name":"ChromaVault","blurb":"Palettes, WCAG contrast grading, five token formats. A single HTML file that runs offline.","features":["Palettes, WCAG contrast grading, five token formats","Installer + local server script included","Standard licence"],"editions":[{"id":"unit","label":"Single unit","price":4}],"status":"available"},{"id":"fk-quotecraft","cat":"tools","name":"QuoteCraft","blurb":"Project estimator and three-tier proposal generator. A single HTML file that runs offline.","features":["Project estimator and three-tier proposal generator","Installer + local server script included","Standard licence"],"editions":[{"id":"unit","label":"Single unit","price":4}],"status":"available"},{"id":"fk-formweave","cat":"tools","name":"FormWeave","blurb":"Visual form builder exporting working HTML. A single HTML file that runs offline.","features":["Visual form builder exporting working HTML","Installer + local server script included","Standard licence"],"editions":[{"id":"unit","label":"Single unit","price":4}],"status":"available"},{"id":"fk-croncanvas","cat":"tools","name":"CronCanvas","blurb":"Cron builder, plain-English parser, next twelve runs. A single HTML file that runs offline.","features":["Cron builder, plain-English parser, next twelve runs","Installer + local server script included","Standard licence"],"editions":[{"id":"unit","label":"Single unit","price":4}],"status":"available"},{"id":"fk-ledgerlite","cat":"tools","name":"LedgerLite","blurb":"Recurring spend, burn rate and runway projection. A single HTML file that runs offline.","features":["Recurring spend, burn rate and runway projection","Installer + local server script included","Standard licence"],"editions":[{"id":"unit","label":"Single unit","price":4}],"status":"available"},{"id":"fk-pitchpress","cat":"tools","name":"PitchPress","blurb":"Landing page generator producing one deployable file. A single HTML file that runs offline.","features":["Landing page generator producing one deployable file","Installer + local server script included","Standard licence"],"editions":[{"id":"unit","label":"Single unit","price":4}],"status":"available"},{"id":"vapeshop","cat":"web","name":"VapeShop In a Box","blurb":"A retail business in a box: owner till and admin app, customer shop app, and the backend behind them.","features":["Owner / admin till app","Customer-facing shop app","Supabase backend","Set up on your brand and domain"],"editions":[{"id":"quote","label":"Quote on request","price":null}],"status":"order"},{"id":"ea-storefront","cat":"web","name":"Trading storefront template","blurb":"A website template for selling EAs and indicators — a catalogue page plus a page per product.","features":["Whole catalogue on one page","Product pages ready for listings","Deployed on your domain"],"editions":[{"id":"quote","label":"Quote on request","price":null}],"status":"order"},{"id":"turnkey-site","cat":"web","name":"Turnkey business website","blurb":"A complete website for your business, delivered live with an enquiry form wired to your own inbox.","features":["Design and build to your brief","Verified enquiry form to your email","Deployed and handed over"],"editions":[{"id":"quote","label":"Quote on request","price":null}],"status":"order"},{"id":"agent-swarm","cat":"web","name":"IDE Agent Swarm Engine","blurb":"An LLM agent scaffold with the orchestration wiring already done — complete, editable Next.js source.","features":["Next.js App Router + TypeScript","62 source files","Structure-verified build"],"editions":[{"id":"quote","label":"Quote on request","price":null}],"status":"available"},{"id":"swarm-arch","cat":"web","name":"Multi-Agent Swarm Orchestration","blurb":"A Vite + TypeScript single-page agent orchestration scaffold, complete and editable.","features":["Vite + TypeScript","27 source files","Structure-verified build"],"editions":[{"id":"quote","label":"Quote on request","price":null}],"status":"available"},{"id":"kwota-lite","cat":"saas","name":"Kwota Lite","blurb":"Tracks your subscriptions and reminds you before each one bills.","features":["Detects subscriptions from Gmail and Microsoft","Per-subscription reminder timing","Works offline as an installable app"],"editions":[{"id":"monthly","label":"Monthly","price":4.99}],"status":"early","sub":"month"},{"id":"raise","cat":"saas","name":"RAISE — software appraisal","blurb":"An offline appraisal engine for software, apps and trading systems — a credible valuation before you list.","features":["Evidence-first valuation method","Trading systems valued on test evidence","Downloadable name cards for listing covers"],"editions":[{"id":"quote","label":"Quote on request","price":null}],"status":"early"},{"id":"prop-firm-passer","cat":"trading","name":"Prop Firm EA Passer","blurb":"Pre-configured EA for common prop-firm challenge rules.","features":["Pre-configured EA for common prop-firm challenge rules","MT5","One-time purchase"],"editions":[{"id":"licence","label":"One-time licence","price":49.99}],"status":"available"},{"id":"drawdown-shield","cat":"trading","name":"Drawdown Shield Script","blurb":"Auto-closes trades when the daily drawdown limit approaches.","features":["Auto-closes trades when the daily drawdown limit approaches","MT5","One-time purchase"],"editions":[{"id":"licence","label":"One-time licence","price":29.99}],"status":"available"},{"id":"equity-curve","cat":"trading","name":"Equity Curve Tracker","blurb":"Track and visualise your trading equity over time.","features":["Track and visualise your trading equity over time","MT5","One-time purchase"],"editions":[{"id":"licence","label":"One-time licence","price":19.99}],"status":"available"},{"id":"trade-copier","cat":"trading","name":"MT5 Trade Copier","blurb":"Copy trades between accounts instantly.","features":["Copy trades between accounts instantly","MT5","One-time purchase"],"editions":[{"id":"licence","label":"One-time licence","price":39.99}],"status":"available"},{"id":"risk-calc","cat":"trading","name":"Risk Calculator Widget","blurb":"Position size calculator with lot, pip and margin.","features":["Position size calculator with lot, pip and margin","MT5","One-time purchase"],"editions":[{"id":"licence","label":"One-time licence","price":14.99}],"status":"available"},{"id":"trading-journal","cat":"trading","name":"Trading Journal Template","blurb":"Structured trade logging with P&L tracking.","features":["Structured trade logging with P&L tracking","MT5","One-time purchase"],"editions":[{"id":"licence","label":"One-time licence","price":9.99}],"status":"available"},{"id":"news-filter","cat":"trading","name":"News Filter EA","blurb":"Auto-pauses trading during high-impact news.","features":["Auto-pauses trading during high-impact news","MT5","One-time purchase"],"editions":[{"id":"licence","label":"One-time licence","price":24.99}],"status":"available"},{"id":"session-highlighter","cat":"trading","name":"Session Highlighter","blurb":"Colour-codes the Asian, London and New York sessions.","features":["Colour-codes the Asian, London and New York sessions","MT5","One-time purchase"],"editions":[{"id":"licence","label":"One-time licence","price":12.99}],"status":"available"},{"id":"correlation-matrix","cat":"trading","name":"Correlation Matrix Tool","blurb":"Live currency-pair correlation heatmap.","features":["Live currency-pair correlation heatmap","MT5","One-time purchase"],"editions":[{"id":"licence","label":"One-time licence","price":19.99}],"status":"available"},{"id":"vidette","cat":"trading","name":"Vidette — account protection","blurb":"Closes open positions once your profit target or maximum loss is reached, with daily, weekly or monthly resets.","features":["Profit target and max-loss stop as % of account","Daily / weekly / monthly baselines","Optional auto re-arm · MT4 and MT5"],"editions":[{"id":"quote","label":"Quote on request","price":null}],"status":"available"},{"id":"algo-dispensary","cat":"trading","name":"Algo Dispensary — library access","blurb":"Monthly licensed access to the full XMQA and VIEW MT5 library. Nothing is sold; you rent access.","features":["The whole EA and indicator library","Set-file challenges with founder rewards","Telegram community"],"editions":[{"id":"monthly","label":"Monthly access","price":20}],"status":"available","link":"https://t.me/algodispensary","linkLabel":"Join on Telegram","sub":"month"},{"id":"codex-1","cat":"library","name":"The Architect's Codex — Volume I","blurb":"Syntax, logic and the architecture of synthetic agency — the first volume of the Codex.","features":["Volume I of five","Read on the XMQA portal"],"editions":[{"id":"book","label":"Volume I","price":39.99,"value":69.99}],"status":"available"},{"id":"codex-b1","cat":"library","name":"Codex Bundle 01 — The Starter","blurb":"A fixed-price service bundle: conversions, builds and testing, with Codex volumes included.","features":["1 language conversion","1-year in/out-of-sample test on real tick history","Free Codex Vol I","Free surprise gift"],"editions":[{"id":"bundle","label":"Bundle","price":49.99}],"status":"available"},{"id":"codex-b2","cat":"library","name":"Codex Bundle 02 — The Architect","blurb":"A fixed-price service bundle: conversions, builds and testing, with Codex volumes included.","features":["1 conversion + 1 custom build","2-year in/out-of-sample test","Codex Vol I + II","Free surprise gift"],"editions":[{"id":"bundle","label":"Bundle","price":99.99}],"status":"available"},{"id":"codex-b3","cat":"library","name":"Codex Bundle 03 — The Full Dimension","blurb":"A fixed-price service bundle: conversions, builds and testing, with Codex volumes included.","features":["3 conversions + 2 custom builds","3-year test on real ticks","Front-end dashboard or landing page","Codex Vol I–III · 48-hour priority"],"editions":[{"id":"bundle","label":"Bundle","price":199.99}],"status":"available"},{"id":"codex-b4","cat":"library","name":"Codex Bundle 04 — The Forger","blurb":"A fixed-price service bundle: conversions, builds and testing, with Codex volumes included.","features":["Everything in Bundle 03","Robust backtesting guide","Codex Vol IV"],"editions":[{"id":"bundle","label":"Bundle","price":299.99}],"status":"available"},{"id":"codex-b5","cat":"library","name":"Codex Bundle 05 — The Watchman","blurb":"A fixed-price service bundle: conversions, builds and testing, with Codex volumes included.","features":["Everything in Bundle 04","Alignment / adversarial defence review","Codex Vol V"],"editions":[{"id":"bundle","label":"Bundle","price":399.99}],"status":"available"},{"id":"conversions","cat":"services","name":"Code conversions","blurb":"MT4 ↔ MT5, MT4/MT5 ↔ Python, and PineScript ↔ MT4/MT5.","features":["Send source files with your brief","Quote is final once both sides accept","Work starts within 24 hours of payment"],"editions":[{"id":"from","label":"From","price":10}],"status":"available"},{"id":"bespoke","cat":"services","name":"Bespoke EAs, indicators & automation","blurb":"Private builds to your specification. The code is yours once paid.","features":["Expert Advisors, indicators, automation scripts","NDA available","Deliverables are your IP"],"editions":[{"id":"quote","label":"Quote on request","price":null}],"status":"available"}],"bundles":[{"id":"atelier-crown","name":"The Complete Set","blurb":"AAM, DEVI-CRONS and Aura Suite with full source and rights, Nora included, plus ARGENT.","items":["aam","devi","aura","nora","argent"],"price":6999,"value":21549,"ownership":true,"editions":{"aam":"ownership","devi":"ownership","aura":"ownership","nora":"ownership","argent":"regular"}},{"id":"agentic-operator","name":"Agentic Operator","blurb":"Automation engine, marketplace and dev tooling to run a software business on autopilot.","items":["devi","aam","android-scaffold","fablekit","qr-suite"]},{"id":"marketplace-builder","name":"Marketplace Builder","blurb":"Three launch-ready platforms plus the tools to extend them.","items":["aam","argent","aura","qr-ez","android-scaffold"]},{"id":"dev-forge","name":"Developer Forge","blurb":"Generators, tools and a full AI suite for shipping client work fast.","items":["android-scaffold","qr-suite","fablekit","hustlebrah","aura"]},{"id":"creator-studio","name":"Creator Studio","blurb":"AI content, QR and business-card tools for creators and small studios.","items":["aura","qr-v2","hustlebrah","fk-pitchpress","fk-chromavault"]},{"id":"qr-print","name":"QR & Print Pack","blurb":"Every QR product plus invoicing and meta tooling for print campaigns.","items":["qr-v2","qr-v1","qr-ez","fk-invoiceforge","fk-metamint"]},{"id":"prop-desk","name":"Prop Desk","blurb":"A prop-firm platform with the risk tools traders ask for first.","items":["argent","prop-firm-passer","drawdown-shield","equity-curve","risk-calc"]},{"id":"trader-kit","name":"Trader's Toolkit","blurb":"Five everyday MT5 utilities in one pack.","items":["trade-copier","news-filter","session-highlighter","correlation-matrix","trading-journal"]}],"arkbase":{"page":"/arkbase/","perks":["Weekly bundles, Python scripts and deploy-ready configs","Tech stacks, AI agents and bots, tested and documented","A free universe of motion, video, vector and AI resources","New drops every Monday"],"plans":[{"id":"monthly","name":"Arkbase Monthly","price":5.0,"interval":"month","desc":"Full Arkbase Premium access. Cancel anytime.","paypal":"https://xmqa.pro/?action=freebase-pay&plan=monthly","checkout":""},{"id":"annual","name":"Arkbase Annual","price":48.0,"interval":"year","desc":"Billed once a year, about 20% off monthly.","paypal":"https://xmqa.pro/?action=freebase-pay&plan=annual","checkout":""}]}}
+{
+  "version": "2026-09-28b",
+  "bundleDiscount": 0.45,
+  "noraRule": {
+    "target": "nora",
+    "requires": [
+      "aam",
+      "devi",
+      "aura"
+    ],
+    "edition": "ownership"
+  },
+  "categories": {
+    "assets": "Software you can own",
+    "apps": "Apps & dev tools",
+    "tools": "Browser tools",
+    "web": "Websites & templates",
+    "saas": "SaaS",
+    "trading": "Trading tools",
+    "library": "Codex & bundles"
+  },
+  "items": [
+    {
+      "id": "aam",
+      "cat": "assets",
+      "name": "AAM — Autonomous App Marketplace",
+      "blurb": "A ready-to-launch developer marketplace. Developers list apps, buyers pay by Stripe, PayPal or Lemon Squeezy, and you run it all from a private payments and payout console.",
+      "features": [
+        "App catalogue with search, categories and listing pages",
+        "Accounts with hashed passwords and signed sessions",
+        "Three payment gateways, amounts re-checked with the processor",
+        "Owner console: ledger, payouts with 5% platform fee, CSV export",
+        "Community forum with AI moderator, owner AI console",
+        "Windows one-click launcher · Express + React 19 + TypeScript",
+        "Bonus: Selius Cleaner Suite"
+      ],
+      "editions": [
+        {
+          "id": "licence",
+          "label": "Commercial licence",
+          "price": 399
+        },
+        {
+          "id": "ownership",
+          "label": "Full ownership",
+          "price": 2340,
+          "value": 3900
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "devi",
+      "cat": "assets",
+      "name": "DEVI-CRONS — Agentic Cron Automation",
+      "blurb": "An always-on automation engine: 401 scheduled jobs, 264 AI agent templates, an encrypted key vault and a multi-provider AI router. Browser or Windows desktop app.",
+      "features": [
+        "401-job catalogue across 19 groups",
+        "Minute-level scheduler with separate system and AI lanes",
+        "264 agent templates across 17 categories",
+        "AES-256-GCM credential vault with automatic key rotation",
+        "Router across Gemini, Groq, OpenRouter, NVIDIA, Ollama and more",
+        "Next.js + PostgreSQL + Electron installer",
+        "Bonus: Selius Cleaner Suite"
+      ],
+      "editions": [
+        {
+          "id": "licence",
+          "label": "Licence edition",
+          "price": 1072
+        },
+        {
+          "id": "ownership",
+          "label": "Full ownership",
+          "price": 1860,
+          "value": 3100
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "aura",
+      "cat": "assets",
+      "name": "Aura Suite — Five-Studio AI Content Suite",
+      "blurb": "Five AI creative studios in one installable app, with accounts, a credit system and PayPal checkout already built.",
+      "features": [
+        "AuraShot headshots · AuraSpace interior staging · AuraFood menus",
+        "AuraWear lookbooks · AuraBill receipt splitting",
+        "Email-verified accounts, 15 starter credits, server-side credit ledger",
+        "PayPal credit refills and Pro plan, confirmed before granting",
+        "Admin portal, installable PWA, 13 passing automated tests",
+        "Bonus: Selius Cleaner Suite"
+      ],
+      "editions": [
+        {
+          "id": "licence",
+          "label": "Commercial licence",
+          "price": 399
+        },
+        {
+          "id": "ownership",
+          "label": "Full ownership",
+          "price": 2520,
+          "value": 4200
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "nora",
+      "cat": "assets",
+      "name": "Nora — Creative Services Marketplace",
+      "blurb": "A creative-services business in a box: 31 ready-to-sell services, card checkout, and an agent pipeline that plans, drafts, reviews and revises until you approve.",
+      "features": [
+        "31 services across 6 categories, each with its own page and checkout",
+        "Lemon Squeezy or Stripe card payments with signed webhooks",
+        "Plan → draft → scored review → revise, 24/7, human approval last",
+        "Pooled AI keys with load balancing and failover",
+        "Admin console, order tracking by private link, content studio",
+        "Free when AAM, DEVI-CRONS and Aura Suite are in the same order"
+      ],
+      "editions": [
+        {
+          "id": "ownership",
+          "label": "Full ownership",
+          "price": 6000,
+          "value": 10000
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "argent",
+      "cat": "assets",
+      "name": "ARGENT — Prop Trading Firm Platform",
+      "blurb": "A turnkey prop-firm platform: public site, trader dashboard and owner console, with an automatic risk engine and phase promotions.",
+      "features": [
+        "Subscribe → pay → trade, with idempotent account provisioning",
+        "Risk engine: daily loss, static or trailing max loss, targets, min days",
+        "Rules compile into a knowledge base for a voice-and-text support robot",
+        "Pluggable payments (Stripe / PayPal) and AI (OpenAI / Gemini / Anthropic / offline)",
+        "14 plugins incl. MT4/MT5/cTrader bridge intake, Discord, TradingView",
+        "Next.js + SQLite / PostgreSQL / MySQL · Docker included"
+      ],
+      "editions": [
+        {
+          "id": "regular",
+          "label": "Regular licence",
+          "price": 349
+        },
+        {
+          "id": "extended",
+          "label": "Extended licence",
+          "price": 499
+        },
+        {
+          "id": "ownership",
+          "label": "Full ownership",
+          "price": 12000,
+          "value": 18000
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "android-scaffold",
+      "cat": "apps",
+      "name": "Android Scaffold",
+      "blurb": "A self-hosted app that turns a few dropdowns into a complete, Gradle-syncable Android Studio project.",
+      "features": [
+        "Kotlin or Java · Compose, XML or both",
+        "MVVM, MVI or Clean Architecture with real package structures",
+        "13 toggleable features: Hilt, Room, Retrofit, CameraX, Firebase Auth…",
+        "Built-in bring-your-own-key AI assistant",
+        "Next.js 16 · no database · full source"
+      ],
+      "editions": [
+        {
+          "id": "licence",
+          "label": "One-time licence",
+          "price": 59
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "qr-suite",
+      "cat": "apps",
+      "name": "QR Atelier Suite 3-in-1",
+      "blurb": "Three self-hosted QR products in one: glassmorphism studio, black-glass business card minter, and dynamic QR with scan tracking.",
+      "features": [
+        "QR Atelier V2 BlackFable + QR Atelier V1 + QR Coder Ez",
+        "Full Next.js 16 source for all three",
+        "No monthly fees, no API keys"
+      ],
+      "editions": [
+        {
+          "id": "standard",
+          "label": "Standard",
+          "price": 79,
+          "value": 94
+        },
+        {
+          "id": "extended",
+          "label": "Extended (resell / white-label)",
+          "price": 149
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "qr-v2",
+      "cat": "apps",
+      "name": "QR Atelier V2 BlackFable",
+      "blurb": "QR studio plus a Business Card Studio that mints digital business cards with their own QR codes.",
+      "features": [
+        "A4 print sheets, 1–9 codes per page",
+        "Business cards with founder-tier gold foil",
+        "PNG export up to 4096px · no database"
+      ],
+      "editions": [
+        {
+          "id": "starter",
+          "label": "Starter",
+          "price": 30
+        },
+        {
+          "id": "pro",
+          "label": "Pro — 10 client projects",
+          "price": 49
+        },
+        {
+          "id": "agency",
+          "label": "Agency — unlimited, white-label",
+          "price": 199
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "qr-v1",
+      "cat": "apps",
+      "name": "QR Atelier V1",
+      "blurb": "The original four-button glassmorphism QR studio — lean, fast and print-ready.",
+      "features": [
+        "URL, phone, WiFi and email codes",
+        "True-A4 print sheets, 6 layouts",
+        "PNG up to 4096px · no database"
+      ],
+      "editions": [
+        {
+          "id": "starter",
+          "label": "Starter",
+          "price": 30
+        },
+        {
+          "id": "pro",
+          "label": "Pro — 10 client projects",
+          "price": 45
+        },
+        {
+          "id": "agency",
+          "label": "Agency — unlimited, white-label",
+          "price": 179
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "qr-ez",
+      "cat": "apps",
+      "name": "QR Coder Ez",
+      "blurb": "Dynamic QR codes you can re-point after printing, with per-code scan tracking.",
+      "features": [
+        "Change a printed code's destination any time",
+        "Scan counters and full event log",
+        "REST API · Next.js + PostgreSQL"
+      ],
+      "editions": [
+        {
+          "id": "standard",
+          "label": "Standard",
+          "price": 34
+        },
+        {
+          "id": "pro",
+          "label": "Pro",
+          "price": 49
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "hustlebrah",
+      "cat": "apps",
+      "name": "HustleBrah v4 — Hustle Kit",
+      "blurb": "A hustle toolkit for micro-entrepreneurs: studio, dashboard, and a lead, deal, outreach and earnings pipeline.",
+      "features": [
+        "Lead → deal → outreach → earnings pipeline",
+        "Studio and dashboard",
+        "Standalone or as an add-on"
+      ],
+      "editions": [
+        {
+          "id": "standalone",
+          "label": "Standalone",
+          "price": 12
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "fablekit",
+      "cat": "tools",
+      "name": "Fablekit — all ten browser tools",
+      "blurb": "Ten finished single-file web apps with installers and previews. No build step, no backend, no API keys.",
+      "features": [
+        "InvoiceForge, GridSnap, MetaMint, PulseBoard, ChromaVault",
+        "QuoteCraft, FormWeave, CronCanvas, LedgerLite, PitchPress",
+        "72 automated checks pass",
+        "One-click installers for Windows, macOS and Linux"
+      ],
+      "editions": [
+        {
+          "id": "bundle",
+          "label": "All ten",
+          "price": 12
+        },
+        {
+          "id": "resell",
+          "label": "Resell rights",
+          "price": 29
+        },
+        {
+          "id": "ownership",
+          "label": "Full ownership",
+          "price": 99
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "fk-invoiceforge",
+      "cat": "tools",
+      "name": "InvoiceForge",
+      "blurb": "Invoices, quotes and receipts, printed to PDF. A single HTML file that runs offline.",
+      "features": [
+        "Invoices, quotes and receipts, printed to PDF",
+        "Installer + local server script included",
+        "Standard licence"
+      ],
+      "editions": [
+        {
+          "id": "unit",
+          "label": "Single unit",
+          "price": 4
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "fk-gridsnap",
+      "cat": "tools",
+      "name": "GridSnap",
+      "blurb": "CSS Grid and Flexbox built visually, exported as code. A single HTML file that runs offline.",
+      "features": [
+        "CSS Grid and Flexbox built visually, exported as code",
+        "Installer + local server script included",
+        "Standard licence"
+      ],
+      "editions": [
+        {
+          "id": "unit",
+          "label": "Single unit",
+          "price": 4
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "fk-metamint",
+      "cat": "tools",
+      "name": "MetaMint",
+      "blurb": "Meta tags, social previews and JSON-LD schema. A single HTML file that runs offline.",
+      "features": [
+        "Meta tags, social previews and JSON-LD schema",
+        "Installer + local server script included",
+        "Standard licence"
+      ],
+      "editions": [
+        {
+          "id": "unit",
+          "label": "Single unit",
+          "price": 4
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "fk-pulseboard",
+      "cat": "tools",
+      "name": "PulseBoard",
+      "blurb": "CSV to KPI dashboard with charts and deltas. A single HTML file that runs offline.",
+      "features": [
+        "CSV to KPI dashboard with charts and deltas",
+        "Installer + local server script included",
+        "Standard licence"
+      ],
+      "editions": [
+        {
+          "id": "unit",
+          "label": "Single unit",
+          "price": 4
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "fk-chromavault",
+      "cat": "tools",
+      "name": "ChromaVault",
+      "blurb": "Palettes, WCAG contrast grading, five token formats. A single HTML file that runs offline.",
+      "features": [
+        "Palettes, WCAG contrast grading, five token formats",
+        "Installer + local server script included",
+        "Standard licence"
+      ],
+      "editions": [
+        {
+          "id": "unit",
+          "label": "Single unit",
+          "price": 4
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "fk-quotecraft",
+      "cat": "tools",
+      "name": "QuoteCraft",
+      "blurb": "Project estimator and three-tier proposal generator. A single HTML file that runs offline.",
+      "features": [
+        "Project estimator and three-tier proposal generator",
+        "Installer + local server script included",
+        "Standard licence"
+      ],
+      "editions": [
+        {
+          "id": "unit",
+          "label": "Single unit",
+          "price": 4
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "fk-formweave",
+      "cat": "tools",
+      "name": "FormWeave",
+      "blurb": "Visual form builder exporting working HTML. A single HTML file that runs offline.",
+      "features": [
+        "Visual form builder exporting working HTML",
+        "Installer + local server script included",
+        "Standard licence"
+      ],
+      "editions": [
+        {
+          "id": "unit",
+          "label": "Single unit",
+          "price": 4
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "fk-croncanvas",
+      "cat": "tools",
+      "name": "CronCanvas",
+      "blurb": "Cron builder, plain-English parser, next twelve runs. A single HTML file that runs offline.",
+      "features": [
+        "Cron builder, plain-English parser, next twelve runs",
+        "Installer + local server script included",
+        "Standard licence"
+      ],
+      "editions": [
+        {
+          "id": "unit",
+          "label": "Single unit",
+          "price": 4
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "fk-ledgerlite",
+      "cat": "tools",
+      "name": "LedgerLite",
+      "blurb": "Recurring spend, burn rate and runway projection. A single HTML file that runs offline.",
+      "features": [
+        "Recurring spend, burn rate and runway projection",
+        "Installer + local server script included",
+        "Standard licence"
+      ],
+      "editions": [
+        {
+          "id": "unit",
+          "label": "Single unit",
+          "price": 4
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "fk-pitchpress",
+      "cat": "tools",
+      "name": "PitchPress",
+      "blurb": "Landing page generator producing one deployable file. A single HTML file that runs offline.",
+      "features": [
+        "Landing page generator producing one deployable file",
+        "Installer + local server script included",
+        "Standard licence"
+      ],
+      "editions": [
+        {
+          "id": "unit",
+          "label": "Single unit",
+          "price": 4
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "agent-swarm",
+      "cat": "web",
+      "name": "IDE Agent Swarm Engine",
+      "blurb": "An LLM agent scaffold with the orchestration wiring already done — complete, editable Next.js source.",
+      "features": [
+        "Next.js App Router + TypeScript",
+        "62 source files",
+        "Structure-verified build"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "swarm-arch",
+      "cat": "web",
+      "name": "Multi-Agent Swarm Orchestration",
+      "blurb": "A Vite + TypeScript single-page agent orchestration scaffold, complete and editable.",
+      "features": [
+        "Vite + TypeScript",
+        "27 source files",
+        "Structure-verified build"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "kwota-lite",
+      "cat": "saas",
+      "name": "Kwota Lite",
+      "blurb": "Tracks your subscriptions and reminds you before each one bills.",
+      "features": [
+        "Detects subscriptions from Gmail and Microsoft",
+        "Per-subscription reminder timing",
+        "Works offline as an installable app"
+      ],
+      "editions": [
+        {
+          "id": "monthly",
+          "label": "Monthly",
+          "price": 4.99
+        }
+      ],
+      "status": "early",
+      "sub": "month"
+    },
+    {
+      "id": "raise",
+      "cat": "saas",
+      "name": "RAISE — software appraisal",
+      "blurb": "An offline appraisal engine for software, apps and trading systems — a credible valuation before you list.",
+      "features": [
+        "Evidence-first valuation method",
+        "Trading systems valued on test evidence",
+        "Downloadable name cards for listing covers"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "early"
+    },
+    {
+      "id": "prop-firm-passer",
+      "cat": "trading",
+      "name": "Prop Firm EA Passer",
+      "blurb": "Pre-configured EA for common prop-firm challenge rules.",
+      "features": [
+        "Pre-configured EA for common prop-firm challenge rules",
+        "MT5",
+        "One-time purchase"
+      ],
+      "editions": [
+        {
+          "id": "licence",
+          "label": "One-time licence",
+          "price": 49.99
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "drawdown-shield",
+      "cat": "trading",
+      "name": "Drawdown Shield Script",
+      "blurb": "Auto-closes trades when the daily drawdown limit approaches.",
+      "features": [
+        "Auto-closes trades when the daily drawdown limit approaches",
+        "MT5",
+        "One-time purchase"
+      ],
+      "editions": [
+        {
+          "id": "licence",
+          "label": "One-time licence",
+          "price": 29.99
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "equity-curve",
+      "cat": "trading",
+      "name": "Equity Curve Tracker",
+      "blurb": "Track and visualise your trading equity over time.",
+      "features": [
+        "Track and visualise your trading equity over time",
+        "MT5",
+        "One-time purchase"
+      ],
+      "editions": [
+        {
+          "id": "licence",
+          "label": "One-time licence",
+          "price": 19.99
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "trade-copier",
+      "cat": "trading",
+      "name": "MT5 Trade Copier",
+      "blurb": "Copy trades between accounts instantly.",
+      "features": [
+        "Copy trades between accounts instantly",
+        "MT5",
+        "One-time purchase"
+      ],
+      "editions": [
+        {
+          "id": "licence",
+          "label": "One-time licence",
+          "price": 39.99
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "risk-calc",
+      "cat": "trading",
+      "name": "Risk Calculator Widget",
+      "blurb": "Position size calculator with lot, pip and margin.",
+      "features": [
+        "Position size calculator with lot, pip and margin",
+        "MT5",
+        "One-time purchase"
+      ],
+      "editions": [
+        {
+          "id": "licence",
+          "label": "One-time licence",
+          "price": 14.99
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "trading-journal",
+      "cat": "trading",
+      "name": "Trading Journal Template",
+      "blurb": "Structured trade logging with P&L tracking.",
+      "features": [
+        "Structured trade logging with P&L tracking",
+        "MT5",
+        "One-time purchase"
+      ],
+      "editions": [
+        {
+          "id": "licence",
+          "label": "One-time licence",
+          "price": 9.99
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "news-filter",
+      "cat": "trading",
+      "name": "News Filter EA",
+      "blurb": "Auto-pauses trading during high-impact news.",
+      "features": [
+        "Auto-pauses trading during high-impact news",
+        "MT5",
+        "One-time purchase"
+      ],
+      "editions": [
+        {
+          "id": "licence",
+          "label": "One-time licence",
+          "price": 24.99
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "session-highlighter",
+      "cat": "trading",
+      "name": "Session Highlighter",
+      "blurb": "Colour-codes the Asian, London and New York sessions.",
+      "features": [
+        "Colour-codes the Asian, London and New York sessions",
+        "MT5",
+        "One-time purchase"
+      ],
+      "editions": [
+        {
+          "id": "licence",
+          "label": "One-time licence",
+          "price": 12.99
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "correlation-matrix",
+      "cat": "trading",
+      "name": "Correlation Matrix Tool",
+      "blurb": "Live currency-pair correlation heatmap.",
+      "features": [
+        "Live currency-pair correlation heatmap",
+        "MT5",
+        "One-time purchase"
+      ],
+      "editions": [
+        {
+          "id": "licence",
+          "label": "One-time licence",
+          "price": 19.99
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "vidette",
+      "cat": "trading",
+      "name": "Vidette — account protection",
+      "blurb": "Closes open positions once your profit target or maximum loss is reached, with daily, weekly or monthly resets.",
+      "features": [
+        "Profit target and max-loss stop as % of account",
+        "Daily / weekly / monthly baselines",
+        "Optional auto re-arm · MT4 and MT5"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "codex-1",
+      "cat": "library",
+      "name": "The Architect's Codex — Volume I",
+      "blurb": "Syntax, logic and the architecture of synthetic agency — the first volume of the Codex.",
+      "features": [
+        "Volume I of five",
+        "Read on the XMQA portal"
+      ],
+      "editions": [
+        {
+          "id": "book",
+          "label": "Volume I",
+          "price": 39.99,
+          "value": 69.99
+        }
+      ],
+      "status": "available"
+    }
+  ],
+  "bundles": [
+    {
+      "id": "atelier-crown",
+      "name": "The Complete Set",
+      "blurb": "AAM, DEVI-CRONS and Aura Suite with full source and rights, Nora included, plus ARGENT.",
+      "items": [
+        "aam",
+        "devi",
+        "aura",
+        "nora",
+        "argent"
+      ],
+      "price": 6999,
+      "value": 11549,
+      "ownership": true,
+      "editions": {
+        "aam": "ownership",
+        "devi": "ownership",
+        "aura": "ownership",
+        "nora": "ownership",
+        "argent": "regular"
+      }
+    },
+    {
+      "id": "agentic-operator",
+      "name": "Agentic Operator",
+      "blurb": "Automation engine, marketplace and dev tooling to run a software business on autopilot.",
+      "items": [
+        "devi",
+        "aam",
+        "android-scaffold",
+        "fablekit",
+        "qr-suite"
+      ]
+    },
+    {
+      "id": "marketplace-builder",
+      "name": "Marketplace Builder",
+      "blurb": "Three launch-ready platforms plus the tools to extend them.",
+      "items": [
+        "aam",
+        "argent",
+        "aura",
+        "qr-ez",
+        "android-scaffold"
+      ]
+    },
+    {
+      "id": "dev-forge",
+      "name": "Developer Forge",
+      "blurb": "Generators, tools and a full AI suite for shipping client work fast.",
+      "items": [
+        "android-scaffold",
+        "qr-suite",
+        "fablekit",
+        "hustlebrah",
+        "aura"
+      ]
+    },
+    {
+      "id": "creator-studio",
+      "name": "Creator Studio",
+      "blurb": "AI content, QR and business-card tools for creators and small studios.",
+      "items": [
+        "aura",
+        "qr-v2",
+        "hustlebrah",
+        "fk-pitchpress",
+        "fk-chromavault"
+      ]
+    },
+    {
+      "id": "qr-print",
+      "name": "QR & Print Pack",
+      "blurb": "Every QR product plus invoicing and meta tooling for print campaigns.",
+      "items": [
+        "qr-v2",
+        "qr-v1",
+        "qr-ez",
+        "fk-invoiceforge",
+        "fk-metamint"
+      ]
+    },
+    {
+      "id": "prop-desk",
+      "name": "Prop Desk",
+      "blurb": "A prop-firm platform with the risk tools traders ask for first.",
+      "items": [
+        "argent",
+        "prop-firm-passer",
+        "drawdown-shield",
+        "equity-curve",
+        "risk-calc"
+      ]
+    },
+    {
+      "id": "trader-kit",
+      "name": "Trader's Toolkit",
+      "blurb": "Five everyday MT5 utilities in one pack.",
+      "items": [
+        "trade-copier",
+        "news-filter",
+        "session-highlighter",
+        "correlation-matrix",
+        "trading-journal"
+      ]
+    }
+  ],
+  "arkbase": {
+    "page": "/arkbase/",
+    "perks": [
+      "Weekly bundles, Python scripts and deploy-ready configs",
+      "Tech stacks, AI agents and bots, tested and documented",
+      "A free universe of motion, video, vector and AI resources",
+      "New drops every Monday"
+    ],
+    "plans": [
+      {
+        "id": "monthly",
+        "name": "Arkbase Monthly",
+        "price": 5,
+        "interval": "month",
+        "desc": "Full Arkbase Premium access. Cancel anytime.",
+        "paypal": "https://xmqa.pro/?action=freebase-pay&plan=monthly",
+        "checkout": ""
+      },
+      {
+        "id": "annual",
+        "name": "Arkbase Annual",
+        "price": 48,
+        "interval": "year",
+        "desc": "Billed once a year, about 20% off monthly.",
+        "paypal": "https://xmqa.pro/?action=freebase-pay&plan=annual",
+        "checkout": ""
+      }
+    ]
+  }
+}
