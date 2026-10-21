@@ -1,4 +1,4 @@
-# XMQA Online — xmqa.online
+# Wicroz — xmqa.online
 
 The software, apps and MT5 tools store, as its own website (moved out of xmqa.pro/online on 2026-10-05).
 

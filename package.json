@@ -1,7 +1,7 @@
 {
-  "name": "xmqa-online",
+  "name": "wicroz-online",
   "private": true,
-  "description": "XMQA Online: software, apps and MT5 tools store (xmqa.online). A Selius (Pty) Ltd product.",
+  "description": "Wicroz: software, apps and MT5 tools store. A Selius (Pty) Ltd product.",
   "scripts": { "dev": "npx serve .", "start": "npx serve ." },
   "engines": { "node": ">=18" },
   "dependencies": { "nodemailer": "^9.0.3" }

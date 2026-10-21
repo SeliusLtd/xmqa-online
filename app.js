@@ -1,8 +1,8 @@
 (() => {
   "use strict";
-  const SUPPORT = "support@xmqa.pro";
+  const SUPPORT = "support@selius.co.za";
   const API = { verify: "/api/online/verify", order: "/api/online/order" };
-  const P = window.XQPricing;
+  const P = window.WXPricing;
   const $ = s => document.querySelector(s);
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const money = P.money;
@@ -43,16 +43,21 @@
   function renderPacks() {
     $("#packGrid").innerHTML = CAT.bundles.map(b => {
       const bp = P.bundlePrice(CAT, b);
-      const appraised = bp.basis === "appraised";
-      return `<article class="pack${b.ownership ? " crown" : ""}">
-        <span class="eyebrow">${b.ownership ? "Complete set · five products" : "Five-pack"}</span><h3 style="margin-top:6px">${esc(b.name)}</h3>
+      const quoted = bp.price === null;
+      const list = b.items.map(id => { const it = byId(id); if (!it) return "";
+        const free = id === CAT.noraRule.target && CAT.noraRule.requires.every(r => b.items.includes(r));
+        const ed = (b.editions && it.editions.find(e => e.id === b.editions[id])) || it.editions[0];
+        return `<li><a href="#" data-detail="${id}">${esc(it.name.split(" — ")[0])}</a> <span class="mono" style="font-size:12px;color:var(--dim)">${free ? "free" : money(ed.price)}</span></li>`; }).join("");
+      const save = (!quoted && bp.sum) ? Math.round((1 - bp.price / bp.sum) * 100) : 0;
+      const label = quoted ? "Ask for a quote" : "Add bundle";
+      return `<article class="pack${b.ownership ? " crown" : ""}${b.special ? " special" : ""}">
+        ${quoted ? "" : `<span class="sticker">${esc(P.saleLabel(CAT))}</span>`}
+        <span class="eyebrow">${b.special ? "Bundle · on special" : b.ownership ? "Complete set" : "Job bundle"}</span><h3 style="margin-top:6px">${esc(b.name)}</h3>
         <p class="muted" style="font-size:14px;margin-top:6px">${esc(b.blurb)}</p>
-        <ol>${b.items.map(id => { const it = byId(id);
-          const free = id === CAT.noraRule.target && CAT.noraRule.requires.every(r => b.items.includes(r));
-          const ed = (b.editions && it.editions.find(e => e.id === b.editions[id])) || it.editions[0];
-          return `<li><a href="#" data-detail="${id}">${esc(it.name.split(" — ")[0])}</a> <span class="mono" style="font-size:12px;color:var(--dim)">${free ? "free" : money(appraised ? (ed.value || ed.price) : ed.price)}</span></li>`; }).join("")}</ol>
-        <div class="pricing"><b>${money(bp.price)}</b><span class="saving">${appraised ? `${money(bp.was)} appraised value · save ${Math.round(100 - bp.price / bp.was * 100)}%` : `${money(bp.was - bp.price)} less than buying separately`}</span></div>
-        <button class="btn btn-brass" type="button" data-add="b:${b.id}" data-label="Add five-pack" data-name="${esc(b.name)}">Add five-pack</button>
+        <ol>${list}</ol>
+        <div class="pricing"><b>${money(bp.price)}</b>${quoted ? "" : `<s class="was">${money(bp.was)}</s><span class="off">${bp.off}% OFF</span>`}
+          <span class="saving">${quoted ? "Priced with your seat count" : `${money(bp.sum)} bought separately · save ${save}% again`}</span></div>
+        <button class="btn btn-brass" type="button" data-add="b:${b.id}" data-label="${label}" data-name="${esc(b.name)}">${label}</button>
       </article>`;
     }).join("");
   }
@@ -70,8 +75,9 @@
   }
   function priceHtml(it, e) {
     if (e.price === null) return `<span class="price">Quote</span>`;
+    const was = P.wasOf(CAT, e.price);
     return `<span class="price">${money(e.price)}${it.sub ? ` <span class="muted" style="font-weight:400;font-size:12px">/ ${it.sub}</span>` : ""}</span>` +
-      "";
+      (was ? `<s class="was">${money(was)}</s><span class="off">${esc(P.saleLabel(CAT))}</span>` : "");
   }
   function buyButton(it) {
     if (it.link) return `<a class="btn btn-brass btn-sm" href="${esc(it.link)}" target="_blank" rel="noopener">${esc(it.linkLabel)}</a>`;
@@ -89,7 +95,9 @@
       (!query || `${i.name} ${i.blurb} ${i.features.join(" ")}`.toLowerCase().includes(query)));
     $("#grid").innerHTML = list.length ? list.map(it => {
       const st = STATUS[it.status] || STATUS.available;
-      return `<article class="card">
+      const priced = it.editions[0].price !== null;
+      return `<article class="card${priced ? " on-sale" : ""}">
+        ${priced ? `<span class="sticker">${esc(P.saleLabel(CAT))}</span>` : ""}
         <div class="meta"><span class="cat">${esc(CAT.categories[it.cat])}</span><span class="badge ${st[1]}">${st[0]}</span></div>
         <h3>${esc(it.name)}</h3>
         <p class="blurb">${esc(it.blurb)}</p>
@@ -140,12 +148,12 @@
     const slice = rows.slice(libPage * PAGE, libPage * PAGE + PAGE);
     $("#libCount").textContent = `${rows.length.toLocaleString("en-US")} of ${LIB.length.toLocaleString("en-US")} tools`;
     $("#libList").innerHTML = slice.length ? slice.map(x => `<div class="li"><div class="nm"><span>${esc(MT5.cats[x.c])} · ${x.t === "e" ? "Expert Advisor" : "Indicator"}</span><b>${esc(x.n)}</b><p>${esc(x.d)}</p></div>
-      <div class="pr"><span class="price">${money(x.p)}</span></div><button class="btn btn-brass btn-sm" type="button" data-add="${x.k}" data-label="Add" data-name="${esc(x.n)}">Add</button></div>`).join("")
+      <div class="pr"><span class="price">${money(x.p)}</span><s class="was">${money(P.wasOf(CAT, x.p))}</s></div><button class="btn btn-brass btn-sm" type="button" data-add="${x.k}" data-label="Add" data-name="${esc(x.n)}">Add</button></div>`).join("")
       : `<div class="empty" style="border:0">No matches. Try a shorter search.</div>`;
     $("#libPager").innerHTML = pages > 1 ? `<button class="btn btn-ghost btn-sm" type="button" data-pg="-1"${libPage === 0 ? " disabled" : ""}>← Prev</button><span>Page ${libPage + 1} of ${pages}</span><button class="btn btn-ghost btn-sm" type="button" data-pg="1"${libPage >= pages - 1 ? " disabled" : ""}>Next →</button>` : "";
     if (col !== "") {
-      const m = P.mt5Lookup(MT5, `mc:${col}`);
-      $("#libColBuy").innerHTML = `<button class="btn btn-brass btn-sm" type="button" data-add="mc:${col}" data-label="Take all ${m.count} · ${money(m.price)}" data-name="${esc(MT5.cats[col])}">Take all ${m.count} · ${money(m.price)}</button> <span class="was">${money(m.was)}</span> <span class="save">save 65%</span>`;
+      const m = P.mt5Lookup(MT5, `mc:${col}`, CAT);
+      $("#libColBuy").innerHTML = `<button class="btn btn-brass btn-sm" type="button" data-add="mc:${col}" data-label="Take all ${m.count} · ${money(m.price)}" data-name="${esc(MT5.cats[col])}">Take all ${m.count} · ${money(m.price)}</button> <s class="was">${money(m.was)}</s> <span class="off">${P.offPct(CAT, m.price, m.was)}% OFF</span>`;
     } else $("#libColBuy").innerHTML = `<span class="muted">Pick a category to take every tool in it at one price.</span>`;
     refreshButtons();
   }
@@ -179,7 +187,7 @@
     const empty = !q.lines.length;
     $("#cartTitle").textContent = empty ? "Ask a question" : "Your cart";
     $("#lines").innerHTML = empty ? `<p class="muted">Your cart is empty. Send us a question below, or <a href="#catalogue" data-close>browse the catalogue</a>.</p>`
-      : q.lines.map(l => `<div class="line"><span class="n">${esc(l.name)}</span><span class="p">${l.price === null ? "Quote" : money(l.price)}${false ? `<br><span class="was">${money(l.was)}</span>` : ""}</span>
+      : q.lines.map(l => `<div class="line"><span class="n">${esc(l.name)}</span><span class="p">${l.price === null ? "Quote" : money(l.price)}${l.was ? `<br><s class="was">${money(l.was)}</s>` : ""}</span>
         <span class="e">${esc(l.edition)}${l.note ? " · " + esc(l.note) : ""}</span><button class="rm" type="button" data-rm="${esc(l.key)}">Remove</button></div>`).join("");
     $("#totalRow").hidden = empty;
     $("#total").innerHTML = money(q.total) + "";

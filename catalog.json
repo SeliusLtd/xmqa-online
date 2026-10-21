@@ -1,5 +1,12 @@
 {
-  "version": "2026-09-28b",
+  "version": "2026-10-21-wicroz",
+  "sale": {
+    "active": true,
+    "multiplier": 4,
+    "label": "75% OFF",
+    "badge": "SALE",
+    "note": "Every price is the sale price. The crossed-out price is the previous list price (multiplier x the sale price)."
+  },
   "bundleDiscount": 0.45,
   "noraRule": {
     "target": "nora",
@@ -11,19 +18,21 @@
     "edition": "ownership"
   },
   "categories": {
-    "assets": "Software you can own",
+    "assets": "Core platforms",
     "apps": "Apps & dev tools",
-    "tools": "Browser tools",
+    "tools": "Small tools · $24",
     "web": "Websites & templates",
     "saas": "SaaS",
-    "trading": "Trading tools",
+    "trading": "Trading desks",
+    "seo": "SEO & growth",
+    "osint": "OSINT & lead gen",
     "library": "Codex & bundles"
   },
   "items": [
     {
       "id": "aam",
       "cat": "assets",
-      "name": "AAM — Autonomous App Marketplace",
+      "name": "A.A.M — Autonomous App Marketplace",
       "blurb": "A ready-to-launch developer marketplace. Developers list apps, buyers pay by Stripe, PayPal or Lemon Squeezy, and you run it all from a private payments and payout console.",
       "features": [
         "App catalogue with search, categories and listing pages",
@@ -36,15 +45,9 @@
       ],
       "editions": [
         {
-          "id": "licence",
-          "label": "Commercial licence",
-          "price": 399
-        },
-        {
           "id": "ownership",
           "label": "Full ownership",
-          "price": 2340,
-          "value": 3900
+          "price": 350
         }
       ],
       "status": "available"
@@ -65,15 +68,9 @@
       ],
       "editions": [
         {
-          "id": "licence",
-          "label": "Licence edition",
-          "price": 1072
-        },
-        {
           "id": "ownership",
           "label": "Full ownership",
-          "price": 1860,
-          "value": 3100
+          "price": 680
         }
       ],
       "status": "available"
@@ -93,15 +90,9 @@
       ],
       "editions": [
         {
-          "id": "licence",
-          "label": "Commercial licence",
-          "price": 399
-        },
-        {
           "id": "ownership",
           "label": "Full ownership",
-          "price": 2520,
-          "value": 4200
+          "price": 400
         }
       ],
       "status": "available"
@@ -117,14 +108,13 @@
         "Plan → draft → scored review → revise, 24/7, human approval last",
         "Pooled AI keys with load balancing and failover",
         "Admin console, order tracking by private link, content studio",
-        "Free when AAM, DEVI-CRONS and Aura Suite are in the same order"
+        "Free when A.A.M, DEVI-CRONS and Aura Suite are in the same order"
       ],
       "editions": [
         {
           "id": "ownership",
           "label": "Full ownership",
-          "price": 6000,
-          "value": 10000
+          "price": 2500
         }
       ],
       "status": "available"
@@ -144,20 +134,143 @@
       ],
       "editions": [
         {
-          "id": "regular",
-          "label": "Regular licence",
-          "price": 349
-        },
-        {
-          "id": "extended",
-          "label": "Extended licence",
-          "price": 499
-        },
-        {
           "id": "ownership",
           "label": "Full ownership",
-          "price": 12000,
-          "value": 18000
+          "price": 6400
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "dev-forge",
+      "cat": "assets",
+      "name": "Developer Forge — Master Licence Key",
+      "blurb": "One licensing key that unlocks the whole mass-SaaS fleet: Autopilot, System Cleaner and the rest of the catalogue, shipped under one key with volume seats.",
+      "features": [
+        "Single licence key for the mass-SaaS range",
+        "Unlocks Autopilot, System Cleaner and the wider fleet",
+        "Volume seats, key rotation and offline validation",
+        "Price on application — tell us the seat count"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Licence key · priced per seat",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "onyx",
+      "cat": "assets",
+      "name": "Onyx",
+      "blurb": "Onyx, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "deskly",
+      "cat": "assets",
+      "name": "Deskly",
+      "blurb": "Deskly, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "licence-desk",
+      "cat": "assets",
+      "name": "Licence Desk",
+      "blurb": "Licence Desk, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "meridian",
+      "cat": "assets",
+      "name": "Meridian",
+      "blurb": "Meridian, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "xforge",
+      "cat": "assets",
+      "name": "XForge",
+      "blurb": "XForge, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "backtech",
+      "cat": "assets",
+      "name": "Backtech",
+      "blurb": "Backtech, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
         }
       ],
       "status": "available"
@@ -178,32 +291,7 @@
         {
           "id": "licence",
           "label": "One-time licence",
-          "price": 59
-        }
-      ],
-      "status": "available"
-    },
-    {
-      "id": "qr-suite",
-      "cat": "apps",
-      "name": "QR Atelier Suite 3-in-1",
-      "blurb": "Three self-hosted QR products in one: glassmorphism studio, black-glass business card minter, and dynamic QR with scan tracking.",
-      "features": [
-        "QR Atelier V2 BlackFable + QR Atelier V1 + QR Coder Ez",
-        "Full Next.js 16 source for all three",
-        "No monthly fees, no API keys"
-      ],
-      "editions": [
-        {
-          "id": "standard",
-          "label": "Standard",
-          "price": 79,
-          "value": 94
-        },
-        {
-          "id": "extended",
-          "label": "Extended (resell / white-label)",
-          "price": 149
+          "price": 24
         }
       ],
       "status": "available"
@@ -221,18 +309,13 @@
       "editions": [
         {
           "id": "starter",
-          "label": "Starter",
-          "price": 30
+          "label": "Single-unit licence",
+          "price": 24
         },
         {
-          "id": "pro",
-          "label": "Pro — 10 client projects",
-          "price": 49
-        },
-        {
-          "id": "agency",
-          "label": "Agency — unlimited, white-label",
-          "price": 199
+          "id": "resell",
+          "label": "Resell / white-label rights",
+          "price": 79
         }
       ],
       "status": "available"
@@ -250,18 +333,13 @@
       "editions": [
         {
           "id": "starter",
-          "label": "Starter",
-          "price": 30
+          "label": "Single-unit licence",
+          "price": 24
         },
         {
-          "id": "pro",
-          "label": "Pro — 10 client projects",
-          "price": 45
-        },
-        {
-          "id": "agency",
-          "label": "Agency — unlimited, white-label",
-          "price": 179
+          "id": "resell",
+          "label": "Resell / white-label rights",
+          "price": 79
         }
       ],
       "status": "available"
@@ -278,14 +356,14 @@
       ],
       "editions": [
         {
-          "id": "standard",
-          "label": "Standard",
-          "price": 34
+          "id": "starter",
+          "label": "Single-unit licence",
+          "price": 24
         },
         {
-          "id": "pro",
-          "label": "Pro",
-          "price": 49
+          "id": "resell",
+          "label": "Resell / white-label rights",
+          "price": 79
         }
       ],
       "status": "available"
@@ -304,7 +382,7 @@
         {
           "id": "standalone",
           "label": "Standalone",
-          "price": 12
+          "price": 24
         }
       ],
       "status": "available"
@@ -324,17 +402,17 @@
         {
           "id": "bundle",
           "label": "All ten",
-          "price": 12
+          "price": 132
         },
         {
           "id": "resell",
           "label": "Resell rights",
-          "price": 29
+          "price": 264
         },
         {
           "id": "ownership",
           "label": "Full ownership",
-          "price": 99
+          "price": 528
         }
       ],
       "status": "available"
@@ -353,7 +431,7 @@
         {
           "id": "unit",
           "label": "Single unit",
-          "price": 4
+          "price": 24
         }
       ],
       "status": "available"
@@ -372,7 +450,7 @@
         {
           "id": "unit",
           "label": "Single unit",
-          "price": 4
+          "price": 24
         }
       ],
       "status": "available"
@@ -391,7 +469,7 @@
         {
           "id": "unit",
           "label": "Single unit",
-          "price": 4
+          "price": 24
         }
       ],
       "status": "available"
@@ -410,7 +488,7 @@
         {
           "id": "unit",
           "label": "Single unit",
-          "price": 4
+          "price": 24
         }
       ],
       "status": "available"
@@ -429,7 +507,7 @@
         {
           "id": "unit",
           "label": "Single unit",
-          "price": 4
+          "price": 24
         }
       ],
       "status": "available"
@@ -448,7 +526,7 @@
         {
           "id": "unit",
           "label": "Single unit",
-          "price": 4
+          "price": 24
         }
       ],
       "status": "available"
@@ -467,7 +545,7 @@
         {
           "id": "unit",
           "label": "Single unit",
-          "price": 4
+          "price": 24
         }
       ],
       "status": "available"
@@ -486,7 +564,7 @@
         {
           "id": "unit",
           "label": "Single unit",
-          "price": 4
+          "price": 24
         }
       ],
       "status": "available"
@@ -505,7 +583,7 @@
         {
           "id": "unit",
           "label": "Single unit",
-          "price": 4
+          "price": 24
         }
       ],
       "status": "available"
@@ -524,7 +602,45 @@
         {
           "id": "unit",
           "label": "Single unit",
-          "price": 4
+          "price": 24
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "system-cleaner",
+      "cat": "tools",
+      "name": "System Cleaner",
+      "blurb": "Deep clean for Windows: caches, leftovers and startup clutter. Part of the Developer Forge fleet, sold on its own too.",
+      "features": [
+        "Sold standalone or under the Developer Forge key",
+        "Windows installer",
+        "One-time licence"
+      ],
+      "editions": [
+        {
+          "id": "unit",
+          "label": "Single unit",
+          "price": 24
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "multi-scraper",
+      "cat": "tools",
+      "name": "Multi Scraper",
+      "blurb": "Scrape several sources in one run and export clean tables. Sold as a standalone tool.",
+      "features": [
+        "Sold standalone",
+        "Export to CSV / JSON",
+        "One-time licence"
+      ],
+      "editions": [
+        {
+          "id": "unit",
+          "label": "Single unit",
+          "price": 24
         }
       ],
       "status": "available"
@@ -568,6 +684,82 @@
       "status": "available"
     },
     {
+      "id": "aether-mesh",
+      "cat": "web",
+      "name": "Aether Mesh",
+      "blurb": "Aether Mesh, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "boiler-kits",
+      "cat": "web",
+      "name": "Boiler Kits",
+      "blurb": "Boiler Kits, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "autopilot",
+      "cat": "saas",
+      "name": "Autopilot",
+      "blurb": "Autopilot runs the routine work across the fleet. Sold as SaaS, or unlocked with the Developer Forge licence key.",
+      "features": [
+        "SaaS or Developer Forge licence key",
+        "Runs alongside System Cleaner",
+        "Cancel any time"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "droplister",
+      "cat": "saas",
+      "name": "DropLister",
+      "blurb": "List a product once and push it to the marketplaces you sell on.",
+      "features": [
+        "Sold standalone",
+        "Listing export",
+        "One-time licence"
+      ],
+      "editions": [
+        {
+          "id": "unit",
+          "label": "One-time licence",
+          "price": 24
+        }
+      ],
+      "status": "available"
+    },
+    {
       "id": "kwota-lite",
       "cat": "saas",
       "name": "Kwota Lite",
@@ -581,7 +773,7 @@
         {
           "id": "monthly",
           "label": "Monthly",
-          "price": 4.99
+          "price": 24
         }
       ],
       "status": "early",
@@ -620,7 +812,7 @@
         {
           "id": "licence",
           "label": "One-time licence",
-          "price": 49.99
+          "price": 24
         }
       ],
       "status": "available"
@@ -639,7 +831,7 @@
         {
           "id": "licence",
           "label": "One-time licence",
-          "price": 29.99
+          "price": 24
         }
       ],
       "status": "available"
@@ -658,7 +850,7 @@
         {
           "id": "licence",
           "label": "One-time licence",
-          "price": 19.99
+          "price": 24
         }
       ],
       "status": "available"
@@ -677,7 +869,7 @@
         {
           "id": "licence",
           "label": "One-time licence",
-          "price": 39.99
+          "price": 24
         }
       ],
       "status": "available"
@@ -696,7 +888,7 @@
         {
           "id": "licence",
           "label": "One-time licence",
-          "price": 14.99
+          "price": 24
         }
       ],
       "status": "available"
@@ -715,7 +907,7 @@
         {
           "id": "licence",
           "label": "One-time licence",
-          "price": 9.99
+          "price": 24
         }
       ],
       "status": "available"
@@ -734,7 +926,7 @@
         {
           "id": "licence",
           "label": "One-time licence",
-          "price": 24.99
+          "price": 24
         }
       ],
       "status": "available"
@@ -753,7 +945,7 @@
         {
           "id": "licence",
           "label": "One-time licence",
-          "price": 12.99
+          "price": 24
         }
       ],
       "status": "available"
@@ -772,7 +964,7 @@
         {
           "id": "licence",
           "label": "One-time licence",
-          "price": 19.99
+          "price": 24
         }
       ],
       "status": "available"
@@ -797,20 +989,285 @@
       "status": "available"
     },
     {
+      "id": "proptrust",
+      "cat": "trading",
+      "name": "PropTrust",
+      "blurb": "PropTrust, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "propfit",
+      "cat": "trading",
+      "name": "Propfit",
+      "blurb": "Propfit, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "propfirm",
+      "cat": "trading",
+      "name": "PropFirm",
+      "blurb": "PropFirm, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "argent-prop",
+      "cat": "trading",
+      "name": "Argent Prop",
+      "blurb": "The standalone prop-desk build of Argent.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "centsational",
+      "cat": "trading",
+      "name": "CentSational Grid",
+      "blurb": "CentSational Grid, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "quant-lab",
+      "cat": "trading",
+      "name": "Quant Lab",
+      "blurb": "Quant Lab, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "recast",
+      "cat": "seo",
+      "name": "Re-Cast",
+      "blurb": "Re-Cast turns one long asset into a set of search-ready pages.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "ownership",
+          "label": "Full ownership",
+          "price": 1900
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "sightglass",
+      "cat": "seo",
+      "name": "Sightglass",
+      "blurb": "Sightglass, the search-visibility analyst, sold on its own.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "beam",
+      "cat": "seo",
+      "name": "Project BEAM",
+      "blurb": "Project BEAM, the flagship SEO platform, sold on its own.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "ownership",
+          "label": "Full ownership",
+          "price": 2300
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "vulture",
+      "cat": "osint",
+      "name": "Vulture",
+      "blurb": "Vulture, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "prospect",
+      "cat": "osint",
+      "name": "Prospect",
+      "blurb": "Prospect, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "intent-hunter",
+      "cat": "osint",
+      "name": "Intent Hunter",
+      "blurb": "Intent Hunter, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "nexus",
+      "cat": "osint",
+      "name": "NEXUS",
+      "blurb": "NEXUS, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
+      "id": "dealdesk",
+      "cat": "assets",
+      "name": "DealDesk",
+      "blurb": "DealDesk, sold on its own with full source and licence.",
+      "features": [
+        "Sold standalone",
+        "Full source and licence",
+        "Delivered after payment"
+      ],
+      "editions": [
+        {
+          "id": "quote",
+          "label": "Quote on request",
+          "price": null
+        }
+      ],
+      "status": "available"
+    },
+    {
       "id": "codex-1",
       "cat": "library",
       "name": "The Architect's Codex — Volume I",
       "blurb": "Syntax, logic and the architecture of synthetic agency — the first volume of the Codex.",
       "features": [
         "Volume I of five",
-        "Read on the XMQA portal"
+        "Read on the Wicroz portal"
       ],
       "editions": [
         {
           "id": "book",
           "label": "Volume I",
-          "price": 39.99,
-          "value": 69.99
+          "price": 24
         }
       ],
       "status": "available"
@@ -818,91 +1275,72 @@
   ],
   "bundles": [
     {
-      "id": "atelier-crown",
-      "name": "The Complete Set",
-      "blurb": "AAM, DEVI-CRONS and Aura Suite with full source and rights, Nora included, plus ARGENT.",
-      "items": [
-        "aam",
-        "devi",
-        "aura",
-        "nora",
-        "argent"
-      ],
-      "price": 6999,
-      "value": 11549,
-      "ownership": true,
-      "editions": {
-        "aam": "ownership",
-        "devi": "ownership",
-        "aura": "ownership",
-        "nora": "ownership",
-        "argent": "regular"
-      }
-    },
-    {
-      "id": "agentic-operator",
-      "name": "Agentic Operator",
-      "blurb": "Automation engine, marketplace and dev tooling to run a software business on autopilot.",
-      "items": [
-        "devi",
-        "aam",
-        "android-scaffold",
-        "fablekit",
-        "qr-suite"
-      ]
-    },
-    {
-      "id": "marketplace-builder",
-      "name": "Marketplace Builder",
-      "blurb": "Three launch-ready platforms plus the tools to extend them.",
-      "items": [
-        "aam",
-        "argent",
-        "aura",
-        "qr-ez",
-        "android-scaffold"
-      ]
-    },
-    {
-      "id": "dev-forge",
-      "name": "Developer Forge",
-      "blurb": "Generators, tools and a full AI suite for shipping client work fast.",
-      "items": [
-        "android-scaffold",
-        "qr-suite",
-        "fablekit",
-        "hustlebrah",
-        "aura"
-      ]
-    },
-    {
-      "id": "creator-studio",
-      "name": "Creator Studio",
-      "blurb": "AI content, QR and business-card tools for creators and small studios.",
-      "items": [
-        "aura",
-        "qr-v2",
-        "hustlebrah",
-        "fk-pitchpress",
-        "fk-chromavault"
-      ]
-    },
-    {
-      "id": "qr-print",
-      "name": "QR & Print Pack",
-      "blurb": "Every QR product plus invoicing and meta tooling for print campaigns.",
+      "id": "qr-coders",
+      "name": "QR Coders",
+      "blurb": "All three QR studios in one: V2 BlackFable, V1 and Coder Ez, with white-label and resell rights so you can sell QR codes to clients. Single-unit licences are $24 each; the bundle is the business version.",
       "items": [
         "qr-v2",
         "qr-v1",
-        "qr-ez",
+        "qr-ez"
+      ],
+      "price": 149,
+      "editions": {
+        "qr-v2": "resell",
+        "qr-v1": "resell",
+        "qr-ez": "resell"
+      }
+    },
+    {
+      "id": "seo-powerhouse",
+      "name": "SEO Powerhouse",
+      "blurb": "Project BEAM, Re-Cast and Sightglass together — the SEO platform, the content recycler and the visibility analyst. On special while the bundle lasts.",
+      "items": [
+        "beam",
+        "recast",
+        "sightglass"
+      ],
+      "price": 1200,
+      "special": true
+    },
+    {
+      "id": "osint-intel",
+      "name": "OSINT Intelligence",
+      "blurb": "Vulture, Prospect, Intent Hunter and NEXUS — find, qualify and track the accounts worth chasing.",
+      "items": [
+        "vulture",
+        "prospect",
+        "intent-hunter",
+        "nexus"
+      ]
+    },
+    {
+      "id": "creative-studio",
+      "name": "Creative Studio",
+      "blurb": "AI content, QR and landing-page tools for creators and small studios.",
+      "items": [
+        "aura",
+        "qr-v2",
+        "fk-chromavault",
+        "fk-pitchpress",
+        "hustlebrah"
+      ]
+    },
+    {
+      "id": "finance-desk",
+      "name": "Finance Desk",
+      "blurb": "Invoicing, spend tracking and the marketplace that takes the money.",
+      "items": [
+        "aam",
         "fk-invoiceforge",
-        "fk-metamint"
+        "fk-ledgerlite",
+        "kwota-lite",
+        "droplister"
       ]
     },
     {
       "id": "prop-desk",
       "name": "Prop Desk",
-      "blurb": "A prop-firm platform with the risk tools traders ask for first.",
+      "blurb": "The Argent platform with the risk tools traders ask for first.",
       "items": [
         "argent",
         "prop-firm-passer",
@@ -922,6 +1360,26 @@
         "correlation-matrix",
         "trading-journal"
       ]
+    },
+    {
+      "id": "atelier-crown",
+      "name": "The Complete Set",
+      "blurb": "A.A.M, DEVI-CRONS and Aura Suite with full source and rights, Nora included, plus ARGENT.",
+      "items": [
+        "aam",
+        "devi",
+        "aura",
+        "nora",
+        "argent"
+      ],
+      "ownership": true,
+      "editions": {
+        "aam": "ownership",
+        "devi": "ownership",
+        "aura": "ownership",
+        "nora": "ownership",
+        "argent": "ownership"
+      }
     }
   ],
   "arkbase": {

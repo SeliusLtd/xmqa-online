@@ -1,8 +1,14 @@
-/* XMQA Online — shared pricing. Loaded by the page (window.XQPricing) and required by the API,
-   so the server always recomputes totals from the same rules the customer sees. */
+/* Wicroz — shared pricing. Loaded by the page (window.WXPricing) and required by the API,
+   so the server always recomputes totals from the same rules the customer sees.
+
+   Sale model: every price in catalog.json is the price you charge now. The crossed-out
+   price is the previous list price, derived as sale.multiplier x the sale price. With
+   multiplier 4 that is exactly 75% off, which is what every badge on the page says.
+   Change the one number in catalog.json -> sale.multiplier (3 = 66.7% off) and the whole
+   site, the cart and the API follow. */
 (function (root, factory) {
   if (typeof module === "object" && module.exports) module.exports = factory();
-  else root.XQPricing = factory();
+  else root.WXPricing = factory();
 })(typeof self !== "undefined" ? self : this, function () {
   "use strict";
   const MAX_LINES = 200;
@@ -19,15 +25,27 @@
     return ix;
   }
   const baseEd = it => it.editions[0];
-  const worth = e => (e.value || e.price || 0);
 
-  // What the same products cost when bought one by one. Fixed-price packs compare
-  // against appraised value; the others compare against the live edition prices.
-  // Free items (Nora, when her three ownership products are in the pack) are never
-  // counted in either total.
-  function bundleWas(cat, b) {
+  // ---------- sale ----------
+  const DEFAULTS = { active: true, multiplier: 4, label: "75% OFF", badge: "SALE" };
+  function saleOf(cat) { return Object.assign({}, DEFAULTS, (cat && cat.sale) || {}); }
+  function wasOf(cat, price) {
+    if (price === null || price === undefined) return null;
+    const s = saleOf(cat);
+    return s.active ? round2(price * s.multiplier) : null;
+  }
+  function offPct(cat, price, was) {
+    if (was === null || was === undefined || !price) return 0;
+    return Math.round((1 - price / was) * 100);
+  }
+  // The short sticker text, e.g. "75% OFF".
+  function saleLabel(cat) { return saleOf(cat).label; }
+
+  // ---------- bundles ----------
+  // What the same products cost one by one at today's sale prices, and whether the pack
+  // hides a quote-priced product (then the pack itself is quote-only).
+  function bundleSum(cat, b) {
     const ix = index(cat), rule = cat.noraRule;
-    const appraised = typeof b.price === "number" && typeof b.value === "number";
     const editionOf = id => {
       const it = ix.items[id];
       if (!it) return null;
@@ -35,46 +53,52 @@
     };
     const noraFree = b.items.includes(rule.target) && rule.requires.every(r =>
       b.items.includes(r) && editionOf(r) && editionOf(r).id === rule.edition);
-    let was = 0;
+    let sum = 0, quote = false;
     for (const id of b.items) {
       if (id === rule.target && noraFree) continue;
       const ed = editionOf(id);
       if (!ed) continue;
-      was += appraised ? (ed.value || ed.price || 0) : (typeof ed.price === "number" ? ed.price : 0);
+      if (typeof ed.price !== "number") { quote = true; continue; }
+      sum += ed.price;
     }
-    return round2(was);
+    return { sum: round2(sum), quote, noraFree };
   }
 
-  // Five-pack price: fixed if the pack sets one, otherwise the bundle discount off the five base editions.
+  // Fixed pack price when the pack sets one, otherwise the bundle discount off the members.
   function bundlePrice(cat, b) {
-    const was = bundleWas(cat, b);
-    const basis = typeof b.price === "number" && typeof b.value === "number" ? "appraised" : "sum";
-    if (typeof b.price === "number") return { price: b.price, was, basis };
-    return { price: Math.round(was * (1 - cat.bundleDiscount)), was, basis };
+    const { sum, quote } = bundleSum(cat, b);
+    let price;
+    if (typeof b.price === "number") price = b.price;
+    else if (quote) price = null;
+    else price = Math.round(sum * (1 - cat.bundleDiscount));
+    return { price, was: wasOf(cat, price), sum, off: offPct(cat, price, wasOf(cat, price)), quote };
   }
 
   // MT5 keys: m:<index> (one item) | mc:<categoryIndex> (the whole category)
-  function mt5Lookup(mt5, key) {
+  function mt5Lookup(mt5, key, cat) {
     const p = String(key).split(":");
     if (!mt5 || p.length !== 2 || !/^\d+$/.test(p[1])) return null;
     const n = Number(p[1]);
     if (p[0] === "m") {
       const it = mt5.items[n];
       if (!it) return null;
-      return { name: it[0], price: it[3], was: it[4], cat: it[2], type: it[1] };
+      const price = it[3];
+      return { name: it[0], price, was: cat ? wasOf(cat, price) : it[4], cat: it[2], type: it[1] };
     }
     if (p[0] === "mc") {
       if (!mt5.cats[n]) return null;
       const all = mt5.items.filter(it => it[2] === n);
       const was = all.reduce((s, it) => s + it[4], 0);
-      return { name: `MT5 category: ${mt5.cats[n]} (${all.length} tools)`, price: Math.round(was * (1 - mt5.categoryDiscount)), was, count: all.length };
+      const price = Math.round(was * (1 - mt5.categoryDiscount));
+      return { name: `MT5 category: ${mt5.cats[n]} (${all.length} tools)`, price,
+        was: cat ? wasOf(cat, price) : was, list: was, count: all.length };
     }
     return null;
   }
 
   /* keys:
        i:<itemId>:<editionId>   one product in a chosen edition
-       b:<bundleId>             five-pack
+       b:<bundleId>             a job bundle
        m:<index>                one MT5 EA or indicator
        mc:<categoryIndex>       every MT5 tool in a category */
   function priceCart(cat, mt5, keys) {
@@ -104,27 +128,28 @@
         const b = inBundle.get(it.id);
         if (b && price !== null) {
           const be = (b.editions && it.editions.find(x => x.id === b.editions[it.id])) || baseEd(it);
-          if (e.id === be.id || price <= be.price) { price = 0; note = "Already in your five-pack"; }
-          else { price = round2(price - be.price); note = "Upgrade from your five-pack edition"; }
+          if (be && typeof be.price === "number" && e.id === be.id) { price = 0; note = `Already in ${b.name}`; }
         }
-        if (it.id === rule.target && noraFree) { price = 0; note = "Free with AAM, DEVI-CRONS and Aura Suite in full ownership"; }
+        if (it.id === rule.target && noraFree) { price = 0; note = "Free with A.A.M, DEVI-CRONS and Aura Suite in full ownership"; }
         if (it.sub && !note) note = `per ${it.sub}`;
-        out.lines.push({ key: k, name: it.name, edition: e.label, price, was: price ? worth(e) : undefined, note });
-        if (price) out.total += price;
-        if (price) out.was += worth(e);
+        const was = price ? wasOf(cat, price) : null;
+        out.lines.push({ key: k, name: it.name, edition: e.label, price, was, note });
+        if (price) { out.total += price; out.was += was; }
       } else if (p[0] === "b") {
         const b = ix.bundles[p[1]];
         if (!b || p.length !== 2) { out.errors.push(k); continue; }
         const bp = bundlePrice(cat, b);
-        out.lines.push({ key: k, name: `Five-pack: ${b.name}`, edition: b.items.map(id => ix.items[id].name.split(" — ")[0]).join(", "), price: bp.price, was: bp.was, note: `save ${Math.round(100 - bp.price / bp.was * 100)}%` });
-        out.total += bp.price; out.was += bp.was;
+        if (bp.price === null) out.hasQuote = true;
+        out.lines.push({ key: k, name: `Bundle: ${b.name}`, edition: b.items.map(id => ix.items[id].name.split(" — ")[0]).join(", "),
+          price: bp.price, was: bp.was, note: bp.price === null ? "Quote" : `${bp.off}% off the previous price` });
+        if (bp.price) { out.total += bp.price; out.was += bp.was; }
       } else if (p[0] === "m" || p[0] === "mc") {
-        const m = mt5Lookup(mt5, k);
+        const m = mt5Lookup(mt5, k, cat);
         if (!m) { out.errors.push(k); continue; }
         const covered = p[0] === "m" && wholeCats.has(m.cat);
         const price = covered ? 0 : m.price;
         out.lines.push({ key: k, name: m.name, edition: p[0] === "mc" ? "Every tool in this category" : (m.type === "e" ? "MT5 Expert Advisor" : "MT5 Indicator"),
-          price, was: m.was, note: covered ? "Included in the category you're buying" : "" });
+          price, was: price ? m.was : null, note: covered ? "Included in the category you're buying" : "" });
         if (price) { out.total += price; out.was += m.was; }
       } else out.errors.push(k);
     }
@@ -135,5 +160,5 @@
   const money = n => n === null || n === undefined ? "Quote" :
     "$" + Number(n).toLocaleString("en-US", { minimumFractionDigits: Number(n) % 1 ? 2 : 0, maximumFractionDigits: 2 });
 
-  return { bundlePrice, priceCart, mt5Lookup, money, MAX_LINES };
+  return { bundlePrice, bundleSum, priceCart, mt5Lookup, money, wasOf, offPct, saleOf, saleLabel, MAX_LINES };
 });

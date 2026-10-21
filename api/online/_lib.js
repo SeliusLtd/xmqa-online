@@ -95,7 +95,7 @@ function transport() {
   return _t;
 }
 const mailUser = () => mail().user;
-const fromAddr = () => ({ name: "XMQA Online", address: mailUser() });
+const fromAddr = () => ({ name: "Wicroz", address: mailUser() });
 const teamAddr = () => process.env.ORDER_TO || mailUser();
 
 function makeRef() {

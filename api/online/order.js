@@ -79,11 +79,11 @@ module.exports = async function handler(req, res) {
     await t.sendMail({
       from: L.fromAddr(), to: f.email, replyTo: L.teamAddr(),
       subject: `We've received your ${kind.toLowerCase()} (${ref})`,
-      text: `Hi ${f.name},\n\nThanks — your ${kind.toLowerCase()} ${ref} is in.\n\n${rowsText(q)}\n\nTotal: ${totalLine}\n\n${q.lines.length ? "We'll email your secure payment link (PayPal or card) within 24 hours. Delivery follows payment." : "We'll reply from this address shortly."}\nReply to this email to add anything — keep ${ref} in the subject.\n\n— XMQA Online · ${L.mailUser()}`,
+      text: `Hi ${f.name},\n\nThanks — your ${kind.toLowerCase()} ${ref} is in.\n\n${rowsText(q)}\n\nTotal: ${totalLine}\n\n${q.lines.length ? "We'll email your secure payment link (PayPal or card) within 24 hours. Delivery follows payment." : "We'll reply from this address shortly."}\nReply to this email to add anything — keep ${ref} in the subject.\n\n— Wicroz · ${L.mailUser()}`,
       html: `<div style="font:15px/1.6 Arial,sans-serif;color:#222"><p>Hi ${L.esc(f.name)},</p><p>Thanks — your ${kind.toLowerCase()} <b>${L.esc(ref)}</b> is in.</p>
         ${q.lines.length ? `<table style="border-collapse:collapse;width:100%;max-width:560px">${rowsHtml(q)}<tr><td style="padding:10px 0"><b>Total</b></td><td style="padding:10px 0;text-align:right"><b>${L.esc(totalLine)}</b></td></tr></table>
         <p>We'll email your secure payment link (PayPal or card) within 24 hours. Delivery follows payment.</p>` : `<p>We'll reply from this address shortly.</p>`}
-        <p style="color:#777;font-size:13px">Reply to this email to add anything — keep ${L.esc(ref)} in the subject.<br>XMQA Online · ${L.esc(L.mailUser())}</p></div>`
+        <p style="color:#777;font-size:13px">Reply to this email to add anything — keep ${L.esc(ref)} in the subject.<br>Wicroz · ${L.esc(L.mailUser())}</p></div>`
     });
   } catch (e) { console.error("customer mail failed", e && e.message); }
 

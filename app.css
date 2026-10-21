@@ -247,3 +247,37 @@ input.code{color:var(--c)}
 .chip[aria-pressed="true"]{box-shadow:none}
 .card:hover,.pack:hover{box-shadow:0 18px 40px -24px rgba(63,227,207,.35)}
 @media (max-width:600px){.hero .eyebrow{letter-spacing:.14em;font-size:10px}.hero h1{font-size:44px}}
+
+/* ---------- Wicroz sale presentation ---------- */
+.card{position:relative}
+.sticker{position:absolute;top:-9px;right:-8px;z-index:3;transform:rotate(7deg);pointer-events:none;
+  font:700 10.5px var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#0b0b0b;
+  background:linear-gradient(135deg,#ffe3a3,#d9bd7c);border:1px solid #f6e7bd;padding:5px 9px;
+  box-shadow:0 8px 20px rgba(0,0,0,.55)}
+.card .meta{padding-right:66px}
+.pack .eyebrow{display:inline-block;padding-right:74px}
+
+/* struck-through previous price + badge, everywhere */
+.was{display:inline-block;color:var(--dim);text-decoration:line-through;text-decoration-thickness:1px;
+  font:400 12.5px var(--mono);margin-left:8px}
+.off{display:inline-block;margin-left:8px;vertical-align:middle;
+  font:700 9.5px var(--mono);letter-spacing:.11em;text-transform:uppercase;color:#06120f;
+  background:var(--c);padding:2px 6px}
+.pricing .was{font-size:13.5px}
+.pricing .off{font-size:10px;padding:3px 7px}
+.li .pr .was{display:block;margin:2px 0 0;font-size:11.5px}
+.line .p .was{display:block;font-size:11.5px;margin:2px 0 0}
+.line .p{text-align:right}
+
+/* bundle accents */
+.pack.special{border-color:rgba(255,138,92,.45)}
+.pack.special::before{background:linear-gradient(90deg,#ff8a5c,#d9bd7c)}
+.pack.special:hover{box-shadow:0 0 30px rgba(255,138,92,.14)}
+
+/* the sale bar under the header */
+.saleband{display:flex;align-items:center;gap:16px;flex-wrap:wrap;max-width:1180px;margin:22px auto 0;
+  border:1px solid rgba(217,189,124,.45);background:linear-gradient(90deg,rgba(217,189,124,.16),rgba(63,227,207,.05));
+  padding:13px 20px;font:400 14px/1.5 var(--sans);color:var(--dim2)}
+.saleband b{color:#fff}
+.saleband .sticker{position:static;transform:rotate(-2deg);flex:none}
+@media(max-width:640px){.saleband{margin:14px 12px 0;padding:12px 14px}.card .meta{padding-right:58px}}

@@ -20,12 +20,12 @@ module.exports = async function handler(req, res) {
   try {
     await L.transport().sendMail({
       from: L.fromAddr(), to: email,
-      subject: `${code} is your XMQA Online code`,
-      text: `Your XMQA Online verification code is ${code}.\n\nIt expires in 10 minutes. If you didn't request it, ignore this email.\n\n— XMQA Online · ${L.mailUser()}`,
-      html: `<div style="font:15px/1.6 Arial,sans-serif;color:#222"><p>Your XMQA Online verification code is</p>
+      subject: `${code} is your Wicroz code`,
+      text: `Your Wicroz verification code is ${code}.\n\nIt expires in 10 minutes. If you didn't request it, ignore this email.\n\n— Wicroz · ${L.mailUser()}`,
+      html: `<div style="font:15px/1.6 Arial,sans-serif;color:#222"><p>Your Wicroz verification code is</p>
         <p style="font:600 30px/1 'Courier New',monospace;letter-spacing:6px;margin:14px 0">${code}</p>
         <p>It expires in 10 minutes. If you didn't request it, ignore this email.</p>
-        <p style="color:#888;font-size:13px">XMQA Online · ${L.esc(L.mailUser())}</p></div>`
+        <p style="color:#888;font-size:13px">Wicroz · ${L.esc(L.mailUser())}</p></div>`
     });
   } catch (e) {
     console.error("verify mail failed", e && e.message);
