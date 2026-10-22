@@ -98,5 +98,5 @@ Generated from `catalog.json`. Every price below is the **sale price**; the cros
 - **3x vs 75%**: the brief said marked down from 3x, which is 66.7% off, but every sticker asked for 75%. Prices are
   multiplied by 4 so the badge is literally true. Change `sale.multiplier` to 3 in `catalog.json` for the 3x version —
   the badges, struck prices, cart and invoice all follow that one number.
-- **Domain**: the site now lives on selius.co.za and all mail goes to support@selius.co.za. The Arkbase PayPal links
+- **Domain**: the site now lives on selius.co.za and all mail goes to wicroz@selius.co.za. The Arkbase PayPal links
   still run through xmqa.pro's live checkout (`?action=freebase-pay`) until that flow moves too.

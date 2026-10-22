@@ -1,6 +1,6 @@
 (() => {
   "use strict";
-  const SUPPORT = "support@selius.co.za";
+  const SUPPORT = "wicroz@selius.co.za";
   const API = { verify: "/api/online/verify", order: "/api/online/order" };
   const P = window.WXPricing;
   const $ = s => document.querySelector(s);
