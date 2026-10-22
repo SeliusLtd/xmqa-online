@@ -1,4 +1,4 @@
-# Wicroz — xmqa.online
+# Wicroz — selius.co.za
 
 The software, apps and MT5 tools store, as its own website (moved out of xmqa.pro/online on 2026-10-05).
 
@@ -9,5 +9,5 @@ The software, apps and MT5 tools store, as its own website (moved out of xmqa.pr
 ## Go live
 1. New Vercel project from this folder (or its own GitHub repo).
 2. Add the variables from `.env.example`.
-3. Domains: add `xmqa.online` (+ `www`) to this project, and remove the old "xmqa.online → xmqa.pro" redirect at the DNS/registrar.
+3. Domains: add `selius.co.za` (+ `www`) to this project. `xmqa.online` stays an accepted origin while traffic moves over.
 4. Run locally: `npx serve .` (the order/verify functions need `vercel dev`).

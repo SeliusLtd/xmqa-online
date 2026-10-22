@@ -62,7 +62,7 @@ function guard(req, res) {
   res.setHeader("Cache-Control", "no-store");
   res.setHeader("X-Content-Type-Options", "nosniff");
   if (req.method !== "POST") { res.setHeader("Allow", "POST"); res.status(405).json({ ok: false, error: "Method not allowed" }); return null; }
-  const allowed = (process.env.ALLOWED_ORIGINS || "https://xmqa.pro,https://www.xmqa.pro,https://xmqa.online,https://www.xmqa.online")  // ship-allow: xmqa.online kept as an accepted origin
+  const allowed = (process.env.ALLOWED_ORIGINS || "https://selius.co.za,https://www.selius.co.za,https://xmqa.pro,https://www.xmqa.pro,https://xmqa.online,https://www.xmqa.online")  // old xmqa origins still accepted during the move
     .split(",").map(s => s.trim()).filter(Boolean);
   const origin = req.headers.origin;
   if (!origin || !allowed.includes(origin)) { res.status(403).json({ ok: false, error: "Origin not allowed" }); return null; }
@@ -95,7 +95,7 @@ function transport() {
   return _t;
 }
 const mailUser = () => mail().user;
-const fromAddr = () => ({ name: "Wicroz", address: mailUser() });
+const fromAddr = () => ({ name: "Wicroz", address: process.env.ONLINE_SMTP_FROM || mailUser() });
 const teamAddr = () => process.env.ORDER_TO || mailUser();
 
 function makeRef() {
