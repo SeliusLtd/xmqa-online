@@ -169,7 +169,7 @@
       <p class="muted" style="font-size:14px;flex:1">${esc(p.desc)}</p>
       <a class="paypal" href="${esc(p.paypal)}" target="_blank" rel="noopener" aria-label="Pay for ${esc(p.name)} with PayPal"><span class="pw">Pay with</span> <span class="pp1">Pay</span><span class="pp2">Pal</span></a>
       ${p.checkout ? `<a class="card-alt" href="${esc(p.checkout)}" target="_blank" rel="noopener">Pay by card</a>` : ""}
-      <p class="fine">Secure PayPal checkout on xmqa.pro. Pay with a PayPal balance or any debit or credit card. <a href="${esc(fb.page)}">Explore Arkbase first →</a></p>
+      <p class="fine">Secure PayPal checkout. Pay with a PayPal balance or any debit or credit card. <a href="${esc(fb.page)}">Explore Arkbase first →</a></p>
     </article>`).join("");
   }
 

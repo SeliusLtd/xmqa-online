@@ -1,4 +1,4 @@
-/* XMQA Online — matches xmqa.pro: deep black, XMQA teal, champagne gold, Cormorant + Space Mono + DM Sans */
+/* Wicroz — deep black, teal, champagne gold, Cormorant + Space Mono + DM Sans */
 :root{
   --c:#3fe3cf; --m:#3fe3cf; --g:#d9bd7c; --ind:#5b6cff;
   --bg:#050708; --bg2:#080b0d; --panel:rgba(10,15,17,.78); --panel2:rgba(12,18,21,.92);
@@ -26,7 +26,7 @@ p{margin:0}
 .eyebrow{font:700 11px/1.2 var(--mono);letter-spacing:.2em;text-transform:uppercase;color:var(--c)}
 :focus-visible{outline:2px solid var(--c);outline-offset:2px}
 
-/* buttons — XMQA ghost / solid */
+/* buttons — ghost / solid */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:11px 18px;font:700 11px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;border:1px solid transparent;border-radius:2px;cursor:pointer;transition:all .25s;white-space:nowrap;text-decoration:none}
 .btn:hover{text-decoration:none}
 .btn:disabled{opacity:.5;cursor:not-allowed}
@@ -210,7 +210,7 @@ input.code{font:700 28px/1 var(--mono);letter-spacing:.45em;text-align:center;co
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 
-/* ── XMQA look (overrides) ───────────────────────────────────────── */
+/* ── House look (overrides) ───────────────────────────────────────── */
 body::before{background:
   radial-gradient(760px 560px at 72% 18%,rgba(32,178,170,.20),transparent 62%),
   radial-gradient(620px 520px at 78% 52%,rgba(91,108,255,.16),transparent 64%),
