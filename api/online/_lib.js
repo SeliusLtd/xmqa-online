@@ -65,7 +65,8 @@ function guard(req, res) {
   const allowed = (process.env.ALLOWED_ORIGINS || "https://selius.co.za,https://www.selius.co.za,https://xmqa.pro,https://www.xmqa.pro,https://xmqa.online,https://www.xmqa.online")  // old xmqa origins still accepted during the move
     .split(",").map(s => s.trim()).filter(Boolean);
   const origin = req.headers.origin;
-  if (!origin || !allowed.includes(origin)) { res.status(403).json({ ok: false, error: "Origin not allowed" }); return null; }
+  const self = req.headers.host ? `https://${req.headers.host}` : "";   // the site's own address (e.g. the vercel.app URL) is always same-origin
+  if (!origin || (origin !== self && !allowed.includes(origin))) { res.status(403).json({ ok: false, error: "Origin not allowed" }); return null; }
   if (!String(req.headers["content-type"] || "").includes("application/json")) { res.status(415).json({ ok: false, error: "JSON required" }); return null; }
   if (Number(req.headers["content-length"] || 0) > 32 * 1024) { res.status(413).json({ ok: false, error: "Request too large" }); return null; }
   if (!mail().user || !mail().pass) { res.status(503).json({ ok: false, error: "Email is not configured" }); return null; }
